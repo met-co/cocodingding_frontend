@@ -1,16 +1,16 @@
 import React from 'react';
 
 //컴포넌트
-import { KAKAO_AUTH_URL } from '../components/Login/OAuth';
+import { KAKAO_AUTH_URL } from '../shared/OAuth';
 
 // window.Kakao.init('2630b13acd7d87daf981d810de94858f');
 export default function Login() {
   return (
     <div>
-      <button href={KAKAO_AUTH_URL}>
+      <a href={KAKAO_AUTH_URL}>
         {/* <img src={kakaologo}></img> */}
         <span>카카오계정 로그인</span>
-      </button>
+      </a>
     </div>
   );
 }
@@ -26,3 +26,5 @@ export default function Login() {
 
 // Redirect URI
 // http://localhost:3000/user/login
+
+// "https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code"
