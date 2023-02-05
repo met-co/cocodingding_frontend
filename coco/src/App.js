@@ -6,6 +6,7 @@ import './App.css';
 function App() {
   return (
     <>
+      {/* <Route path='/auth/kakao/callback' component={Kakao} /> */}
       <Outlet />
     </>
   );
