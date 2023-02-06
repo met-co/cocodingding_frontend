@@ -20,10 +20,10 @@ export default function Login() {
 // Host: kauth.kakao.com
 
 // 네이티브 앱 키	ccfd1fdfe04eae4b041410d5339ad6fc
-// REST API 키	306c476f21776ce73e2df07d1ca45995
 // JavaScript 키	2630b13acd7d87daf981d810de94858f
 // Admin 키	cc4118a45b2a37afa0712038d75c26e7
 
+// REST API 키	306c476f21776ce73e2df07d1ca45995
 // Redirect URI
 // http://localhost:3000/user/login
 
