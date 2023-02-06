@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const roomsSlice = createSlice({
-  name: 'rooms',
-  initialState: [],
+const initialState = {
+  rooms: [],
+};
+
+const roomSlice = createSlice({
+  name: 'room',
+  initialState,
   reducers: {
-    createRoom(state, action) {
-      state.push({ id: state.length + 1, name: action.payload.name });
+    addRoom: (state, action) => {
+      state.rooms.push(action.payload);
     },
   },
 });
 
-export const { createRoom } = roomsSlice.actions;
+export const { addRoom } = roomSlice.actions;
 
-export default roomsSlice.reducer;
+export default roomSlice.reducer;

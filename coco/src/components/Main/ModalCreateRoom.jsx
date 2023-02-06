@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import CreateRoomForm from './CreateRoomForm';
 
 function ModalCreateRoom({ onClose }) {
   const closeModal = () => {
@@ -9,7 +10,7 @@ function ModalCreateRoom({ onClose }) {
   return (
     <StContainer>
       <button onClick={closeModal}>X</button>
-      <p>모달창입니다.</p>
+      <CreateRoomForm />
     </StContainer>
   );
 }

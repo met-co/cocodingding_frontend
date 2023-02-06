@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
 import Topbar from '../components/Main/Topbar';
-
 import CreateRoomButton from '../components/Main/CreateRoomButton';
+import { useSelector } from 'react-redux';
+import RoomForm from '../components/Main/RoomForm';
 
 function Main() {
   return (
@@ -13,6 +13,9 @@ function Main() {
       <div>방리스트..</div>
       <div>
         <CreateRoomButton />
+      </div>
+      <div>
+        <RoomForm />
       </div>
     </div>
   );

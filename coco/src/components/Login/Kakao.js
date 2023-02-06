@@ -13,6 +13,7 @@ const Kakao = (props) => {
   let params = new URL(document.URL).searchParams;
   let code = params.get('code');
   console.log(code);
+
   useEffect(() => {
     const sendCodeToSever = async () => {
       try {

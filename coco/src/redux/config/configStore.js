@@ -4,9 +4,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import roomSlice from '../modules/roomSlice';
 import kakaoSlice from '../modules/kakaoSlice';
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    roomSlice: roomSlice,
-    kakaoSlice: kakaoSlice,
+    room: roomSlice.reducer,
+    kakao: kakaoSlice.reducer,
   },
 });
+
+export default store;

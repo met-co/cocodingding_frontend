@@ -1,25 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createRoom } from '../../redux/modules/roomSlice';
+import { addRoom } from '../../redux/modules/roomSlice';
 
-export default function CreateRoomForm() {
+function CreateRoomForm() {
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('');
   const dispatch = useDispatch();
-  const [roomName, setRoomName] = React.useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    dispatch(createRoom({ name: roomName }));
-    setRoomName('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addRoom({ title, category }));
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type='text'
-        value={roomName}
-        onChange={(e) => setRoomName(e.target.value)}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type='text'
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
       />
       <button type='submit'>Create Room</button>
     </form>
   );
 }
+export default CreateRoomForm;
