@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import RoomForm from '../components/Main/RoomForm';
 
 function Main() {
+  const rooms = useSelector((state) => state.room.rooms) || [];
+
   return (
     <div>
       <Topbar />
@@ -14,9 +16,7 @@ function Main() {
       <div>
         <CreateRoomButton />
       </div>
-      <div>
-        <RoomForm />
-      </div>
+      <div>{/* <RoomForm /> */}</div>
     </div>
   );
 }

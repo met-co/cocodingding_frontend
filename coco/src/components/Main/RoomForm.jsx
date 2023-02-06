@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 export default function RoomForm() {
-  const rooms = useSelector((state) => state.rooms) || [];
+  const rooms = useSelector((state) => state.room.rooms) || [];
 
   return (
     <div>

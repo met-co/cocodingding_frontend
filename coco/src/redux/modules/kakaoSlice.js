@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const kakaoSlice = createSlice({
+export const kakaoSlice = createSlice({
   name: 'kakao',
-  initialState: [],
+  initialState: {},
   reducers: {
-    kakaoUser(state, action) {
-      state.push({ id: state.length + 1, name: action.payload.name });
+    setKakaoAPIKey: (state, action) => {
+      // ...
     },
+    // ...
   },
 });
 
-export const { kakaoUser } = kakaoSlice.actions;
-
+export const { setKakaoAPIKey } = kakaoSlice.actions;
 export default kakaoSlice.reducer;
