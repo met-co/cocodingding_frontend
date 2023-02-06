@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import Detail from './pages/Detail';
+import Kakao from './components/Login/Kakao';
 
 // 리덕스, 스토어
 // import { CookiesProvider } from 'react-cookie';
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: 'Login', element: <Login /> },
       { path: 'Detail/:Id', element: <Detail /> },
+      { path: 'user/login', element: <Kakao /> },
     ],
   },
 ]);
