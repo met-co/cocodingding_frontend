@@ -1,8 +1,8 @@
 //Kakao.js
 //카카로 로그인 대기중. 화면...
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-// import { actionCreators as userActions } from '../Redux/Modules/User';
+import axios from 'axios';
 
 const Kakao = (props) => {
   const dispatch = useDispatch();
@@ -11,9 +11,19 @@ const Kakao = (props) => {
   let params = new URL(document.URL).searchParams;
   let code = params.get('code');
   console.log(code);
-  //   React.useEffect(async () => {
-  //     await dispatch(userActions.kakaoLogin(code));
-  //   }, []);
+  useEffect(() => {
+    const sendCodeToSever = async () => {
+      try {
+        const response = await axios.post('http://localhost:3000/user/kakao', {
+          code,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    sendCodeToSever();
+  }, []);
 
   return (
     <div>

@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: 'Login', element: <Login /> },
       { path: 'Detail/:Id', element: <Detail /> },
-      { path: 'user/login', element: <Kakao /> },
+      { path: 'user/kakao', element: <Kakao /> },
     ],
   },
 ]);
