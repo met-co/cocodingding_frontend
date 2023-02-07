@@ -1,0 +1,39 @@
+{
+  "rooms": [
+    {
+      "id": 1,
+      "roomName": "공부할사람",
+      "category": "코코딩딩"
+    },
+    {
+      "roomName": "2030 모여랏",
+      "category": "5수",
+      "id": 2
+    },
+    {
+      "roomName": "영어공부",
+      "category": "영어",
+      "id": 3
+    },
+    {
+      "roomName": "영어공부",
+      "category": "영어",
+      "id": 4
+    },
+    {
+      "roomName": "ㅋㅋㅋㅋ",
+      "category": "11",
+      "id": 5
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

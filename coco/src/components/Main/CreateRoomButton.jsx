@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ModalCreateRoom from './ModalCreateRoom';
 
 export default function CreateRoomButton() {
-  //방만들기 버튼 클릭시 모달창 구현
+  //메인페이지의 방만들기 버튼 -  클릭시 모달창 켜지고 꺼지는 기능만.
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleRoomModalOpen = () => {
     setIsModalOpen(true);
@@ -17,6 +17,7 @@ export default function CreateRoomButton() {
         <button onClick={handleRoomModalOpen}>방만들기</button>
         {isModalOpen && <ModalCreateRoom onClose={handleRoomModalClose} />}
       </div>
+      <div></div>
     </div>
   );
 }
