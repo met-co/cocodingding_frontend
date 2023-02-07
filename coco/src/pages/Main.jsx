@@ -12,6 +12,7 @@ function Main() {
   return (
     <div>
       <Topbar />
+
       <StBody>
         <div>
           <h1>안녕하세요, (nickname)님! 오늘도 함께 공부해요.</h1>
