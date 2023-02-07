@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 //컴포넌트
-import Topbar from '../components/Main/Topbar';
-import CreateRoomButton from '../components/Main/CreateRoomButton';
-import RoomForm from '../components/Main/RoomForm';
+import Topbar from "../components/Main/Topbar";
+import CreateRoomButton from "../components/Main/CreateRoomButton";
+import RoomForm from "../components/Main/RoomForm";
 
 function Main() {
   // const rooms = useSelector((state) => state.room.rooms) || [];
@@ -13,7 +13,7 @@ function Main() {
       <Topbar />
       <div>검색</div>
       <div>카테고리 태그</div>
-
+      <div>test</div>
       <div>
         <CreateRoomButton />
       </div>
