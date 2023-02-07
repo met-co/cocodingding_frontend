@@ -12,7 +12,9 @@ export default function Login({ onClose }) {
   return (
     <StContainer>
       <a href={KAKAO_AUTH_URL}>
-        <img src={`${process.env.PUBLIC_URL}/img/kakaoLogin.png`}></img>
+        <img
+          src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
+        ></img>
         {/* <span>카카오계정 로그인</span> */}
       </a>
       <button onClick={closeModal}>X</button>
