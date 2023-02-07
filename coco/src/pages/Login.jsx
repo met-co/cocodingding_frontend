@@ -11,13 +11,17 @@ export default function Login({ onClose }) {
   };
   return (
     <StContainer>
-      <a href={KAKAO_AUTH_URL}>
-        <img
-          src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
-        ></img>
-        {/* <span>카카오계정 로그인</span> */}
-      </a>
       <button onClick={closeModal}>X</button>
+      <div>로그인후에 이용해주세요</div>
+      <h1>SNS계정 간편 로그인</h1>
+      <div>
+        <a href={KAKAO_AUTH_URL}>
+          <img
+            src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
+          ></img>
+          {/* <span>카카오계정 로그인</span> */}
+        </a>
+      </div>
     </StContainer>
   );
 }
@@ -45,8 +49,9 @@ const StContainer = styled.div`
 
   /* 내부 박스 배치 */
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 // 1/GET방식으로 주소로 요청시 인증코드 받을수있음.
