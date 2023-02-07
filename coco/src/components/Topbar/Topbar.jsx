@@ -16,13 +16,11 @@ export default function Topbar() {
   };
   return (
     <StContainer>
-      <StHeader>
-        <StStudy>스터디윗미 (마이페이지)</StStudy>
-        <StRight>
-          <StLoginButton onClick={handleLoginModalOpen}>로그인</StLoginButton>
-          {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
-        </StRight>
-      </StHeader>
+      <StStudy>스터디윗미 (마이페이지)</StStudy>
+      <StRight>
+        <StLoginButton onClick={handleLoginModalOpen}>로그인</StLoginButton>
+        {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
+      </StRight>
     </StContainer>
   );
 }
@@ -39,18 +37,6 @@ const StContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const StHeader = styled.header`
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0; */
-  background-color: #fafafa;
-  height: 60px;
-  display: flex;
-  align-items: center;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
