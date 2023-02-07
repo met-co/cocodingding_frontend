@@ -22,6 +22,7 @@ function Main() {
 
         <div>방리스트..</div>
         <div>123</div>
+        <div>test</div>
         <div>
           <RoomForm />
           <StCreateRoom>
