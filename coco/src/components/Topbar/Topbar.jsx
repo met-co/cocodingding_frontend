@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 //페이지컴포넌트
-import Login from '../../pages/Login';
+import Login from "../../pages/Login";
+import Layout from "../Layout/Layout";
 
 export default function Topbar() {
   //로그인 버튼 클릭시.
@@ -16,13 +17,15 @@ export default function Topbar() {
   };
   return (
     <StContainer>
-      <StHeader>
-        <StStudy>스터디윗미 (마이페이지)</StStudy>
-        <StRight>
-          <StLoginButton onClick={handleLoginModalOpen}>로그인</StLoginButton>
-          {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
-        </StRight>
-      </StHeader>
+      <Layout>
+        <StWrapBox>
+          <StStudy>스터디윗미 (마이페이지)</StStudy>
+          <StRight>
+            <StLoginButton onClick={handleLoginModalOpen}>로그인</StLoginButton>
+            {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
+          </StRight>
+        </StWrapBox>
+      </Layout>
     </StContainer>
   );
 }
@@ -32,24 +35,25 @@ const StContainer = styled.div`
   top: 0;
   left: 0;
   right: 0; */
-  background-color: #fafafa;
+
+  /* background-color: #fafafa;
   height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1rem; */
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(30px);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
-const StHeader = styled.header`
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0; */
-  background-color: #fafafa;
+const StWrapBox = styled.div`
   height: 60px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 1rem;
 `;
 
 const StStudy = styled.div`
