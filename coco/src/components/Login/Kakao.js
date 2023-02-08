@@ -12,16 +12,16 @@ const Kakao = (props) => {
   const href = window.location.href;
   let params = new URL(document.URL).searchParams;
   let code = params.get('code');
-  console.log(code);
+  console.log('인가코드', code);
 
   useEffect(() => {
     const sendCodeToSever = async () => {
       try {
+        console.log(code);
         const response = await axios
-          .post('http://localhost:3000/user/kakao', {
-            code,
-          })
+          .post('https://cocodingding.shop/user/kakao', { code })
           .then((res) => {
+            console.log(res.data);
             localStorage.setItem(
               'Authorization',
               res.headers.get('Authorization')
