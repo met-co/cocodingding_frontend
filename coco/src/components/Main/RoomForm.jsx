@@ -89,10 +89,10 @@ const StCreatedRoom = styled.div`
 `;
 
 const StCategory = styled.input`
-  position: absolute;
-  top: 220px;
+  /* position: absolute; */
+  /* top: 220px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 `;
 
 const StInput = styled.input`
