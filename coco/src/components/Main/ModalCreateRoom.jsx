@@ -3,34 +3,37 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { addRoom } from '../../redux/modules/roomSlice';
+import { __createRoom } from '../../redux/modules/roomSlice';
+import { useNavigate } from 'react-router-dom';
 
 function ModalCreateRoom({ onClose }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const closeModal = () => {
     onClose();
   };
 
-  const [roomName, setRoomName] = useState('');
-  const [category, setCategory] = useState('초기값^^');
-  const dispatch = useDispatch();
+  const [post, setPost] = useState({
+    category: '',
+    title: '',
+  });
 
-  const handleSelectChange = (e) => {
-    setCategory(e.target.value);
+  const handleChange = (evnet) => {
+    const { name, value } = evnet.target;
+    setPost({ ...post, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  console.log(post);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:3001/rooms', {
-        roomName,
-        category,
-      });
-      window.location.reload();
-      //FIXME: dispatch를 써야할지 안써도 될지 고민중..
-      // dispatch(addRoom({ roomName, category }));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(__createRoom(post));
+    navigate('/');
   };
+
+  // const handleSelectChange = (e) => {
+  //   setCategory(e.target.value);
+  // };
 
   return (
     <StContainer>
@@ -42,35 +45,31 @@ function ModalCreateRoom({ onClose }) {
       <StDivider />
       {/* 방이름,  카테고리, 방만들기,취소하기 버튼. 컴포넌트 */}
       {/* <CreateRoomForm /> */}
-      <StBody>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <h3>방이름</h3>
-            <StInput
-              type='text'
-              placeholder='여기에 입력합니다.'
-              value={roomName}
-              onChange={(e) => setRoomName(e.target.value)}
-            />
-          </div>
 
-          <h3>카테고리</h3>
-          <StSelect
-            placeholder='목록에서 셀렉트'
-            value={category}
-            onChange={handleSelectChange}
-          >
-            <option>카테1</option>
-            <option>카테2</option>
-            <option>카테3</option>
-            <option>카테4</option>
-          </StSelect>
-          <StButtons>
-            <button onClick={closeModal}>취소하기</button>
-            <button type='submit'>방만들기</button>
-          </StButtons>
-        </form>
-      </StBody>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <h3>방이름</h3>
+          <StInput
+            type='text'
+            placeholder='여기에 입력합니다.'
+            value={post.title}
+            name='title'
+            onChange={handleChange}
+          />
+        </div>
+
+        <h3>카테고리</h3>
+        <StSelect value={post.category} name='category' onChange={handleChange}>
+          <option>카테1</option>
+          <option>카테2</option>
+          <option>카테3</option>
+          <option>카테4</option>
+        </StSelect>
+        <StButtons>
+          <button onClick={closeModal}>취소하기</button>
+          <button type='submit'>방만들기</button>
+        </StButtons>
+      </form>
     </StContainer>
   );
 }

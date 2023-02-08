@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
 //컴포넌트
 
-import Topbar from '../components/Topbar/Topbar';
-import CreateRoomButton from '../components/Main/CreateRoomButton';
-import RoomForm from '../components/Main/RoomForm';
-import Layout from '../components/Layout/Layout';
+import Topbar from "../components/Topbar/Topbar";
+import CreateRoomButton from "../components/Main/CreateRoomButton";
+import RoomForm from "../components/Main/RoomForm";
+import Layout from "../components/Layout/Layout";
 
 function Main() {
   // const rooms = useSelector((state) => state.room.rooms) || [];
