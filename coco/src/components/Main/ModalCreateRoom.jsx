@@ -42,28 +42,35 @@ function ModalCreateRoom({ onClose }) {
       <StDivider />
       {/* 방이름,  카테고리, 방만들기,취소하기 버튼. 컴포넌트 */}
       {/* <CreateRoomForm /> */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h3>방이름</h3>
-          <input
-            type='text'
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-          />
-        </div>
+      <StBody>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <h3>방이름</h3>
+            <StInput
+              type='text'
+              placeholder='여기에 입력합니다.'
+              value={roomName}
+              onChange={(e) => setRoomName(e.target.value)}
+            />
+          </div>
 
-        <h3>카테고리</h3>
-        <select value={category} onChange={handleSelectChange}>
-          <option>카테1</option>
-          <option>카테2</option>
-          <option>카테3</option>
-          <option>카테4</option>
-        </select>
-        <div>
-          <button onClick={closeModal}>취소하기</button>
-          <button type='submit'>방만들기</button>
-        </div>
-      </form>
+          <h3>카테고리</h3>
+          <StSelect
+            placeholder='목록에서 셀렉트'
+            value={category}
+            onChange={handleSelectChange}
+          >
+            <option>카테1</option>
+            <option>카테2</option>
+            <option>카테3</option>
+            <option>카테4</option>
+          </StSelect>
+          <StButtons>
+            <button onClick={closeModal}>취소하기</button>
+            <button type='submit'>방만들기</button>
+          </StButtons>
+        </form>
+      </StBody>
     </StContainer>
   );
 }
@@ -87,6 +94,10 @@ const StContainer = styled.div`
   border: 1px solid #ece9e9;
   border-radius: 8px;
   padding: 3rem;
+`;
+const StBody = styled.div`
+  /* display: flex; */
+  padding: 0px 2rem 0px 2rem;
 `;
 
 const StHeader = styled.div`
@@ -114,4 +125,27 @@ const StDivider = styled.hr`
   border: 0;
   border-top: 1px solid gray;
   margin: 20px 0 40px 0;
+`;
+
+const StInput = styled.input`
+  display: flex;
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #a7a7a7;
+`;
+
+const StSelect = styled.select`
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #a7a7a7;
+`;
+
+const StButtons = styled.div`
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
 `;
