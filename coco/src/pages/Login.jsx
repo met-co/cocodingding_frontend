@@ -38,7 +38,7 @@ const StContainer = styled.div`
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
   /* translate는 본인의 크기 기준으로 작동한다. */
   position: absolute;
-  top: 50%;
+  top: 700%;
   left: 50%;
   transform: translate(-50%, -50%);
 
