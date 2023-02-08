@@ -19,7 +19,7 @@ const Kakao = (props) => {
       try {
         console.log(code);
         const response = await axios
-          .post('http://15.164.232.210/user/kakao', { code })
+          .post('https://cocodingding.shop/test/kakao', { code })
           .then((res) => {
             console.log(res.data);
             localStorage.setItem(

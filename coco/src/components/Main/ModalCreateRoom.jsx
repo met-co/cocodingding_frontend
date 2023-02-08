@@ -66,8 +66,8 @@ function ModalCreateRoom({ onClose }) {
           <option>카테4</option>
         </StSelect>
         <StButtons>
-          <button onClick={closeModal}>취소하기</button>
-          <button type='submit'>방만들기</button>
+          <StButton onClick={closeModal}>취소하기</StButton>
+          <StButton type='submit'>방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
@@ -93,10 +93,6 @@ const StContainer = styled.div`
   border: 1px solid #ece9e9;
   border-radius: 8px;
   padding: 3rem;
-`;
-const StBody = styled.div`
-  /* display: flex; */
-  padding: 0px 2rem 0px 2rem;
 `;
 
 const StHeader = styled.div`
@@ -146,5 +142,19 @@ const StSelect = styled.select`
 const StButtons = styled.div`
   margin-top: 50px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+`;
+
+const StButton = styled.button`
+  width: 5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: white;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
