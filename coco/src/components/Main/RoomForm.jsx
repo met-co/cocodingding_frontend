@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
-
 export default function RoomForm() {
   // rooms 상태정의, setRooms 함수 정의
   const [rooms, setRooms] = useState([]);
   const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchRooms() {
       // localhost:3001/rooms에서 데이터 가져오기
@@ -36,12 +37,46 @@ export default function RoomForm() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      {filteredRooms.map((room) => (
-        <div key={room.id}>
-          <div>{room.roomName}</div>
-          <div>{room.category}</div>
-        </div>
-      ))}
+      <StCreateRooms>
+        {filteredRooms.map((room) => (
+          <StCreatedRoom key={room.id}>
+            <div>{room.roomName}</div>
+            <div>{room.category}</div>
+            <div>
+              <button
+                onClick={() => {
+                  navigate(`/Detail/${room.id}`);
+                }}
+              >
+                입장하기
+              </button>
+            </div>
+          </StCreatedRoom>
+        ))}
+      </StCreateRooms>
     </div>
   );
 }
+
+const StCreateRooms = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const StCreatedRoom = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 10px;
+
+  width: 350px;
+  height: 200px;
+
+  background-color: gray;
+
+  border: solid 1px gray;
+  border-radius: 3px;
+`;

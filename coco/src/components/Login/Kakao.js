@@ -10,18 +10,18 @@ const Kakao = (props) => {
   const navigate = useNavigate();
 
   const href = window.location.href;
-  let params = new URL(document.URL).searchParams;
+  let params = new URL(href).searchParams;
   let code = params.get('code');
-  console.log(code);
+  console.log('인가코드', code);
 
   useEffect(() => {
     const sendCodeToSever = async () => {
       try {
+        console.log(code);
         const response = await axios
-          .post('http://localhost:3000/user/kakao', {
-            code,
-          })
+          .post('http://15.164.232.210/user/kakao', { code })
           .then((res) => {
+            console.log(res.data);
             localStorage.setItem(
               'Authorization',
               res.headers.get('Authorization')
