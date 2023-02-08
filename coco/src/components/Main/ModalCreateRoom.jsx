@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { addRoom } from "../../redux/modules/roomSlice";
-import { __createRoom } from "../../redux/modules/roomSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addRoom } from '../../redux/modules/roomSlice';
+import { __createRoom } from '../../redux/modules/roomSlice';
+import { useNavigate } from 'react-router-dom';
 
 function ModalCreateRoom({ onClose }) {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ function ModalCreateRoom({ onClose }) {
   };
 
   const [post, setPost] = useState({
-    category: "",
-    title: "",
+    category: '',
+    title: '',
   });
 
   const handleChange = (evnet) => {
@@ -28,7 +28,7 @@ function ModalCreateRoom({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(__createRoom(post));
-    navigate("/");
+    navigate('/');
   };
 
   // const handleSelectChange = (e) => {
@@ -45,28 +45,30 @@ function ModalCreateRoom({ onClose }) {
       <StDivider />
       {/* 방이름,  카테고리, 방만들기,취소하기 버튼. 컴포넌트 */}
       {/* <CreateRoomForm /> */}
+
       <form onSubmit={handleSubmit}>
         <div>
           <h3>방이름</h3>
-          <input
-            type="text"
+          <StInput
+            type='text'
+            placeholder='여기에 입력합니다.'
             value={post.title}
-            name="title"
+            name='title'
             onChange={handleChange}
           />
         </div>
 
         <h3>카테고리</h3>
-        <select value={post.category} name="category" onChange={handleChange}>
+        <StSelect value={post.category} name='category' onChange={handleChange}>
           <option>카테1</option>
           <option>카테2</option>
           <option>카테3</option>
           <option>카테4</option>
-        </select>
-        <div>
+        </StSelect>
+        <StButtons>
           <button onClick={closeModal}>취소하기</button>
-          <button type="submit">방만들기</button>
-        </div>
+          <button type='submit'>방만들기</button>
+        </StButtons>
       </form>
     </StContainer>
   );
@@ -91,6 +93,10 @@ const StContainer = styled.div`
   border: 1px solid #ece9e9;
   border-radius: 8px;
   padding: 3rem;
+`;
+const StBody = styled.div`
+  /* display: flex; */
+  padding: 0px 2rem 0px 2rem;
 `;
 
 const StHeader = styled.div`
@@ -118,4 +124,27 @@ const StDivider = styled.hr`
   border: 0;
   border-top: 1px solid gray;
   margin: 20px 0 40px 0;
+`;
+
+const StInput = styled.input`
+  display: flex;
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #a7a7a7;
+`;
+
+const StSelect = styled.select`
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #a7a7a7;
+`;
+
+const StButtons = styled.div`
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
 `;

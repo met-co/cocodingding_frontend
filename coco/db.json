@@ -39,6 +39,26 @@
       "roomName": "",
       "category": "초기값^^",
       "id": 8
+    },
+    {
+      "roomName": "ㅇㅇㅇ",
+      "category": "카테2",
+      "id": 9
+    },
+    {
+      "roomName": "",
+      "category": "초기값^^",
+      "id": 10
+    },
+    {
+      "roomName": "",
+      "category": "카테4",
+      "id": 11
+    },
+    {
+      "roomName": "허",
+      "category": "초기값^^",
+      "id": 12
     }
   ],
   "comments": [
