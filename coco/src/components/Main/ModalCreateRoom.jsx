@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addRoom } from '../../redux/modules/roomSlice';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../../redux/modules/roomSlice";
+import { __createRoom } from "../../redux/modules/roomSlice";
+import { useNavigate } from "react-router-dom";
 
 function ModalCreateRoom({ onClose }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const closeModal = () => {
     onClose();
   };
 
-  const [roomName, setRoomName] = useState('');
-  const [category, setCategory] = useState('초기값^^');
-  const dispatch = useDispatch();
+  const [post, setPost] = useState({
+    category: "",
+    title: "",
+  });
 
-  const handleSelectChange = (e) => {
-    setCategory(e.target.value);
+  const handleChange = (evnet) => {
+    const { name, value } = evnet.target;
+    setPost({ ...post, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  console.log(post);
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await axios.post('http://localhost:3001/rooms', {
-        roomName,
-        category,
-      });
-      window.location.reload();
-      //FIXME: dispatch를 써야할지 안써도 될지 고민중..
-      // dispatch(addRoom({ roomName, category }));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(__createRoom(post));
+    navigate("/");
   };
+
+  // const handleSelectChange = (e) => {
+  //   setCategory(e.target.value);
+  // };
 
   return (
     <StContainer>
@@ -46,14 +49,15 @@ function ModalCreateRoom({ onClose }) {
         <div>
           <h3>방이름</h3>
           <input
-            type='text'
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
+            type="text"
+            value={post.title}
+            name="title"
+            onChange={handleChange}
           />
         </div>
 
         <h3>카테고리</h3>
-        <select value={category} onChange={handleSelectChange}>
+        <select value={post.category} name="category" onChange={handleChange}>
           <option>카테1</option>
           <option>카테2</option>
           <option>카테3</option>
@@ -61,7 +65,7 @@ function ModalCreateRoom({ onClose }) {
         </select>
         <div>
           <button onClick={closeModal}>취소하기</button>
-          <button type='submit'>방만들기</button>
+          <button type="submit">방만들기</button>
         </div>
       </form>
     </StContainer>
