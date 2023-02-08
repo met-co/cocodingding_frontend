@@ -58,6 +58,8 @@ const StRoomContainer = styled.div`
   h2 {
     font-weight: 700;
   }
+
+  margin-top: 120px;
   padding: 4rem;
 `;
 

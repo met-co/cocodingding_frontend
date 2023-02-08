@@ -60,10 +60,11 @@ function ModalCreateRoom({ onClose }) {
 
         <h3>카테고리</h3>
         <StSelect value={post.category} name='category' onChange={handleChange}>
-          <option>카테1</option>
-          <option>카테2</option>
-          <option>카테3</option>
-          <option>카테4</option>
+          <option>코딩</option>
+          <option>수학</option>
+          <option>심리학</option>
+          <option>철학</option>
+          <option>뇌과학</option>
         </StSelect>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>

@@ -39,14 +39,13 @@ export default function RoomForm() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <div>
-          카테고리:
+        <StCategorys>
           {Array.from(new Set(rooms.map((room) => room.category))).map(
             (category) => (
-              <div key={category}>#{category}</div>
+              <StCategory key={category}>#{category}</StCategory>
             )
           )}
-        </div>
+        </StCategorys>
       </div>
       <StCreateRooms>
         {filteredRooms.map((room) => (
@@ -88,11 +87,26 @@ const StCreatedRoom = styled.div`
   border-radius: 3px;
 `;
 
-const StCategory = styled.input`
-  /* position: absolute; */
-  /* top: 220px;
+const StCategorys = styled.div`
+  position: absolute;
+  top: 300px;
   left: 50%;
-  transform: translate(-50%, -50%); */
+  transform: translate(-50%, -50%);
+  display: flex;
+`;
+
+const StCategory = styled.div`
+  border: solid 1px black;
+  border-radius: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+
+  padding: 0.7rem;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 const StInput = styled.input`
