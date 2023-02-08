@@ -5,8 +5,12 @@ import { addRoom } from '../../redux/modules/roomSlice';
 
 function CreateRoomForm() {
   const [roomName, setRoomName] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('초기값^^');
   const dispatch = useDispatch();
+
+  const handleSelectChange = (e) => {
+    setCategory(e.target.value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,16 +29,21 @@ function CreateRoomForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        value={roomName}
-        onChange={(e) => setRoomName(e.target.value)}
-      />
-      <input
-        type='text'
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      />
+      <div>
+        <h2>방이름</h2>
+        <input
+          type='text'
+          value={roomName}
+          onChange={(e) => setRoomName(e.target.value)}
+        />
+      </div>
+      <select value={category} onChange={handleSelectChange}>
+        <option>카테1</option>
+        <option>카테2</option>
+        <option>카테3</option>
+        <option>카테4</option>
+      </select>
+
       <button type='submit'>Create Room</button>
     </form>
   );
