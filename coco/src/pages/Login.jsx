@@ -32,7 +32,7 @@ const StContainer = styled.div`
   height: 500px;
 
   /* 최상단 위치 */
-  z-index: 999;
+  z-index: 9999;
 
   /* 중앙 배치 */
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
