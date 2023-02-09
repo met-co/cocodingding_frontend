@@ -16,7 +16,7 @@ import Kakao from './components/Login/Kakao';
 // 리덕스, 스토어
 // import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
-import store from './redux/config/configStore';
+import store from './redux/config/Store';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: 'Login', element: <Login /> },
-      { path: 'Detail/:roomId', element: <Detail /> },
+      { path: 'Detail/:id', element: <Detail /> },
       { path: 'user/kakao', element: <Kakao /> },
     ],
   },

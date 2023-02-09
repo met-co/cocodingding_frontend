@@ -21,7 +21,9 @@ function Main() {
           </StTitle>
         </StTopContainer>
         <StRoomContainer>
-          <h2>직접 방을 만들어주세요!</h2>
+          <div>
+            <h2>직접 방을 만들어주세요!</h2>
+          </div>
           <div>
             {/* 여기서 가로배치,, */}
             <RoomForm />
