@@ -51,15 +51,16 @@ export default function RoomForm() {
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
             <div>{room.roomName}</div>
+            <div> 닉네임</div>
             <div>#{room.category}</div>
             <div>
-              <button
+              <StButton
                 onClick={() => {
                   navigate(`/Detail/${room.id}`);
                 }}
               >
                 입장하기
-              </button>
+              </StButton>
             </div>
           </StCreatedRoom>
         ))}
@@ -70,21 +71,33 @@ export default function RoomForm() {
 
 const StCreateRooms = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  /* overflow: scroll; */
+  overflow-y: auto;
+  //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+
+  white-space: nowrap;
 `;
 
 const StCreatedRoom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 10px;
-  width: 350px;
+  padding: 2rem;
+  width: 250px;
   height: 200px;
   background-color: gray;
   border: solid 1px gray;
-  border-radius: 3px;
+  border-radius: 3rem;
 `;
 
 const StCategorys = styled.div`
@@ -120,4 +133,18 @@ const StInput = styled.input`
   border: solid 1px black;
   border-radius: 0.5rem;
   background-color: white; ;
+`;
+
+const StButton = styled.button`
+  width: 5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: white;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
