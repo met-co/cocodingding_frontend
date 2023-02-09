@@ -9,19 +9,13 @@ export const actionType = {
 };
 
 const token =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNjc1ODQxNzkyLCJpYXQiOjE2NzU4Mzk5OTJ9.z1un3SDRdNVJ8PrlmN-lpr9s98-lcGW3B8WfVasChic";
+  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNjc1ODQ3NjcxLCJpYXQiOjE2NzU4NDU4NzF9.lQ3prUwHeKg9Lhk4cU1Fv2SRIh83rkEvvpdVJGBYurg";
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
   actionType.room.POST_ROOM,
   async (payload, thunkAPI) => {
     try {
-      console.log("hiiiiiiiiiiiiiii");
-      console.log("hiiiiiiiiiiiiiii");
-      console.log("hiiiiiiiiiiiiiii");
-      console.log("hiiiiiiiiiiiiiii");
-      console.log("hiiiiiiiiiiiiiii");
-      console.log("hiiiiiiiiiiiiiii");
       const result = await axios.post(
         `http://15.164.232.210/main/rooms`,
         payload,
