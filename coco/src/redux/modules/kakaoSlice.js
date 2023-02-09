@@ -1,19 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+// import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-/* initialState*/
-const initialState = {};
+// /* initialState*/
+// const initialState = {};
 
-/* slice */
-export const kakaoSlice = createSlice({
-  name: 'kakao',
-  initialState,
-  reducers: {
-    setKakaoAPIKey: (state, action) => {
-      // ...
-    },
-    // ...
-  },
-});
+// /* slice */
+// export const kakaoLogin = createAsyncThunk({
+//   name: 'kakao',
+//   initialState,
+//   reducers: {
+//     setKakaoAPIKey: (state, action) => {
+//       // ...
+//     },
+//     // ...
+//   },
+// });
 
-export const { setKakaoAPIKey } = kakaoSlice.actions;
-export default kakaoSlice.reducer;
+// export const { setKakaoAPIKey } = kakaoLogin.actions;
+// export default kakaoLogin.reducer;

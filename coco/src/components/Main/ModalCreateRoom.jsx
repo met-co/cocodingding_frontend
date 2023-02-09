@@ -60,14 +60,15 @@ function ModalCreateRoom({ onClose }) {
 
         <h3>카테고리</h3>
         <StSelect value={post.category} name='category' onChange={handleChange}>
-          <option>카테1</option>
-          <option>카테2</option>
-          <option>카테3</option>
-          <option>카테4</option>
+          <option>코딩</option>
+          <option>수학</option>
+          <option>심리학</option>
+          <option>철학</option>
+          <option>뇌과학</option>
         </StSelect>
         <StButtons>
-          <button onClick={closeModal}>취소하기</button>
-          <button type='submit'>방만들기</button>
+          <StButton onClick={closeModal}>취소하기</StButton>
+          <StButton type='submit'>방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
@@ -80,7 +81,7 @@ const StContainer = styled.div`
   width: 40vw;
   height: 40vh;
   /* 최상단 위치 */
-  z-index: 999;
+  z-index: 998;
   /* 중앙 배치 */
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
   /* translate는 본인의 크기 기준으로 작동한다. */
@@ -93,10 +94,6 @@ const StContainer = styled.div`
   border: 1px solid #ece9e9;
   border-radius: 8px;
   padding: 3rem;
-`;
-const StBody = styled.div`
-  /* display: flex; */
-  padding: 0px 2rem 0px 2rem;
 `;
 
 const StHeader = styled.div`
@@ -146,5 +143,19 @@ const StSelect = styled.select`
 const StButtons = styled.div`
   margin-top: 50px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+`;
+
+const StButton = styled.button`
+  width: 5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: white;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;

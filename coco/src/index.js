@@ -18,6 +18,7 @@ import Kakao from './components/Login/Kakao';
 import { Provider } from 'react-redux';
 import store from './redux/config/configStore';
 import axios from 'axios';
+
 axios.defaults.withCredentials = true;
 const router = createBrowserRouter([
   {
