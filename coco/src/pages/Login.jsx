@@ -35,6 +35,7 @@ export default function Login({ onClose }) {
           password,
         })
         .then((res) => {
+          console.log(res);
           localStorage.setItem(
             'Authorization',
             res.headers.get('Authorization')
@@ -44,9 +45,9 @@ export default function Login({ onClose }) {
           console.log(nickname);
           localStorage.setItem('Nickname', nickname);
         });
-      navigate(`/StoreList`);
+      navigate(`/`);
     } catch (error) {
-      if (error.response && error.response.status === 401) {
+      if (error.response && error.response.status === 400) {
         setError('아이디/비밀번호가 올바르지 않습니다.');
       }
     }
@@ -59,40 +60,41 @@ export default function Login({ onClose }) {
         {/* 로컬로그인 부분 */}
 
         <form onSubmit={handleSubmit}>
-          <input
+          <StInput
             // required
             autoFocus
             placeholder='이메일 주소 입력(필수)'
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <input
+          <StInput
             // required
             type='password'
             placeholder='비밀번호 입력(필수)'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+          <div>
+            <span className='error'>{error}</span>
+          </div>
 
-          <button
+          <StButton
             type='submit'
             // onClick={() => {
             //   navigate(`/StoreList`);
             // }}
           >
             로그인
-          </button>
+          </StButton>
+
           <div>
-            <span className='error'>{error}</span>
-          </div>
-          <div>
-            <button
+            <StButton
               onClick={() => {
                 navigate('/SignUp');
               }}
             >
               회원가입
-            </button>
+            </StButton>
           </div>
         </form>
       </div>
@@ -109,6 +111,19 @@ export default function Login({ onClose }) {
     </StContainer>
   );
 }
+
+const StInput = styled.input`
+  /* position: absolute;
+  top: 220px;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+
+  width: 30vw;
+  height: 35px;
+  border: solid 1px black;
+  border-radius: 0.5rem;
+  background-color: white; ;
+`;
 
 const StContainer = styled.div`
   /* 모달창 크기 */
@@ -136,6 +151,20 @@ const StContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+`;
+
+const StButton = styled.button`
+  width: 5rem;
+  border: solid 1px black;
+  border-radius: 0.5rem;
+  background-color: white;
+  width: 200px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 // 1/GET방식으로 주소로 요청시 인증코드 받을수있음.

@@ -22,6 +22,7 @@ export default function SignUp() {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
   ///1. 닉네임 유효성검사-2글자 이상 12자리 이하 특수문자불가
   const onChangeName = useCallback((e) => {
     const usenameRegex = /[^a-zA-Z0-9ㄱ-힣]/g;
@@ -40,6 +41,7 @@ export default function SignUp() {
       setIsNickname(true);
     }
   }, []);
+
   //2. 이메일 유효성검사-알파벳과숫자,@포함필수
   const onChangeEmail = useCallback((e) => {
     ///이메일정규식
@@ -104,7 +106,7 @@ export default function SignUp() {
           data: { nickname: nickname, email: email, password: password },
         }).then((res) => {
           console.log('response:', res);
-          if (res.status === 201) {
+          if (res.status === 200) {
             alert('회원가입이 완료되었습니다');
             console.log('User profile', res.data.nickname, res.data.email);
             window.location.replace('/');
@@ -118,10 +120,10 @@ export default function SignUp() {
   );
 
   return (
-    <SwholeDiv>
-      <SSignupForm onSubmit={onSubmit}>
+    <StwholeDiv>
+      <StSignupForm onSubmit={onSubmit}>
         {/* <Simagelogo src={'img/logo-pink.png'} /> */}
-        <SInput
+        <StInput
           autoFocus
           required
           onChange={onChangeName}
@@ -129,22 +131,22 @@ export default function SignUp() {
           placeholder='닉네임 2~12자리 입력(특수문자이용은 불가능합니다!)'
         />
         {nickname.length > 0 && (
-          <Sspan className={`message ${isNickname ? 'success' : 'error'}`}>
+          <Stspan className={`message ${isNickname ? 'success' : 'error'}`}>
             {nicknameMessage}
-          </Sspan>
+          </Stspan>
         )}
-        <SInput
+        <StInput
           required
           onChange={onChangeEmail}
           value={email}
           placeholder='이메일 주소 입력'
         />
         {email.length > 0 && (
-          <Sspan className={`message ${isEmail ? 'success' : 'error'}`}>
+          <Stspan className={`message ${isEmail ? 'success' : 'error'}`}>
             {emailMessage}
-          </Sspan>
+          </Stspan>
         )}
-        <SInput
+        <StInput
           type='password'
           required
           onChange={onChangePassword}
@@ -152,11 +154,11 @@ export default function SignUp() {
           placeholder='비밀번호 입력(대문자+소문자+특수문자+숫자 조합으로 8~15자리 입력해주세요!)'
         />
         {password.length > 0 && (
-          <Sspan className={`message ${isPassword ? 'success' : 'error'}`}>
+          <Stspan className={`message ${isPassword ? 'success' : 'error'}`}>
             {passwordMessage}
-          </Sspan>
+          </Stspan>
         )}
-        <SInputbottom
+        <StInputbottom
           type='password'
           required
           onChange={onChangePasswordConfirm}
@@ -164,23 +166,23 @@ export default function SignUp() {
           placeholder='비밀번호 재확인'
         />
         {confirmpassword.length > 0 && (
-          <Sspan
+          <Stspan
             className={`message ${isPasswordConfirm ? 'success' : 'error'}`}
           >
             {passwordConfirmMessage}
-          </Sspan>
+          </Stspan>
         )}
-        <Sbutton
+        <Stbutton
           type='submit'
           disabled={!(isNickname && isEmail && isPassword && isPasswordConfirm)}
         >
           회원가입
-        </Sbutton>
-      </SSignupForm>
-    </SwholeDiv>
+        </Stbutton>
+      </StSignupForm>
+    </StwholeDiv>
   );
 }
-const SSignupForm = styled.form`
+const StSignupForm = styled.form`
   margin: 100px auto auto auto;
   display: flex;
   flex-direction: column;
@@ -190,21 +192,21 @@ const SSignupForm = styled.form`
   padding: 20px;
   /* gap: 15px;/ */
 `;
-const SInput = styled.input`
+const StInput = styled.input`
   border: 1px solid rgba(216, 216, 216);
   height: 40px;
   border-bottom: none;
   padding-left: 15px;
 `;
-const SInputbottom = styled.input`
+const StInputbottom = styled.input`
   border: 1px solid rgba(216, 216, 216);
   height: 40px;
   padding-left: 15px;
 `;
-const Sspan = styled.span`
+const Stspan = styled.span`
   font-size: 15px;
 `;
-const Sbutton = styled.button`
+const Stbutton = styled.button`
   margin-top: 20px;
   border: none;
   height: 40px;
@@ -213,12 +215,12 @@ const Sbutton = styled.button`
   background-color: rgba(215, 215, 215);
   cursor: pointer;
 `;
-const SwholeDiv = styled.div`
+const StwholeDiv = styled.div`
   background-color: rgba(249, 249, 249);
   height: 100%;
   width: auto;
 `;
-const Simagelogo = styled.img`
+const Stimagelogo = styled.img`
   height: 50px;
   width: 120px;
   /* justify-content: center; */
