@@ -17,11 +17,16 @@ function Main() {
       <Layout>
         <StTopContainer>
           <StTitle>
-            <h1>안녕하세요, (nickname)님! 오늘도 함께 공부해요.</h1>
+            <h1>
+              안녕하세요, {localStorage.getItem('Nickname')}님! 오늘도 함께
+              공부해요.
+            </h1>
           </StTitle>
         </StTopContainer>
         <StRoomContainer>
-          <h2>직접 방을 만들어주세요!</h2>
+          <div>
+            <h2>직접 방을 만들어주세요!</h2>
+          </div>
           <div>
             {/* 여기서 가로배치,, */}
             <RoomForm />
@@ -54,6 +59,7 @@ const StTitle = styled.div`
 const StRoomContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 10px;
   h2 {
     font-weight: 700;

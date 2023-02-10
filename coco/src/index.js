@@ -8,18 +8,20 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 //page 임포트
 import App from './App';
 import NotFound from './pages/NotFound';
-import Login from './pages/Login';
+import Login from './components/Login/Login';
 import Main from './pages/Main';
 import Detail from './pages/Detail';
 import Kakao from './components/Login/Kakao';
+import SignUp from './pages/SignUp';
 
 // 리덕스, 스토어
 // import { CookiesProvider } from 'react-cookie';
 import { Provider } from 'react-redux';
-import store from './redux/config/configStore';
+import store from './redux/config/Store';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -28,7 +30,8 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: 'Login', element: <Login /> },
-      { path: 'Detail/:roomId', element: <Detail /> },
+      { path: 'SignUp', element: <SignUp /> },
+      { path: 'Detail/:id', element: <Detail /> },
       { path: 'user/kakao', element: <Kakao /> },
     ],
   },
