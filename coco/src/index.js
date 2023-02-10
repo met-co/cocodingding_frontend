@@ -12,6 +12,7 @@ import Login from './pages/Login';
 import Main from './pages/Main';
 import Detail from './pages/Detail';
 import Kakao from './components/Login/Kakao';
+import SignUp from './pages/SignUp';
 
 // 리덕스, 스토어
 // import { CookiesProvider } from 'react-cookie';
@@ -20,6 +21,7 @@ import store from './redux/config/Store';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -28,6 +30,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Main /> },
       { path: 'Login', element: <Login /> },
+      { path: 'SignUp', element: <SignUp /> },
       { path: 'Detail/:id', element: <Detail /> },
       { path: 'user/kakao', element: <Kakao /> },
     ],

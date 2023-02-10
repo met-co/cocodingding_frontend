@@ -101,10 +101,10 @@ const StCreatedRoom = styled.div`
 `;
 
 const StCategorys = styled.div`
-  position: absolute;
+  /* position: absolute;
   top: 300px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   display: flex;
 `;
 
@@ -123,10 +123,10 @@ const StCategory = styled.div`
 `;
 
 const StInput = styled.input`
-  position: absolute;
+  /* position: absolute;
   top: 220px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 
   width: 30vw;
   height: 35px;

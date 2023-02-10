@@ -8,7 +8,13 @@ export const __kakaologin = createAsyncThunk(
     try {
       console.log('페이로드?', code);
       const data = await axios
-        .post('http://cocodingding.shop/user/kakao', { code })
+        .post(
+          'http://cocodingding.shop/user/kakao',
+          { code }
+          // {
+          //   withCredentials: true,
+          // }
+        )
         .then((res) => {
           console.log('서버로 보내는값?', res.data);
           const accessToken = res.headers.get('Authorization');
@@ -20,7 +26,9 @@ export const __kakaologin = createAsyncThunk(
             localStorage.setItem('token', accessToken);
             localStorage.setItem('nickname', nickname);
             localStorage.setItem('email', email);
-            alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
+            alert(`소셜로그인 인증 완료! dd님 환영합니다!`);
+            // alert(`소셜로그인 인증 완료! ${nickname}님 환영합니다!`);
+
             return window.location.assign('/');
           } else {
             alert('인증 오류! 다시 시도해주세요!');
@@ -29,6 +37,7 @@ export const __kakaologin = createAsyncThunk(
         });
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
+      console.log('sssss');
       window.location.assign('/');
       return thunkAPI.rejectWithValue(error);
     }

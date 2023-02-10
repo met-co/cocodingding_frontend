@@ -15,7 +15,7 @@ const Kakao = (props) => {
   let code = params.get('code');
   console.log('인가코드', code);
 
-  //6조 코드 그대로 들고옴.. 이거 안되면 내 잘못 아님 ㅇㅇ
+  // 6조 코드 그대로 들고옴.. 이거 안되면 내 잘못 아님 ㅇㅇ
   useEffect(() => {
     dispatch(__kakaologin(code));
   });
@@ -25,7 +25,7 @@ const Kakao = (props) => {
   //     try {
   //       console.log(code);
   //       const response = await axios
-  //         .post('https://cocodingding.shop/test/kakao', { code })
+  //         .post('https://cocodingding.shop/user/kakao', { code })
   //         .then((res) => {
   //           console.log(res);
   //           localStorage.setItem(

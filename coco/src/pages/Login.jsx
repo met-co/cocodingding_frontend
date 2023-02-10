@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 //컴포넌트
 import { KAKAO_AUTH_URL } from '../shared/OAuth';
@@ -9,9 +11,91 @@ export default function Login({ onClose }) {
   const closeModal = () => {
     onClose();
   };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  // const [cookies, setCookie] = useCookies(["token"]);
+  const navigate = useNavigate();
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    // Client-side validation- 둘 중 하나가 공란일 때
+    if (!email || !password) {
+      setError('이메일과 패스워드를 모두 입력해주세요!');
+      return;
+    }
+    try {
+      // 서버에 email, password를 보내서 요청
+
+      await axios
+        .post('https://cocodingding.shop/user/login', {
+          email,
+          password,
+        })
+        .then((res) => {
+          localStorage.setItem(
+            'Authorization',
+            res.headers.get('Authorization')
+          );
+          console.log(res);
+          const nickname = res.data.nickname;
+          console.log(nickname);
+          localStorage.setItem('Nickname', nickname);
+        });
+      navigate(`/StoreList`);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError('아이디/비밀번호가 올바르지 않습니다.');
+      }
+    }
+  }
+
   return (
     <StContainer>
       <button onClick={closeModal}>X</button>
+      <div>
+        {/* 로컬로그인 부분 */}
+
+        <form onSubmit={handleSubmit}>
+          <input
+            // required
+            autoFocus
+            placeholder='이메일 주소 입력(필수)'
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <input
+            // required
+            type='password'
+            placeholder='비밀번호 입력(필수)'
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+
+          <button
+            type='submit'
+            // onClick={() => {
+            //   navigate(`/StoreList`);
+            // }}
+          >
+            로그인
+          </button>
+          <div>
+            <span className='error'>{error}</span>
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                navigate('/SignUp');
+              }}
+            >
+              회원가입
+            </button>
+          </div>
+        </form>
+      </div>
       <div>로그인후에 이용해주세요</div>
       <h1>SNS계정 간편 로그인</h1>
       <div>
