@@ -17,7 +17,10 @@ function Main() {
       <Layout>
         <StTopContainer>
           <StTitle>
-            <h1>안녕하세요, (nickname)님! 오늘도 함께 공부해요.</h1>
+            <h1>
+              안녕하세요, {localStorage.getItem('Nickname')}님! 오늘도 함께
+              공부해요.
+            </h1>
           </StTitle>
         </StTopContainer>
         <StRoomContainer>

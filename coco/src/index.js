@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 //page 임포트
 import App from './App';
 import NotFound from './pages/NotFound';
-import Login from './pages/Login';
+import Login from './components/Login/Login';
 import Main from './pages/Main';
 import Detail from './pages/Detail';
 import Kakao from './components/Login/Kakao';

@@ -1,12 +1,15 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 //페이지컴포넌트
-import Login from "../../pages/Login";
-import Layout from "../Layout/Layout";
+import Login from '../Login/Login';
+import Layout from '../Layout/Layout';
+import MyPage from '../Login/MyPage';
 
 export default function Topbar() {
   //로그인 버튼 클릭시.
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  //마이페이지 버튼 클릭시.
+  const [isMyPageModalOpen, setIsMyPageModalOpen] = useState(false);
 
   const handleLoginModalOpen = () => {
     setIsLoginModalOpen(true);
@@ -15,14 +18,26 @@ export default function Topbar() {
   const handleLoginModalClose = () => {
     setIsLoginModalOpen(false);
   };
+
+  const handleMyPageModalOpen = () => {
+    setIsMyPageModalOpen(true);
+  };
+
+  const handleMyPageModalClose = () => {
+    setIsMyPageModalOpen(false);
+  };
   return (
     <StContainer>
       <Layout>
         <StWrapBox>
-          <StStudy>스터디윗미 (마이페이지)</StStudy>
+          <StStudy>스터디윗미</StStudy>
           <StRight>
-            <StLoginButton onClick={handleLoginModalOpen}>로그인</StLoginButton>
+            <StButton onClick={handleLoginModalOpen}>로그인</StButton>
             {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
+          </StRight>
+          <StRight>
+            <StButton onClick={handleMyPageModalOpen}>마이페이지</StButton>
+            {isMyPageModalOpen && <MyPage onClose={handleMyPageModalClose} />}
           </StRight>
         </StWrapBox>
       </Layout>
@@ -70,7 +85,7 @@ const StRight = styled.div`
   margin-right: 1rem;
 `;
 
-const StLoginButton = styled.button`
+const StButton = styled.button`
   font-size: 14px;
   background-color: transparent;
   border: 1px solid #333;

@@ -9,7 +9,7 @@ export const __kakaologin = createAsyncThunk(
       console.log('페이로드?', code);
       const data = await axios
         .post(
-          'http://cocodingding.shop/user/kakao',
+          'https://cocodingding.shop/user/kakao',
           { code }
           // {
           //   withCredentials: true,
