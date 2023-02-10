@@ -59,6 +59,7 @@ const StTitle = styled.div`
 const StRoomContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 10px;
   h2 {
     font-weight: 700;

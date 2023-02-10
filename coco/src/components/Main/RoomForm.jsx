@@ -32,7 +32,7 @@ export default function RoomForm() {
 
   return (
     <div>
-      <div>
+      <StSearch>
         <StInput
           type='text'
           placeholder='참여하고싶은 방을 찾아보세요'
@@ -46,7 +46,7 @@ export default function RoomForm() {
             )
           )}
         </StCategorys>
-      </div>
+      </StSearch>
       <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
@@ -68,6 +68,12 @@ export default function RoomForm() {
     </div>
   );
 }
+const StSearch = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+`;
 
 const StCreateRooms = styled.div`
   display: flex;

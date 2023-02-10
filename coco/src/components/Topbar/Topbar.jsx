@@ -30,7 +30,7 @@ export default function Topbar() {
     <StContainer>
       <Layout>
         <StWrapBox>
-          <StStudy>스터디윗미</StStudy>
+          <StStudy>코코딩딩</StStudy>
           <StRight>
             <StButton onClick={handleLoginModalOpen}>로그인</StButton>
             {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}

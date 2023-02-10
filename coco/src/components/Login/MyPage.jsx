@@ -33,10 +33,11 @@ export default function MyPage({ onClose }) {
         <button>변경하기</button>
       </StProfile>
 
-      <div>
+      <StProfile>
         <div>회원탈퇴</div>
+        <div></div>
         <button onClick={handleLogout}>로그아웃</button>
-      </div>
+      </StProfile>
     </StContainer>
   );
 }
