@@ -48,7 +48,9 @@ export default function RoomForm() {
           )}
         </StCategorys>
         <StCreateRoomButton>
-          <h2> 방에 참여해보세요.</h2>
+          <div>
+            <h2> 방에 참여해보세요.</h2>
+          </div>
           <div>
             <CreateRoomButton />
           </div>
@@ -156,8 +158,9 @@ const StButton = styled.button`
 `;
 
 const StCreateRoomButton = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
 `;

@@ -26,11 +26,6 @@ function Main() {
           <RoomForm />
         </StTopContainer>
 
-        <StCreateRoomButton>
-          <h2>직접 방을 만들어주세요!</h2>
-          <CreateRoomButton />
-        </StCreateRoomButton>
-
         <div>{/* 여기서 가로배치,, */}</div>
       </Layout>
     </div>
@@ -66,10 +61,4 @@ const StRoomContainer = styled.div`
 
   margin-top: 120px;
   padding: 4rem;
-`;
-
-const StCreateRoomButton = styled.div`
-  display: flex;
-
-  align-items: center;
 `;
