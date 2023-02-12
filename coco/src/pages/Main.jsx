@@ -22,16 +22,16 @@ function Main() {
               공부해요.
             </h1>
           </StTitle>
+
           <RoomForm />
         </StTopContainer>
-        <StRoomContainer>
-          <div>
-            <h2>직접 방을 만들어주세요!</h2>
-            <CreateRoomButton />
-          </div>
-          <RoomForm />
-          <div>{/* 여기서 가로배치,, */}</div>
-        </StRoomContainer>
+
+        <StCreateRoomButton>
+          <h2>직접 방을 만들어주세요!</h2>
+          <CreateRoomButton />
+        </StCreateRoomButton>
+
+        <div>{/* 여기서 가로배치,, */}</div>
       </Layout>
     </div>
   );
@@ -40,20 +40,19 @@ function Main() {
 export default Main;
 
 const StTopContainer = styled.div`
-  max-width: 1200px;
-  min-width: 800px;
-
   margin-left: 2rem;
   margin-right: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   gap: 10px;
 `;
 
 const StTitle = styled.div`
   margin-top: 3rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const StRoomContainer = styled.div`
@@ -69,15 +68,8 @@ const StRoomContainer = styled.div`
   padding: 4rem;
 `;
 
-const StCreateRoom = styled.div`
+const StCreateRoomButton = styled.div`
   display: flex;
-  justify-content: center;
 
-  width: 350px;
-  height: 200px;
-
-  background-color: gray;
-
-  border: solid 1px gray;
-  border-radius: 3px;
+  align-items: center;
 `;
