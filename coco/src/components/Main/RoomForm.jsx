@@ -134,7 +134,7 @@ const StInput = styled.input`
   left: 50%;
   transform: translate(-50%, -50%); */
 
-  width: 30vw;
+  width: 100%;
   height: 35px;
   border: solid 1px black;
   border-radius: 0.5rem;

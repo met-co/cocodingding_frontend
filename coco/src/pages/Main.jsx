@@ -27,9 +27,10 @@ function Main() {
           <div>
             <h2>직접 방을 만들어주세요!</h2>
           </div>
+          <RoomForm />
           <div>
             {/* 여기서 가로배치,, */}
-            <RoomForm />
+
             <StCreateRoom>
               <CreateRoomButton />
             </StCreateRoom>
