@@ -29,10 +29,10 @@ export default function CreateRoomButton() {
 // `;
 
 const StButton = styled.button`
-  position: relative;
-  top: 130px;
+  /* position: relative;
+  top: 130px; */
   width: 4rem;
-  border: none;
+  border: solid 1px black;
   border-radius: 0.5rem;
   background-color: white;
   width: 200px;
