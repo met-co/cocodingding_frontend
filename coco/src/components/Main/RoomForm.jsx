@@ -13,8 +13,9 @@ export default function RoomForm() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
+    arrows: true,
   };
   // rooms 상태정의, setRooms 함수 정의
   const [rooms, setRooms] = useState([]);
@@ -67,28 +68,7 @@ export default function RoomForm() {
           </div>
         </StCreateRoomButton>
       </StSearch>
-      <div>
-        <Slider {...settings}>
-          <div>
-            <h3>1ss</h3>
-          </div>
-          <div>
-            <h3>2</h3>
-          </div>
-          <div>
-            <h3>3</h3>
-          </div>
-          <div>
-            <h3>4</h3>
-          </div>
-          <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-        </Slider>
-      </div>
+
       <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
@@ -107,6 +87,29 @@ export default function RoomForm() {
           </StCreatedRoom>
         ))}
       </StCreateRooms>
+
+      <div>
+        <Slider {...settings}>
+          {filteredRooms.map((room) => (
+            <div key={room.id}>
+              <StCreatedRoom>
+                <div>{room.roomName}</div>
+                <div> 닉네임</div>
+                <div>#{room.category}</div>
+                <div>
+                  <StButton
+                    onClick={() => {
+                      navigate(`/Detail/${room.id}`);
+                    }}
+                  >
+                    입장하기
+                  </StButton>
+                </div>
+              </StCreatedRoom>
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   );
 }
