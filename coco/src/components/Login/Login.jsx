@@ -144,7 +144,7 @@ const StContainer = styled.div`
   transform: translate(-50%, -50%);
 
   /* 모달창 디자인 */
-  background-color: gray;
+  background-color: white;
   border: 1px solid black;
   border-radius: 8px;
 
