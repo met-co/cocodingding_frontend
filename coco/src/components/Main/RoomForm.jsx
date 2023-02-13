@@ -136,7 +136,7 @@ const StCategory = styled.div`
 `;
 
 const StInput = styled.input`
-  width: 65%;
+  width: 35%;
   height: 35px;
   border: solid 1px black;
   border-radius: 0.5rem;
