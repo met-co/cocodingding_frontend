@@ -56,80 +56,74 @@ export default function Login({ onClose }) {
 
   return (
     <StContainer>
-      <button onClick={closeModal}>X</button>
-      <div>
-        {/* 로컬로그인 부분 */}
+      <StTopBar>
+        <div></div>
+        <h2>로그인 </h2>
+        <button onClick={closeModal}>X</button>
+      </StTopBar>
+      <Stform>
+        <div>
+          {/* 로컬로그인 부분 */}
 
-        <form onSubmit={handleSubmit}>
-          <StInput
-            // required
-            autoFocus
-            placeholder='이메일 주소 입력(필수)'
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <StInput
-            // required
-            type='password'
-            placeholder='비밀번호 입력(필수)'
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <div>
-            <span className='error'>{error}</span>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <StInput
+              // required
+              autoFocus
+              placeholder='이메일 주소 입력(필수)'
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <StInput
+              // required
+              type='password'
+              placeholder='비밀번호 입력(필수)'
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <div>
+              <span className='error'>{error}</span>
+            </div>
 
-          <StButton
-            type='submit'
-            // onClick={() => {
-            //   navigate(`/`);
-            //   window.location.reload();
-            // }}
-          >
-            로그인
-          </StButton>
-
-          <div>
             <StButton
-              onClick={() => {
-                navigate('/SignUp');
-              }}
+              type='submit'
+              // onClick={() => {
+              //   navigate(`/`);
+              //   window.location.reload();
+              // }}
             >
-              회원가입
+              로그인
             </StButton>
-          </div>
-        </form>
-      </div>
-      <div>로그인후에 이용해주세요</div>
-      <h1>SNS계정 간편 로그인</h1>
-      <div>
-        <a href={KAKAO_AUTH_URL}>
-          <img
-            src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
-          ></img>
-          {/* <span>카카오계정 로그인</span> */}
-        </a>
-      </div>
+
+            <div>
+              <StButton
+                onClick={() => {
+                  navigate('/SignUp');
+                }}
+              >
+                회원가입
+              </StButton>
+            </div>
+          </form>
+        </div>
+
+        <div>로그인후에 이용해주세요</div>
+        <h1>SNS계정 간편 로그인</h1>
+        <div>
+          <a href={KAKAO_AUTH_URL}>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
+            ></img>
+            {/* <span>카카오계정 로그인</span> */}
+          </a>
+        </div>
+      </Stform>
     </StContainer>
   );
 }
 
-const StInput = styled.input`
-  /* position: absolute;
-  top: 220px;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-
-  width: 30vw;
-  height: 35px;
-  border: solid 1px black;
-  border-radius: 0.5rem;
-  background-color: white; ;
-`;
-
 const StContainer = styled.div`
   /* 모달창 크기 */
-  width: 700px;
+  width: 400px;
   height: 500px;
 
   /* 최상단 위치 */
@@ -151,20 +145,53 @@ const StContainer = styled.div`
   /* 내부 박스 배치 */
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem 1rem 2rem;
+`;
+
+const StTopBar = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Stform = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 `;
 
-const StButton = styled.button`
-  width: 5rem;
+const StInput = styled.input`
+  width: 99%;
+  height: 35px;
   border: solid 1px black;
   border-radius: 0.5rem;
   background-color: white;
-  width: 200px;
+  margin-top: 10px;
+`;
+
+const StButton = styled.button`
+  width: 100%;
+  border: solid 1px black;
+  border-radius: 0.5rem;
+  background-color: white;
+  margin-top: 10px;
+
   height: 40px;
   cursor: pointer;
   &:hover {
     background-color: black;
     color: white;
   }
+`;
+
+const StDivider = styled.hr`
+  width: 100%;
+  border: 0;
+  border-top: 1px solid gray;
+  margin: 20px 0 40px 0;
 `;

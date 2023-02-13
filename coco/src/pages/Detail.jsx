@@ -257,6 +257,7 @@ const Footer = styled.div`
   }
 `;
 
+//TODO: 혜성님 코드
 // import React, { useState, useEffect, useCallback } from 'react';
 // import Layout from '../components/Layout/Layout';
 // import Topbar from '../components/Topbar/Topbar';
