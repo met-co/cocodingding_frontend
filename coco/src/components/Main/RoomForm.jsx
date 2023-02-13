@@ -1,10 +1,21 @@
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Slider from 'react-slick';
 import CreateRoomButton from './CreateRoomButton';
+
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   // rooms 상태정의, setRooms 함수 정의
   const [rooms, setRooms] = useState([]);
   const [search, setSearch] = useState('');
@@ -56,6 +67,28 @@ export default function RoomForm() {
           </div>
         </StCreateRoomButton>
       </StSearch>
+      <div>
+        <Slider {...settings}>
+          <div>
+            <h3>1ss</h3>
+          </div>
+          <div>
+            <h3>2</h3>
+          </div>
+          <div>
+            <h3>3</h3>
+          </div>
+          <div>
+            <h3>4</h3>
+          </div>
+          <div>
+            <h3>5</h3>
+          </div>
+          <div>
+            <h3>6</h3>
+          </div>
+        </Slider>
+      </div>
       <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
@@ -84,19 +117,23 @@ const StSearch = styled.div`
   justify-content: center;
 `;
 
+// const StCreateRooms = styled.div`
+//   display: flex;
+//   /* overflow: scroll; */
+//   overflow-y: auto;
+//   //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
+//   &::-webkit-scrollbar {
+//     width: 4px;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background: transparent;
+//   }
+
+//   white-space: nowrap;
+// `;
 const StCreateRooms = styled.div`
   display: flex;
-  /* overflow: scroll; */
-  overflow-y: auto;
-  //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
-
-  white-space: nowrap;
+  justify-content: center;
 `;
 
 const StCreatedRoom = styled.div`

@@ -1,10 +1,10 @@
 import React from 'react';
-
 import axios from 'axios';
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
 
 import '../App.css';
+import Topbar from '../components/Topbar/Topbar';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -121,7 +121,9 @@ export default function SignUp() {
 
   return (
     <StwholeDiv>
+      <Topbar />
       <StSignupForm onSubmit={onSubmit}>
+        <h2>회원가입</h2>
         {/* <Simagelogo src={'img/logo-pink.png'} /> */}
         <StInput
           autoFocus
@@ -158,7 +160,7 @@ export default function SignUp() {
             {passwordMessage}
           </Stspan>
         )}
-        <StInputbottom
+        <StInput
           type='password'
           required
           onChange={onChangePasswordConfirm}
@@ -194,26 +196,30 @@ const StSignupForm = styled.form`
 `;
 const StInput = styled.input`
   border: 1px solid rgba(216, 216, 216);
-  height: 40px;
+  border-radius: 10px;
+  height: 50px;
   border-bottom: none;
   padding-left: 15px;
+  margin-top: 30px;
 `;
-const StInputbottom = styled.input`
-  border: 1px solid rgba(216, 216, 216);
-  height: 40px;
-  padding-left: 15px;
-`;
+
 const Stspan = styled.span`
   font-size: 15px;
 `;
 const Stbutton = styled.button`
+  border-radius: 10px;
+
   margin-top: 20px;
   border: none;
-  height: 40px;
+  height: 50px;
   color: white;
   font-weight: 700;
   background-color: rgba(215, 215, 215);
   cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 const StwholeDiv = styled.div`
   background-color: rgba(249, 249, 249);

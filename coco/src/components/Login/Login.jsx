@@ -83,31 +83,32 @@ export default function Login({ onClose }) {
             <div>
               <span className='error'>{error}</span>
             </div>
-
-            <StButton
-              type='submit'
-              // onClick={() => {
-              //   navigate(`/`);
-              //   window.location.reload();
-              // }}
-            >
-              로그인
-            </StButton>
-
-            <div>
+            <Stbuttonform>
               <StButton
-                onClick={() => {
-                  navigate('/SignUp');
-                }}
+                type='submit'
+                // onClick={() => {
+                //   navigate(`/`);
+                //   window.location.reload();
+                // }}
               >
-                회원가입
+                로그인
               </StButton>
-            </div>
+
+              <div>
+                <StButton
+                  onClick={() => {
+                    navigate('/SignUp');
+                  }}
+                >
+                  회원가입
+                </StButton>
+              </div>
+            </Stbuttonform>
           </form>
         </div>
 
-        <div>로그인후에 이용해주세요</div>
-        <h1>SNS계정 간편 로그인</h1>
+        <StDivider />
+        <h2>SNS계정 간편 로그인</h2>
         <div>
           <a href={KAKAO_AUTH_URL}>
             <img
@@ -165,6 +166,10 @@ const Stform = styled.div`
   align-items: center;
 `;
 
+const Stbuttonform = styled.div`
+  margin-top: 20px;
+`;
+
 const StInput = styled.input`
   width: 99%;
   height: 35px;
@@ -193,5 +198,5 @@ const StDivider = styled.hr`
   width: 100%;
   border: 0;
   border-top: 1px solid gray;
-  margin: 20px 0 40px 0;
+  margin: 50px 0 10px 0;
 `;
