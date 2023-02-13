@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import CreateRoomButton from './CreateRoomButton';
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
   // rooms 상태정의, setRooms 함수 정의
@@ -46,6 +47,14 @@ export default function RoomForm() {
             )
           )}
         </StCategorys>
+        <StCreateRoomButton>
+          <div>
+            <h2> 방에 참여해보세요.</h2>
+          </div>
+          <div>
+            <CreateRoomButton />
+          </div>
+        </StCreateRoomButton>
       </StSearch>
       <StCreateRooms>
         {filteredRooms.map((room) => (
@@ -71,7 +80,7 @@ export default function RoomForm() {
 const StSearch = styled.div`
   display: flex;
   flex-direction: column;
-
+  align-items: center;
   justify-content: center;
 `;
 
@@ -107,11 +116,9 @@ const StCreatedRoom = styled.div`
 `;
 
 const StCategorys = styled.div`
-  /* position: absolute;
-  top: 300px;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 const StCategory = styled.div`
@@ -129,12 +136,7 @@ const StCategory = styled.div`
 `;
 
 const StInput = styled.input`
-  /* position: absolute;
-  top: 220px;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-
-  width: 30vw;
+  width: 35%;
   height: 35px;
   border: solid 1px black;
   border-radius: 0.5rem;
@@ -153,4 +155,12 @@ const StButton = styled.button`
     background-color: black;
     color: white;
   }
+`;
+
+const StCreateRoomButton = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
 `;
