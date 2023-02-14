@@ -13,7 +13,7 @@ export default function RoomForm() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: true,
@@ -51,6 +51,9 @@ export default function RoomForm() {
     // 검색어 상태(search) 초기화
     setSearch('');
   };
+
+  //로그인여부
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
     <div>
@@ -113,7 +116,11 @@ export default function RoomForm() {
                 <div>
                   <StButton
                     onClick={() => {
-                      navigate(`/Detail/${room.id}`);
+                      if (isLoggedIn) {
+                        navigate(`/Detail/${room.id}`);
+                      } else {
+                        alert('로그인이 필요한 기능입니다.');
+                      }
                     }}
                   >
                     입장하기
