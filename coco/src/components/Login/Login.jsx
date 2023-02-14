@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -53,6 +53,13 @@ export default function Login({ onClose }) {
       }
     }
   }
+
+  useEffect(() => {
+    axios
+      .get('https://cocodingding.shop/user/login')
+      .then((res) => console.log(res))
+      .catch();
+  }, []);
 
   return (
     <StContainer>
@@ -128,13 +135,13 @@ const StContainer = styled.div`
   height: 500px;
 
   /* 최상단 위치 */
-  z-index: 9999;
+  z-index: 999;
 
   /* 중앙 배치 */
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
   /* translate는 본인의 크기 기준으로 작동한다. */
   position: absolute;
-  top: 700%;
+  top: 600%;
   left: 50%;
   transform: translate(-50%, -50%);
 

@@ -13,7 +13,9 @@ function Main() {
 
   return (
     <div>
-      <Topbar />
+      <StTopbar>
+        <Topbar />
+      </StTopbar>
       <Layout>
         <StTopContainer>
           <StTitle>
@@ -34,6 +36,10 @@ function Main() {
 
 export default Main;
 
+const StTopbar = styled.div`
+  z-index: 999;
+`;
+
 const StTopContainer = styled.div`
   margin-left: 2rem;
   margin-right: 2rem;
@@ -42,6 +48,7 @@ const StTopContainer = styled.div`
   align-items: stretch;
   justify-content: center;
   gap: 10px;
+  z-index: -1;
 `;
 
 const StTitle = styled.div`

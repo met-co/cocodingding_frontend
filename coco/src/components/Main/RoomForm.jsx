@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
@@ -26,7 +27,9 @@ export default function RoomForm() {
   useEffect(() => {
     async function fetchRooms() {
       // localhost:3001/rooms에서 데이터 가져오기
-      const response = await axios.get('http://localhost:3001/rooms');
+      const response = await axios.get('https://cocodingding.shop/chat/rooms');
+      // const response = await axios.get('http://localhost:3001/rooms');
+
       // 가져온 데이터를 rooms 상태에 넣기
       setRooms(response.data);
       console.log(response);
@@ -43,6 +46,12 @@ export default function RoomForm() {
     );
   }, [search, rooms]);
 
+  const selectCategory = (category) => {
+    setFilteredRooms(rooms.filter((room) => room.category === category));
+    // 검색어 상태(search) 초기화
+    setSearch('');
+  };
+
   return (
     <div>
       <StSearch>
@@ -55,7 +64,12 @@ export default function RoomForm() {
         <StCategorys>
           {Array.from(new Set(rooms.map((room) => room.category))).map(
             (category) => (
-              <StCategory key={category}>#{category}</StCategory>
+              <StCategory
+                key={category}
+                onClick={() => selectCategory(category)}
+              >
+                #{category}
+              </StCategory>
             )
           )}
         </StCategorys>
@@ -69,7 +83,7 @@ export default function RoomForm() {
         </StCreateRoomButton>
       </StSearch>
 
-      <StCreateRooms>
+      {/* <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
             <div>{room.roomName}</div>
@@ -86,9 +100,9 @@ export default function RoomForm() {
             </div>
           </StCreatedRoom>
         ))}
-      </StCreateRooms>
+      </StCreateRooms> */}
 
-      <div>
+      <StCreateRooms>
         <Slider {...settings}>
           {filteredRooms.map((room) => (
             <div key={room.id}>
@@ -109,7 +123,7 @@ export default function RoomForm() {
             </div>
           ))}
         </Slider>
-      </div>
+      </StCreateRooms>
     </div>
   );
 }
@@ -135,8 +149,7 @@ const StSearch = styled.div`
 //   white-space: nowrap;
 // `;
 const StCreateRooms = styled.div`
-  display: flex;
-  justify-content: center;
+  z-index: -1;
 `;
 
 const StCreatedRoom = styled.div`

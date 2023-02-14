@@ -8,18 +8,37 @@ import { KAKAO_AUTH_URL } from '../../shared/OAuth';
 
 // window.Kakao.init('2630b13acd7d87daf981d810de94858f');
 export default function MyPage({ onClose }) {
+  const [nickname, setNickname] = useState(localStorage.getItem('Nickname'));
+  const navigate = useNavigate();
+
+  const handleNicknameChange = (event) => {
+    setNickname(event.target.value);
+  };
+
+  const handleNicknameUpdate = () => {
+    axios
+      .post('https://cocodingding.shop/user/info', {
+        nickname: nickname,
+      })
+      .then((response) => {
+        localStorage.setItem('Nickname', nickname);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('Authorization');
+    navigate('/');
+    window.location.reload();
+  };
+
   const closeModal = () => {
     onClose();
   };
 
-  // const [cookies, setCookie] = useCookies(["token"]);
-  const navigate = useNavigate();
-  function handleLogout() {
-    const authorization = localStorage.getItem('Authorization');
-    localStorage.clear(authorization);
-    navigate('/');
-    window.location.reload();
-  }
   return (
     <StContainer>
       <StHeader>
@@ -29,8 +48,10 @@ export default function MyPage({ onClose }) {
       <StDivider />
       <StProfile>
         <div>프로필</div>
-        <div>{localStorage.getItem('Nickname')}</div>
-        <button>변경하기</button>
+        <div>
+          <input type='text' value={nickname} onChange={handleNicknameChange} />
+        </div>
+        <button onClick={handleNicknameUpdate}>변경하기</button>
       </StProfile>
 
       <StProfile>

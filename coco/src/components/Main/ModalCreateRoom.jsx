@@ -81,7 +81,7 @@ const StContainer = styled.div`
   width: 40vw;
   height: 40vh;
   /* 최상단 위치 */
-  z-index: 998;
+  z-index: 50;
   /* 중앙 배치 */
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
   /* translate는 본인의 크기 기준으로 작동한다. */

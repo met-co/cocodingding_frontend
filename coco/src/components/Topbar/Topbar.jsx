@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-//페이지컴포넌트
 import Login from '../Login/Login';
 import Layout from '../Layout/Layout';
 import MyPage from '../Login/MyPage';
 
 export default function Topbar() {
-  //로그인 버튼 클릭시.
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  //마이페이지 버튼 클릭시.
   const [isMyPageModalOpen, setIsMyPageModalOpen] = useState(false);
 
   const handleLoginModalOpen = () => {
@@ -26,18 +23,30 @@ export default function Topbar() {
   const handleMyPageModalClose = () => {
     setIsMyPageModalOpen(false);
   };
+
+  // 로그인 상태 판별
+  const isLoggedIn = !!localStorage.getItem('Authorization');
+
   return (
     <StContainer>
       <Layout>
         <StWrapBox>
           <StStudy>코코딩딩</StStudy>
           <StRight>
-            <StButton onClick={handleLoginModalOpen}>로그인</StButton>
-            {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
-          </StRight>
-          <StRight>
-            <StButton onClick={handleMyPageModalOpen}>마이페이지</StButton>
-            {isMyPageModalOpen && <MyPage onClose={handleMyPageModalClose} />}
+            {/* localStorage에 "Authorization"이 존재할때 "마이페이지", 존재하지않을때 "로그인"  */}
+            {isLoggedIn ? (
+              <>
+                <StButton onClick={handleMyPageModalOpen}>마이페이지</StButton>
+                {isMyPageModalOpen && (
+                  <MyPage onClose={handleMyPageModalClose} />
+                )}
+              </>
+            ) : (
+              <>
+                <StButton onClick={handleLoginModalOpen}>로그인</StButton>
+                {isLoginModalOpen && <Login onClose={handleLoginModalClose} />}
+              </>
+            )}
           </StRight>
         </StWrapBox>
       </Layout>
