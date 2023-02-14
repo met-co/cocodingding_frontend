@@ -10,6 +10,7 @@ import Layout from '../components/Layout/Layout';
 
 function Main() {
   // const rooms = useSelector((state) => state.room.rooms) || [];
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
     <div>
@@ -17,16 +18,30 @@ function Main() {
         <Topbar />
       </StTopbar>
       <Layout>
-        <StTopContainer>
-          <StTitle>
-            <h1>
-              안녕하세요, {localStorage.getItem('Nickname')}님! 오늘도 함께
-              공부해요.
-            </h1>
-          </StTitle>
+        {isLoggedIn ? (
+          <>
+            <StTopContainer>
+              <StTitle>
+                <h1>
+                  안녕하세요, {localStorage.getItem('Nickname')}님! 오늘도 함께
+                  공부해요.
+                </h1>
+              </StTitle>
 
-          <RoomForm />
-        </StTopContainer>
+              <RoomForm />
+            </StTopContainer>
+          </>
+        ) : (
+          <>
+            <StTopContainer>
+              <StTitle>
+                <h1>오늘도 함께 공부좀해요.^^</h1>
+              </StTitle>
+
+              <RoomForm />
+            </StTopContainer>
+          </>
+        )}
 
         <div>{/* 여기서 가로배치,, */}</div>
       </Layout>
