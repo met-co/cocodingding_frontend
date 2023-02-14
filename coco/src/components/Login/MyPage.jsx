@@ -15,6 +15,7 @@ export default function MyPage({ onClose }) {
     setNickname(event.target.value);
   };
 
+  // handleNicknameUpdate 함수: 사용자가 프로필 닉네임을 수정하는 경우 호출되는 함수입니다. Axios 라이브러리를 이용하여 서버에 닉네임을 업데이트하고, 성공적으로 업데이트되었다면 localStorage에 저장된 닉네임 값도 같이 변경하고 페이지를 새로고침합니다.
   const handleNicknameUpdate = () => {
     axios
       .post('https://cocodingding.shop/user/info', {

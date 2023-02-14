@@ -7,6 +7,7 @@ import Topbar from '../components/Topbar/Topbar';
 import CreateRoomButton from '../components/Main/CreateRoomButton';
 import RoomForm from '../components/Main/RoomForm';
 import Layout from '../components/Layout/Layout';
+import BottomBar from '../components/BottomBar/BottomBar';
 
 function Main() {
   // const rooms = useSelector((state) => state.room.rooms) || [];
@@ -35,16 +36,18 @@ function Main() {
           <>
             <StTopContainer>
               <StTitle>
-                <h1>오늘도 함께 공부좀해요.^^</h1>
+                <h1>함께 공부좀하시죠?</h1>
               </StTitle>
 
               <RoomForm />
             </StTopContainer>
           </>
         )}
-
-        <div>{/* 여기서 가로배치,, */}</div>
       </Layout>
+
+      <StBottom>
+        <BottomBar>{/* 여기서 가로배치,, */}</BottomBar>
+      </StBottom>
     </div>
   );
 }
@@ -83,4 +86,13 @@ const StRoomContainer = styled.div`
 
   margin-top: 120px;
   padding: 4rem;
+`;
+
+const StBottom = styled.div`
+  max-width: 1100px;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
 `;
