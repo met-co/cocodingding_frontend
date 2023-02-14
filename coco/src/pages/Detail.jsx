@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Layout from "../components/Layout/Layout";
-import Topbar from "../components/Topbar/Topbar";
-import styled from "styled-components";
+import React, { useState, useEffect, useCallback } from 'react';
+import Layout from '../components/Layout/Layout';
+import Topbar from '../components/Topbar/Topbar';
+import styled from 'styled-components';
 // import { OpenVidu } from 'openvidu-browser';
-import { useLocation } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 // import VideoRecord from "../components/videoRecord/VideoRecord";
-import axios from "axios";
-import Chat from "../components/Chat";
-
+import axios from 'axios';
+import Chat from '../components/Chat/Chat';
 export default function Detail() {
   return (
     <>
@@ -23,12 +22,6 @@ export default function Detail() {
     </>
   );
 }
-
-useEffect(() => {
-  // 시작과 종료를 알리는
-  joinSession();
-  return () => {};
-}, []);
 
 const StTitle = styled.div`
   margin-top: 40px;
