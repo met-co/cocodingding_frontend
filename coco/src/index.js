@@ -40,11 +40,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      {/* <CookiesProvider> */}
-      <RouterProvider router={router} />
-      {/* </CookiesProvider> */}
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    {/* <CookiesProvider> */}
+    <RouterProvider router={router} />
+    {/* </CookiesProvider> */}
+    {/* </React.StrictMode> */}
   </Provider>
 );
 
