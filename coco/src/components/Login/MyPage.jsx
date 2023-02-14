@@ -8,18 +8,38 @@ import { KAKAO_AUTH_URL } from '../../shared/OAuth';
 
 // window.Kakao.init('2630b13acd7d87daf981d810de94858f');
 export default function MyPage({ onClose }) {
+  const [nickname, setNickname] = useState(localStorage.getItem('Nickname'));
+  const navigate = useNavigate();
+
+  const handleNicknameChange = (event) => {
+    setNickname(event.target.value);
+  };
+
+  // handleNicknameUpdate 함수: 사용자가 프로필 닉네임을 수정하는 경우 호출되는 함수입니다. Axios 라이브러리를 이용하여 서버에 닉네임을 업데이트하고, 성공적으로 업데이트되었다면 localStorage에 저장된 닉네임 값도 같이 변경하고 페이지를 새로고침합니다.
+  const handleNicknameUpdate = () => {
+    axios
+      .post('https://cocodingding.shop/user/info', {
+        nickname: nickname,
+      })
+      .then((response) => {
+        localStorage.setItem('Nickname', nickname);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('Authorization');
+    navigate('/');
+    window.location.reload();
+  };
+
   const closeModal = () => {
     onClose();
   };
 
-  // const [cookies, setCookie] = useCookies(["token"]);
-  const navigate = useNavigate();
-  function handleLogout() {
-    const authorization = localStorage.getItem('Authorization');
-    localStorage.clear(authorization);
-    navigate('/');
-    window.location.reload();
-  }
   return (
     <StContainer>
       <StHeader>
@@ -29,8 +49,10 @@ export default function MyPage({ onClose }) {
       <StDivider />
       <StProfile>
         <div>프로필</div>
-        <div>{localStorage.getItem('Nickname')}</div>
-        <button>변경하기</button>
+        <div>
+          <input type='text' value={nickname} onChange={handleNicknameChange} />
+        </div>
+        <button onClick={handleNicknameUpdate}>변경하기</button>
       </StProfile>
 
       <StProfile>

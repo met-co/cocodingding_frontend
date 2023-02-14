@@ -1,15 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 /* Action Type */
 export const actionType = {
   room: {
-    POST_ROOM: "POST_ROOM",
+    POST_ROOM: 'POST_ROOM',
   },
 };
 
 const token =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNjc1ODQ3NjcxLCJpYXQiOjE2NzU4NDU4NzF9.lQ3prUwHeKg9Lhk4cU1Fv2SRIh83rkEvvpdVJGBYurg";
+  'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaSIsImF1dGgiOiJVU0VSIiwiZXhwIjoxNjc1ODQ3NjcxLCJpYXQiOjE2NzU4NDU4NzF9.lQ3prUwHeKg9Lhk4cU1Fv2SRIh83rkEvvpdVJGBYurg';
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
@@ -17,11 +17,11 @@ export const __createRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.post(
-        `http://15.164.232.210/main/rooms`,
+        `https://cocodingding.shop/detail/room`,
         payload,
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: token,
           },
         },
@@ -44,7 +44,7 @@ const initialState = {
 
 /* slice */
 const roomSlice = createSlice({
-  name: "room",
+  name: 'room',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -55,7 +55,7 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__createRoom.fulfilled, (state, action) => {
-        console.log("byebye");
+        console.log('byebye');
         state.isLoading = false;
         state.isSuccess = true;
       })

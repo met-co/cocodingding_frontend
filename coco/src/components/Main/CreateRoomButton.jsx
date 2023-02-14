@@ -6,11 +6,17 @@ export default function CreateRoomButton() {
   //메인페이지의 방만들기 버튼 -  클릭시 모달창 켜지고 꺼지는 기능만.
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleRoomModalOpen = () => {
-    setIsModalOpen(true);
+    if (isLoggedIn) {
+      setIsModalOpen(true);
+    } else {
+      alert('로그인 후 이용해주세요.');
+    }
   };
   const handleRoomModalClose = () => {
     setIsModalOpen(false);
   };
+  //로그인여부
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
     <div>

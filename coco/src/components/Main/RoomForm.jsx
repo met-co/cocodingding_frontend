@@ -1,10 +1,23 @@
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Slider from 'react-slick';
 import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
+
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: true,
+  };
   // rooms 상태정의, setRooms 함수 정의
   const [rooms, setRooms] = useState([]);
   const [search, setSearch] = useState('');
@@ -14,7 +27,9 @@ export default function RoomForm() {
   useEffect(() => {
     async function fetchRooms() {
       // localhost:3001/rooms에서 데이터 가져오기
+      // const response = await axios.get('https://cocodingding.shop/chat/rooms');
       const response = await axios.get('http://localhost:3001/rooms');
+
       // 가져온 데이터를 rooms 상태에 넣기
       setRooms(response.data);
       console.log(response);
@@ -31,6 +46,15 @@ export default function RoomForm() {
     );
   }, [search, rooms]);
 
+  const selectCategory = (category) => {
+    setFilteredRooms(rooms.filter((room) => room.category === category));
+    // 검색어 상태(search) 초기화
+    setSearch('');
+  };
+
+  //로그인여부
+  const isLoggedIn = !!localStorage.getItem('Authorization');
+
   return (
     <div>
       <StSearch>
@@ -43,7 +67,12 @@ export default function RoomForm() {
         <StCategorys>
           {Array.from(new Set(rooms.map((room) => room.category))).map(
             (category) => (
-              <StCategory key={category}>#{category}</StCategory>
+              <StCategory
+                key={category}
+                onClick={() => selectCategory(category)}
+              >
+                #{category}
+              </StCategory>
             )
           )}
         </StCategorys>
@@ -56,7 +85,8 @@ export default function RoomForm() {
           </div>
         </StCreateRoomButton>
       </StSearch>
-      <StCreateRooms>
+
+      {/* <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
             <div>{room.roomName}</div>
@@ -73,6 +103,33 @@ export default function RoomForm() {
             </div>
           </StCreatedRoom>
         ))}
+      </StCreateRooms> */}
+
+      <StCreateRooms>
+        <Slider {...settings}>
+          {filteredRooms.map((room) => (
+            <div key={room.id}>
+              <StCreatedRoom>
+                <div>{room.roomName}</div>
+                <div> 닉네임</div>
+                <div>#{room.category}</div>
+                <div>
+                  <StButton
+                    onClick={() => {
+                      if (isLoggedIn) {
+                        navigate(`/Detail/${room.id}`);
+                      } else {
+                        alert('로그인이 필요한 기능입니다.');
+                      }
+                    }}
+                  >
+                    입장하기
+                  </StButton>
+                </div>
+              </StCreatedRoom>
+            </div>
+          ))}
+        </Slider>
       </StCreateRooms>
     </div>
   );
@@ -84,19 +141,22 @@ const StSearch = styled.div`
   justify-content: center;
 `;
 
-const StCreateRooms = styled.div`
-  display: flex;
-  /* overflow: scroll; */
-  overflow-y: auto;
-  //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-  }
+// const StCreateRooms = styled.div`
+//   display: flex;
+//   /* overflow: scroll; */
+//   overflow-y: auto;
+//   //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
+//   &::-webkit-scrollbar {
+//     width: 4px;
+//   }
+//   &::-webkit-scrollbar-thumb {
+//     background: transparent;
+//   }
 
-  white-space: nowrap;
+//   white-space: nowrap;
+// `;
+const StCreateRooms = styled.div`
+  z-index: -1;
 `;
 
 const StCreatedRoom = styled.div`
