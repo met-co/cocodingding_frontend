@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Layout from '../components/Layout/Layout';
-import Topbar from '../components/Topbar/Topbar';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import Layout from "../components/Layout/Layout";
+import Topbar from "../components/Topbar/Topbar";
+import styled from "styled-components";
 // import { OpenVidu } from 'openvidu-browser';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 // import VideoRecord from "../components/videoRecord/VideoRecord";
-import axios from 'axios';
-import Chat from '../components/Chat/Chat';
+import axios from "axios";
+import Chat from "../components/Chat/Chat";
+import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
+
 export default function Detail() {
   return (
     <>
@@ -16,7 +18,12 @@ export default function Detail() {
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
-          <Chat />
+          <StVideoContainer>
+            <UserVideoComponent />
+          </StVideoContainer>
+          <StChatContainer>
+            <Chat />
+          </StChatContainer>
         </StContainer>
       </Layout>
     </>
@@ -33,4 +40,15 @@ const StContainer = styled.div`
   width: 100%;
   height: 70vh;
   margin-top: 50px;
+  display: flex;
+`;
+
+const StVideoContainer = styled.div`
+  width: 70%;
+  height: 100%;
+  background-color: aliceblue;
+`;
+
+const StChatContainer = styled.div`
+  width: 30%;
 `;

@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { activateApp } from "wd/lib/commands";
 
 /* Action Type */
 export const actionType = {
@@ -20,6 +19,7 @@ export const __createRoom = createAsyncThunk(
       const result = await axios.post(
         `https://cocodingding.shop/chat/rooms`,
         console.log("hi"),
+
         {
           headers: {
             "Content-Type": "application/json",

@@ -1,12 +1,12 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Slider from 'react-slick';
-import CreateRoomButton from './CreateRoomButton';
-import Topbar from '../Topbar/Topbar';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Slider from "react-slick";
+import CreateRoomButton from "./CreateRoomButton";
+import Topbar from "../Topbar/Topbar";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
@@ -20,15 +20,15 @@ export default function RoomForm() {
   };
   // rooms 상태정의, setRooms 함수 정의
   const [rooms, setRooms] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filteredRooms, setFilteredRooms] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchRooms() {
       // localhost:3001/rooms에서 데이터 가져오기
-      // const response = await axios.get('https://cocodingding.shop/chat/rooms');
-      const response = await axios.get('http://localhost:3001/rooms');
+      const response = await axios.get("https://cocodingding.shop/chat/rooms");
+      // const response = await axios.get('http://localhost:3001/rooms');
 
       // 가져온 데이터를 rooms 상태에 넣기
       setRooms(response.data);
@@ -49,18 +49,18 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch('');
+    setSearch("");
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem('Authorization');
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   return (
     <div>
       <StSearch>
         <StInput
-          type='text'
-          placeholder='참여하고싶은 방을 찾아보세요'
+          type="text"
+          placeholder="참여하고싶은 방을 찾아보세요"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -117,9 +117,9 @@ export default function RoomForm() {
                   <StButton
                     onClick={() => {
                       if (isLoggedIn) {
-                        navigate(`/Detail/${room.id}`);
+                        navigate(`/Detail/${room.roomId}`);
                       } else {
-                        alert('로그인이 필요한 기능입니다.');
+                        alert("로그인이 필요한 기능입니다.");
                       }
                     }}
                   >
