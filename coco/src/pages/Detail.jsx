@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 // import VideoRecord from "../components/videoRecord/VideoRecord";
 import axios from 'axios';
-import Chat from '../components/Chat/Chat';
+// import Chat from '../components/Chat/Chat';
+import ChatRoom from '../components/Chat/ChatRoom';
 export default function Detail() {
   return (
     <>
@@ -16,7 +17,8 @@ export default function Detail() {
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
-          <Chat />
+          {/* <Chat /> */}
+          <ChatRoom />
         </StContainer>
       </Layout>
     </>
