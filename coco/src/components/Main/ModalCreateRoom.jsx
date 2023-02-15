@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addRoom } from '../../redux/modules/roomSlice';
-import { __createRoom } from '../../redux/modules/roomSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../../redux/modules/roomSlice";
+import { __createRoom } from "../../redux/modules/roomSlice";
+import { useNavigate } from "react-router-dom";
 
 function ModalCreateRoom({ onClose }) {
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ function ModalCreateRoom({ onClose }) {
   };
 
   const [post, setPost] = useState({
-    category: '',
-    title: '',
+    category: "",
+    roomName: "",
   });
 
   const handleChange = (evnet) => {
@@ -28,7 +28,7 @@ function ModalCreateRoom({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(__createRoom(post));
-    navigate('/');
+    navigate("/");
   };
 
   // const handleSelectChange = (e) => {
@@ -50,16 +50,16 @@ function ModalCreateRoom({ onClose }) {
         <div>
           <h3>방이름</h3>
           <StInput
-            type='text'
-            placeholder='여기에 입력합니다.'
+            type="text"
+            placeholder="여기에 입력합니다."
             value={post.title}
-            name='title'
+            name="roomName"
             onChange={handleChange}
           />
         </div>
 
         <h3>카테고리</h3>
-        <StSelect value={post.category} name='category' onChange={handleChange}>
+        <StSelect value={post.category} name="category" onChange={handleChange}>
           <option>코딩</option>
           <option>수학</option>
           <option>심리학</option>
@@ -68,7 +68,7 @@ function ModalCreateRoom({ onClose }) {
         </StSelect>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
-          <StButton type='submit'>방만들기</StButton>
+          <StButton type="submit">방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
