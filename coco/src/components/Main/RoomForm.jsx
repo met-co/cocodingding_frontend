@@ -7,9 +7,21 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import CreateRoomButton from "./CreateRoomButton";
 import Topbar from "../Topbar/Topbar";
+import { useDispatch, useSelector } from "react-redux";
+import { __getRoom } from "../../redux/modules/roomSlice";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(__getRoom());
+  }, [dispatch]);
+
+  const { rooms } = useSelector((state) => state.room);
+  console.log(rooms);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -19,24 +31,23 @@ export default function RoomForm() {
     arrows: true,
   };
   // rooms 상태정의, setRooms 함수 정의
-  const [rooms, setRooms] = useState([]);
+  // const [rooms, setRooms] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredRooms, setFilteredRooms] = useState([]);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchRooms() {
-      // localhost:3001/rooms에서 데이터 가져오기
-      const response = await axios.get("https://cocodingding.shop/chat/rooms");
-      // const response = await axios.get('http://localhost:3001/rooms');
+  // useEffect(() => {
+  //   async function fetchRooms() {
+  //     // localhost:3001/rooms에서 데이터 가져오기
+  //     const response = await axios.get("https://cocodingding.shop/chat/rooms");
+  //     // const response = await axios.get('http://localhost:3001/rooms');
 
-      // 가져온 데이터를 rooms 상태에 넣기
-      setRooms(response.data);
-      console.log(response);
-    }
-    // 함수 호출
-    fetchRooms();
-  }, []);
+  //     // 가져온 데이터를 rooms 상태에 넣기
+  //     setRooms(response.data);
+  //     console.log(response);
+  //   }
+  //   // 함수 호출
+  //   fetchRooms();
+  // }, []);
 
   useEffect(() => {
     setFilteredRooms(
@@ -85,7 +96,6 @@ export default function RoomForm() {
           </div>
         </StCreateRoomButton>
       </StSearch>
-
       {/* <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
@@ -104,7 +114,6 @@ export default function RoomForm() {
           </StCreatedRoom>
         ))}
       </StCreateRooms> */}
-
       <StCreateRooms>
         <Slider {...settings}>
           {filteredRooms.map((room) => (
@@ -117,7 +126,7 @@ export default function RoomForm() {
                   <StButton
                     onClick={() => {
                       if (isLoggedIn) {
-                        navigate(`/Detail/${room.roomId}`);
+                        navigate(`/detail/${room.id}`);
                       } else {
                         alert("로그인이 필요한 기능입니다.");
                       }
@@ -130,7 +139,7 @@ export default function RoomForm() {
             </div>
           ))}
         </Slider>
-      </StCreateRooms>
+      </StCreateRooms>{" "}
     </div>
   );
 }

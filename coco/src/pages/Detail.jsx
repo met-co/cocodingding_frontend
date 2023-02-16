@@ -18,12 +18,10 @@ export default function Detail() {
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
-          <StVideoContainer>
-            <UserVideoComponent />
-          </StVideoContainer>
-          <StChatContainer>
+          <StVideoContainer>{/* <UserVideoComponent /> */}</StVideoContainer>
+          {/* <StChatContainer>
             <Chat />
-          </StChatContainer>
+          </StChatContainer> */}
         </StContainer>
       </Layout>
     </>

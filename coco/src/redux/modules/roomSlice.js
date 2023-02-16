@@ -5,6 +5,7 @@ import axios from "axios";
 export const actionType = {
   room: {
     POST_ROOM: "POST_ROOM",
+    GET_ROOM: "GET_ROOM",
   },
 };
 
@@ -39,6 +40,30 @@ export const __createRoom = createAsyncThunk(
   }
 );
 
+/* 방 전체 조회 GET */
+export const __getRoom = createAsyncThunk(
+  actionType.room.GET_ROOM,
+  async (payload, thunkAPI) => {
+    try {
+      console.log("123");
+      const result = await axios.get(
+        `https://cocodingding.shop/chat/rooms`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(result.data);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 /* initial state */
 const initialState = {
   rooms: [],
@@ -65,6 +90,22 @@ const roomSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(__createRoom.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // 방 전체 조회하기
+      .addCase(__getRoom.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(__getRoom.fulfilled, (state, action) => {
+        console.log("byebye");
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.rooms = action.payload;
+      })
+      .addCase(__getRoom.rejected, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.error = action.payload;
