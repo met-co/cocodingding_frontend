@@ -49,7 +49,7 @@ const Chat = () => {
   const handleEnterPress = (e) => {
     if (e.keyCode === 13 && e.shiftKey == false) {
       window.scrollTo(0, 0);
-      // sendMessage();
+      //   sendMessage();
     }
   };
 
