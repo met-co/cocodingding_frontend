@@ -27,8 +27,8 @@ export default function RoomForm() {
   useEffect(() => {
     async function fetchRooms() {
       // localhost:3001/rooms에서 데이터 가져오기
-      // const response = await axios.get('https://cocodingding.shop/chat/rooms');
-      const response = await axios.get('http://localhost:3001/rooms');
+      const response = await axios.get('https://cocodingding.shop/chat/rooms');
+      // const response = await axios.get('http://localhost:3001/rooms');
 
       // 가져온 데이터를 rooms 상태에 넣기
       setRooms(response.data);
