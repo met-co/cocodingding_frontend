@@ -1,14 +1,14 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Slider from "react-slick";
-import CreateRoomButton from "./CreateRoomButton";
-import Topbar from "../Topbar/Topbar";
-import { useDispatch, useSelector } from "react-redux";
-import { __getRoom } from "../../redux/modules/roomSlice";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getRoom } from '../../redux/modules/roomSlice';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
@@ -32,7 +32,7 @@ export default function RoomForm() {
   };
   // rooms 상태정의, setRooms 함수 정의
   // const [rooms, setRooms] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
 
   // useEffect(() => {
@@ -60,18 +60,18 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch("");
+    setSearch('');
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
     <div>
       <StSearch>
         <StInput
-          type="text"
-          placeholder="참여하고싶은 방을 찾아보세요"
+          type='text'
+          placeholder='참여하고싶은 방을 찾아보세요'
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -128,7 +128,7 @@ export default function RoomForm() {
                       if (isLoggedIn) {
                         navigate(`/detail/${room.id}`);
                       } else {
-                        alert("로그인이 필요한 기능입니다.");
+                        alert('로그인이 필요한 기능입니다.');
                       }
                     }}
                   >
@@ -139,7 +139,7 @@ export default function RoomForm() {
             </div>
           ))}
         </Slider>
-      </StCreateRooms>{" "}
+      </StCreateRooms>{' '}
     </div>
   );
 }
