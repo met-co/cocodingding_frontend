@@ -32,6 +32,8 @@ export default function MyPage({ onClose }) {
 
   const handleLogout = () => {
     localStorage.removeItem('Authorization');
+    localStorage.removeItem('Access');
+    localStorage.removeItem('Refresh');
     navigate('/');
     window.location.reload();
   };

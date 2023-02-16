@@ -40,12 +40,16 @@ export default function Login({ onClose }) {
             'Authorization',
             res.headers.get('Authorization')
           );
+          localStorage.setItem('Access', res.headers.get('Access'));
+          localStorage.setItem('Refresh', res.headers.get('Refresh'));
+
           console.log('로그인정보', res);
           const nickname = res.data.nickname;
           console.log(nickname);
           localStorage.setItem('Nickname', nickname);
         });
       navigate(`/`);
+      alert('로그인성공');
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 400) {
