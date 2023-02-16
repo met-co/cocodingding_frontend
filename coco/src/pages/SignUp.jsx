@@ -103,12 +103,20 @@ export default function SignUp() {
         await axios({
           method: 'post',
           url: ' https://cocodingding.shop/user/signup',
-          data: { nickname: nickname, email: email, password: password },
+          data: {
+            userNickname: nickname,
+            userEmail: email,
+            userPassword: password,
+          },
         }).then((res) => {
           console.log('response:', res);
           if (res.status === 200) {
             alert('회원가입이 완료되었습니다');
-            console.log('User profile', res.data.nickname, res.data.email);
+            console.log(
+              'User profile',
+              res.data.userNickname,
+              res.data.userEmail
+            );
             window.location.replace('/');
           }
         });

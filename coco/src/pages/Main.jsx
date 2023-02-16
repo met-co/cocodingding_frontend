@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 //컴포넌트
 
-import Topbar from "../components/Topbar/Topbar";
-import CreateRoomButton from "../components/Main/CreateRoomButton";
-import RoomForm from "../components/Main/RoomForm";
-import Layout from "../components/Layout/Layout";
-import BottomBar from "../components/BottomBar/BottomBar";
-import __getRoom from "../redux/modules/roomSlice";
+import Topbar from '../components/Topbar/Topbar';
+import CreateRoomButton from '../components/Main/CreateRoomButton';
+import RoomForm from '../components/Main/RoomForm';
+import Layout from '../components/Layout/Layout';
+import BottomBar from '../components/BottomBar/BottomBar';
+import __getRoom from '../redux/modules/roomSlice';
 
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
   const dispatch = useDispatch();
 
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
     <div>
@@ -27,8 +27,8 @@ const Main = () => {
             <StTopContainer>
               <StTitle>
                 <h1>
-                  안녕하세요, {localStorage.getItem("Nickname")}님! 오늘도 함께
-                  공부해요.
+                  안녕하세요, {localStorage.getItem('userNickname')}님! 오늘도
+                  함께 공부해요.
                 </h1>
               </StTitle>
 

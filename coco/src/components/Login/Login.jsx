@@ -12,8 +12,8 @@ export default function Login({ onClose }) {
     onClose();
   };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userEmail, setuserEmail] = useState('');
+  const [userPassword, setuserPassword] = useState('');
   const [error, setError] = useState('');
   // const [cookies, setCookie] = useCookies(["token"]);
   const navigate = useNavigate();
@@ -22,17 +22,17 @@ export default function Login({ onClose }) {
     event.preventDefault();
 
     // Client-side validation- 둘 중 하나가 공란일 때
-    if (!email || !password) {
+    if (!userEmail || !userPassword) {
       setError('이메일과 패스워드를 모두 입력해주세요!');
       return;
     }
     try {
-      // 서버에 email, password를 보내서 요청
+      // 서버에 userEmail, userPassword를 보내서 요청
 
       await axios
         .post('https://cocodingding.shop/user/login', {
-          email,
-          password,
+          userEmail,
+          userPassword,
         })
         .then((res) => {
           console.log(res);
@@ -44,9 +44,9 @@ export default function Login({ onClose }) {
           localStorage.setItem('Refresh', res.headers.get('Refresh'));
 
           console.log('로그인정보', res);
-          const nickname = res.data.nickname;
-          console.log(nickname);
-          localStorage.setItem('Nickname', nickname);
+          const userNickname = res.data.userNickname;
+          console.log(userNickname);
+          localStorage.setItem('userNickname', userNickname);
         });
       navigate(`/`);
       alert('로그인성공');
@@ -81,15 +81,15 @@ export default function Login({ onClose }) {
               // required
               autoFocus
               placeholder='이메일 주소 입력(필수)'
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={userEmail}
+              onChange={(event) => setuserEmail(event.target.value)}
             />
             <StInput
               // required
-              type='password'
+              type='Password'
               placeholder='비밀번호 입력(필수)'
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={userPassword}
+              onChange={(event) => setuserPassword(event.target.value)}
             />
             <div>
               <span className='error'>{error}</span>
