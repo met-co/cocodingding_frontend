@@ -1,55 +1,105 @@
-import styled from 'styled-components';
-import { React, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
+// import React, { useEffect, useRef, useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import styled from 'styled-components';
+// import { io } from 'socket.io-client';
+// import { useParams } from 'react-router-dom';
+// import { addMessage, setMessages } from '../../store/chatSlice';
 
-import { subMessage } from '../../redux/modules/socketSlice';
+// const ENDPOINT = 'https://cocodingding.shop/chat';
 
-// import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
+// const StChatRoom = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   height: 100%;
+// `;
 
-const Chat = () => {
-  const myEmail = localStorage.getItem('userEmail');
-  const Myname = localStorage.getItem('userNickname');
-  const chatRef = useRef('');
+// const StChatBox = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-end;
+//   align-items: center;
+//   width: 50%;
+//   height: 60vh;
+//   border: 1px solid black;
+//   overflow-y: scroll;
+// `;
 
-  // const navigate = useNavigate();
-  const { chatRoomId } = useParams();
-  const dispatch = useDispatch();
-  console.log(chatRoomId);
+// const StMessageBox = styled.div`
+//   display: flex;
+//   justify-content: ${(props) =>
+//     props.isMine ? 'flex-end' : 'flex-start'};
+//   width: 80%;
+//   margin-bottom: 1rem;
+// `;
 
-  const [message, setMessage] = useState('');
+// const StMessageText = styled.div`
+//   display: inline-block;
+//   position: relative;
+//   max-width: 70%;
+//   padding: 1rem;
+//   border-radius: 0.5rem;
+//   background-color: ${(props) => (props.isMine ? '#b2dffc' : '#f2f2f2')};
+// `;
 
-  const sock = new SockJS('https://iamhyunjun.shop/ws-stomp');
-  const client = Stomp.over(sock);
+// const StMessageInfo = styled.div`
+//   font-size: 0.6rem;
+//   position: absolute;
+//   right: ${(props) => (props.isMine ? '0' : 'auto')};
+//   bottom: 0;
+// `;
 
-  const headers = {
-    Authorization: localStorage.getItem('token'),
-  };
+// const StMessageInputForm = styled.form`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 50%;
+//   height: 10vh;
+// `;
 
-  const { chatcollect } = useSelector((state) => state.chatcollect);
-  console.log(chatcollect);
-  const { messages } = useSelector((state) => state.messages);
+// const StMessageInput = styled.input`
+//   width: 80%;
+//   height: 3rem;
+//   font-size: 1rem;
+//   padding-left: 1rem;
+//   border-radius: 0.5rem;
+// `;
 
-  // const users = useSelector((state) => state.chat.users);
-  // const chatRoom = useSelector((state) => state.chat.chatRoom);
+// const StMessageSubmitButton = styled.button`
+//   width: 20%;
+//   height: 3rem;
+//   font-size: 1rem;
+//   border: none;
+//   border-radius: 0.5rem;
+//   background-color: #b2dffc;
+//   color: white;
+// `;
 
-  // // 방정보 가져오기
-  // useEffect(() => {
-  //   dispatch(getChatRoom());
-  // }, []);
+// export default function Chat() {
+//   const dispatch = useDispatch();
+//   const { roomId } = useParams();
+//   const [message, setMessage] = useState('');
+//   const messagesEndRef = useRef(null);
+//   const messages = useSelector((state) => state.chat.messages);
 
-  // // 이전 채팅 내용 가져오기
-  // useEffect(() => {
-  //   dispatch(getMessage());
-  // }, []);
+//   useEffect(() => {
+//     // 처음에 room id로 채팅 내역 불러오기
+//     async function fetchMessages() {
+//       const response = await fetch(
+//         `https://cocodingding.shop/chat/rooms/${roomId}`
+//       );
+//       const data = await response.json();
+//       dispatch(setMessages(data));
+//     }
+//     fetchMessages();
+//   }, [roomId, dispatch]);
 
   // 채팅 엔터키/shif+enter 막기
   const handleEnterPress = (e) => {
     if (e.keyCode === 13 && e.shiftKey == false) {
       window.scrollTo(0, 0);
-      //   sendMessage();
+      // sendMessage();
     }
   };
 

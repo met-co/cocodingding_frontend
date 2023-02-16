@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { axiosInstance } from '../config/axiosInstance';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { axiosInstance } from "../config/axiosInstance";
 
 const initialState = {
   socket: [],
@@ -10,13 +10,13 @@ const initialState = {
 
 const config = {
   headers: {
-    Authorization: localStorage.getItem('token'),
+    Authorization: localStorage.getItem("token"),
   },
 };
 
 //메시지 불러오기
 export const getMessage = createAsyncThunk(
-  'get/chat',
+  "get/chat",
   async (payload, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get(``, {});
@@ -29,10 +29,10 @@ export const getMessage = createAsyncThunk(
 
 //채팅방 전체 불러오기
 export const getChatRoom = createAsyncThunk(
-  'get/chatroom',
+  "get/chatroom",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.get('', {});
+      const response = await axiosInstance.get("", {});
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -41,7 +41,7 @@ export const getChatRoom = createAsyncThunk(
 );
 
 export const socketSlice = createSlice({
-  name: 'socket',
+  name: "socket",
   initialState,
   reducers: {
     subMessage(state, action) {
