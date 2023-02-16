@@ -17,8 +17,7 @@ export default function Detail() {
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
-          {' '}
-          <Chat />{' '}
+          <Chat />
         </StContainer>
       </Layout>
     </>
