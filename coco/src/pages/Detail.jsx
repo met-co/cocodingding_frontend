@@ -20,9 +20,9 @@ export default function Detail() {
         </StTitle>
         <StContainer>
           <StVideoContainer>{/* <UserVideoComponent /> */}</StVideoContainer>
-          {/* <StChatContainer>
+          <StChatContainer>
             <Chat />
-          </StChatContainer> */}
+          </StChatContainer>
         </StContainer>
       </Layout>
     </>
