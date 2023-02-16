@@ -7,8 +7,18 @@ import chatcollect from '../modules/chatSlice';
 import socket from '../modules/socketSlice';
 import messages from '../modules/socketSlice';
 
+//여기부터 지석이의 코드~
+
+import chatSlice from '../modules/chatSlice';
 const store = configureStore({
-  reducer: { room, LoginSlice, chatcollect, socket, messages },
+  reducer: {
+    room,
+    LoginSlice,
+    chatcollect,
+    socket,
+    messages,
+    chatSlice,
+  },
 });
 
 export default store;

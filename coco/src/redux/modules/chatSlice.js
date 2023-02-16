@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { axiosInstance } from "../config/axiosInstance";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { axiosInstance } from '../config/axiosInstance';
 
 const initialState = {
   chatcollect: [
     {
       chatRoomId: 1,
-      createdAt: "",
-      modifiedAt: "",
-      friendNickname: "",
-      message: "",
+      createdAt: '',
+      modifiedAt: '',
+      friendNickname: '',
+      message: '',
     },
   ],
   error: null,
@@ -17,18 +17,18 @@ const initialState = {
 
 const config = {
   headers: {
-    Authorization: localStorage.getItem("token"),
+    Authorization: localStorage.getItem('token'),
   },
 };
 
 // 채팅방 생성 post
 export const __postChatopenThunk = createAsyncThunk(
-  "CHAT_OPEN",
+  'CHAT_OPEN',
   async (payload, thunkAPI) => {
     try {
       console.log(1111, payload);
       const friendEmail = payload[0];
-      const Request = await axiosInstance.post("/chats", {
+      const Request = await axiosInstance.post('/chats', {
         config,
         friendEmail,
       });
@@ -42,10 +42,10 @@ export const __postChatopenThunk = createAsyncThunk(
 
 // 전체 채팅 GET요청
 export const __getChatListThunk = createAsyncThunk(
-  "GET_CHATS",
+  'GET_CHATS',
   async (_, thunkAPI) => {
     try {
-      const Request = await axiosInstance.get("/chats", config);
+      const Request = await axiosInstance.get('/chats', config);
       return thunkAPI.fulfillWithValue(Request.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
@@ -55,7 +55,7 @@ export const __getChatListThunk = createAsyncThunk(
 
 // 채팅리스트에서 채팅방 삭제요청
 export const __removeChatListThunk = createAsyncThunk(
-  "REMOVE_CHAT",
+  'REMOVE_CHAT',
   async (payload, thunkAPI) => {
     try {
       const chatRoomId = payload;
@@ -73,7 +73,7 @@ export const __removeChatListThunk = createAsyncThunk(
 );
 
 export const chatSlice = createSlice({
-  name: "chatcollect",
+  name: 'chatcollect',
   initialState,
   reducers: {},
   extraReducers: {
