@@ -3,11 +3,10 @@ import Layout from '../components/Layout/Layout';
 import Topbar from '../components/Topbar/Topbar';
 import styled from 'styled-components';
 // import { OpenVidu } from 'openvidu-browser';
-import { useLocation } from 'react-router-dom';
 // import VideoRecord from "../components/videoRecord/VideoRecord";
-import axios from 'axios';
-// import Chat from '../components/Chat/Chat';
-import ChatRoom from '../components/Chat/ChatRoom';
+
+import Chat from '../components/Chat/Chat';
+// import ChatRoom from '../components/Chat/ChatRoom';
 export default function Detail() {
   return (
     <>
@@ -17,8 +16,8 @@ export default function Detail() {
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
-          {/* <Chat /> */}
-          <ChatRoom />
+          <Chat />
+          {/* <ChatRoom /> */}
         </StContainer>
       </Layout>
     </>
