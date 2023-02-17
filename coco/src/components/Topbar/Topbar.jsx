@@ -3,8 +3,11 @@ import styled from 'styled-components';
 import Login from '../Login/Login';
 import Layout from '../Layout/Layout';
 import MyPage from '../Login/MyPage';
+import { useNavigate } from 'react-router-dom';
 
 export default function Topbar() {
+  const navigate = useNavigate();
+
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMyPageModalOpen, setIsMyPageModalOpen] = useState(false);
 
@@ -31,7 +34,14 @@ export default function Topbar() {
     <StContainer>
       <Layout>
         <StWrapBox>
-          <StStudy>코코딩딩</StStudy>
+          <StStudy
+            onClick={() => {
+              navigate(`/`);
+              window.location.reload();
+            }}
+          >
+            코코딩딩
+          </StStudy>
           <StRight>
             {/* localStorage에 "Authorization"이 존재할때 "마이페이지", 존재하지않을때 "로그인"  */}
             {isLoggedIn ? (

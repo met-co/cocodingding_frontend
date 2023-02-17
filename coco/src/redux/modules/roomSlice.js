@@ -11,8 +11,10 @@ export const actionType = {
   },
 };
 
-const token =
-  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NTU3OTQzLCJpYXQiOjE2NzY1NTQzNDN9.EsalSKl-CYEj99oHhVF_gClIfYeUq0cZkxPPNWFtuH0WO8cRmXw0mFmPnS2LqAfGxPhDRSN3Wq7PmpCWq4K8Yg";
+const token = `${localStorage.getItem("Authorization")}`;
+
+// const token =
+//   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaWhpIiwiZXhwIjoxNjc2NDQ0ODI5LCJpYXQiOjE2NzY0NDMwMjl9.BZ7oeJvMZCtvyTfuLmPTu3UpXhczsXVhbEmGJLoBRvw';
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
@@ -135,6 +137,8 @@ const roomSlice = createSlice({
         console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
+
+        window.location.reload();
       })
       .addCase(__createRoom.rejected, (state, action) => {
         state.isSuccess = false;

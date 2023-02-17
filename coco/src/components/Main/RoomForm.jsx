@@ -133,7 +133,7 @@ export default function RoomForm() {
           </div>
         </StCreateRoomButton>
       </StSearch>
-      {/* <StCreateRooms>
+      <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
             <div>{room.roomName}</div>
@@ -142,7 +142,11 @@ export default function RoomForm() {
             <div>
               <StButton
                 onClick={() => {
-                  navigate(`/Detail/${room.id}`);
+                  if (isLoggedIn) {
+                    navigate(`/detail/${room.id}`);
+                  } else {
+                    alert("로그인이 필요한 기능입니다.");
+                  }
                 }}
               >
                 입장하기
@@ -150,39 +154,7 @@ export default function RoomForm() {
             </div>
           </StCreatedRoom>
         ))}
-      </StCreateRooms> */}
-      <StCreateRooms>
-        <Slider {...settings}>
-          {filteredRooms.map((room) => (
-            <div key={room.id}>
-              <StCreatedRoom>
-                <div>{room.roomName}</div>
-                <div> 닉네임</div>
-                <div>#{room.category}</div>
-                <div>
-                  <StButton
-                    onClick={() => {
-                      handleEnter();
-                      if (isLoggedIn) {
-                        navigate(`/detail/${room.id}`, {
-                          state: {
-                            token: token,
-                            sessionId: sessionid,
-                          },
-                        });
-                      } else {
-                        alert("로그인이 필요한 기능입니다.");
-                      }
-                    }}
-                  >
-                    입장하기
-                  </StButton>
-                </div>
-              </StCreatedRoom>
-            </div>
-          ))}
-        </Slider>
-      </StCreateRooms>{" "}
+      </StCreateRooms>
     </div>
   );
 }
@@ -193,22 +165,18 @@ const StSearch = styled.div`
   justify-content: center;
 `;
 
-// const StCreateRooms = styled.div`
-//   display: flex;
-//   /* overflow: scroll; */
-//   overflow-y: auto;
-//   //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
-//   &::-webkit-scrollbar {
-//     width: 4px;
-//   }
-//   &::-webkit-scrollbar-thumb {
-//     background: transparent;
-//   }
-
-//   white-space: nowrap;
-// `;
 const StCreateRooms = styled.div`
-  z-index: -1;
+  display: flex;
+  flex-wrap: wrap;
+  /* overflow: scroll;
+  overflow-y: auto;
+  //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  } */
 `;
 
 const StCreatedRoom = styled.div`
