@@ -91,6 +91,8 @@ const roomSlice = createSlice({
         console.log('byebye');
         state.isLoading = false;
         state.isSuccess = true;
+
+        window.location.reload();
       })
       .addCase(__createRoom.rejected, (state, action) => {
         state.isSuccess = false;
