@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { BsBroadcast } from 'react-icons/bs';
 //컴포넌트
 
 import Topbar from '../components/Topbar/Topbar';
@@ -31,7 +32,7 @@ const Main = () => {
                   함께 공부해요.
                 </h1>
               </StTitle>
-
+              <BsBroadcast />
               <RoomForm />
             </StTopContainer>
           </>

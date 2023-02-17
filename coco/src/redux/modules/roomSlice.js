@@ -9,8 +9,10 @@ export const actionType = {
   },
 };
 
-const token =
-  'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaWhpIiwiZXhwIjoxNjc2NDQ0ODI5LCJpYXQiOjE2NzY0NDMwMjl9.BZ7oeJvMZCtvyTfuLmPTu3UpXhczsXVhbEmGJLoBRvw';
+const token = `${localStorage.getItem('Authorization')}`;
+
+// const token =
+//   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaWhpIiwiZXhwIjoxNjc2NDQ0ODI5LCJpYXQiOjE2NzY0NDMwMjl9.BZ7oeJvMZCtvyTfuLmPTu3UpXhczsXVhbEmGJLoBRvw';
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
