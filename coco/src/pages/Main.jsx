@@ -94,9 +94,7 @@ const StRoomContainer = styled.div`
 
 const StBottom = styled.div`
   max-width: 1100px;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   width: 100%;
+  display: flex;
+  justify-content: center;
 `;

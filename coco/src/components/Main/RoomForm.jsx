@@ -156,8 +156,9 @@ const StSearch = styled.div`
 
 const StCreateRooms = styled.div`
   display: flex;
-  /* overflow: scroll; */
-  /* overflow-y: auto;
+  flex-wrap: wrap;
+  /* overflow: scroll;
+  overflow-y: auto;
   //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
   &::-webkit-scrollbar {
     width: 4px;
@@ -165,8 +166,6 @@ const StCreateRooms = styled.div`
   &::-webkit-scrollbar-thumb {
     background: transparent;
   } */
-
-  white-space: nowrap;
 `;
 
 const StCreatedRoom = styled.div`
