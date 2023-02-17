@@ -99,24 +99,26 @@ export default function RoomForm() {
   return (
     <div>
       <StSearch>
-        <StInput
-          type='text'
-          placeholder='참여하고싶은 방을 찾아보세요'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <StCategorys>
-          {Array.from(new Set(rooms.map((room) => room.category))).map(
-            (category) => (
-              <StCategory
-                key={category}
-                onClick={() => selectCategory(category)}
-              >
-                #{category}
-              </StCategory>
-            )
-          )}
-        </StCategorys>
+        <StBackground>
+          <StInput
+            type='text'
+            placeholder='참여하고싶은 방을 찾아보세요'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <StCategorys>
+            {Array.from(new Set(rooms.map((room) => room.category))).map(
+              (category) => (
+                <StCategory
+                  key={category}
+                  onClick={() => selectCategory(category)}
+                >
+                  #{category}
+                </StCategory>
+              )
+            )}
+          </StCategorys>
+        </StBackground>
 
         {/* 명언 */}
         <StWisdom>{wisdom}</StWisdom>
@@ -162,6 +164,16 @@ const StSearch = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const StBackground = styled.div`
+  background-color: #ffe45c;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 const StWisdom = styled.h3`
   white-space: pre-line;
   display: flex;
@@ -193,7 +205,8 @@ const StCreatedRoom = styled.div`
 const StCategorys = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 50px;
 `;
 
 const StCategory = styled.div`
@@ -211,10 +224,10 @@ const StCategory = styled.div`
 `;
 
 const StInput = styled.input`
-  width: 35%;
-  height: 35px;
-  border: solid 1px black;
-  border-radius: 0.5rem;
+  width: 25%;
+  height: 43px;
+  border: solid 1px gray;
+  border-radius: 10px;
   background-color: white; ;
 `;
 
