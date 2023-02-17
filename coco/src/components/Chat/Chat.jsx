@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
+
 import { subMessage } from '../../redux/modules/socketSlice';
 
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
@@ -20,7 +21,7 @@ const Chat = () => {
 
   const [message, setMessage] = useState('');
 
-  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
+  const sock = new SockJS('https://iamhyunjun.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
