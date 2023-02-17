@@ -47,6 +47,7 @@ export default function Login({ onClose }) {
           const userNickname = res.data.userNickname;
           console.log(userNickname);
           localStorage.setItem('userNickname', userNickname);
+          localStorage.setItem('userEmail', userEmail);
         });
       navigate(`/`);
       alert('로그인성공');
