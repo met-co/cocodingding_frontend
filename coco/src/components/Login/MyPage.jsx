@@ -8,21 +8,29 @@ import { KAKAO_AUTH_URL } from '../../shared/OAuth';
 
 // window.Kakao.init('2630b13acd7d87daf981d810de94858f');
 export default function MyPage({ onClose }) {
-  const [nickname, setNickname] = useState(localStorage.getItem('Nickname'));
+  const [userNickname, setUserNickname] = useState(
+    localStorage.getItem('userNickname')
+  );
   const navigate = useNavigate();
 
-  const handleNicknameChange = (event) => {
-    setNickname(event.target.value);
+  const handleUserNicknameChange = (event) => {
+    setUserNickname(event.target.value);
   };
 
-  // handleNicknameUpdate 함수: 사용자가 프로필 닉네임을 수정하는 경우 호출되는 함수입니다. Axios 라이브러리를 이용하여 서버에 닉네임을 업데이트하고, 성공적으로 업데이트되었다면 localStorage에 저장된 닉네임 값도 같이 변경하고 페이지를 새로고침합니다.
-  const handleNicknameUpdate = () => {
+  // handleUserNicknameUpdate 함수: 사용자가 프로필 닉네임을 수정하는 경우 호출되는 함수입니다. Axios 라이브러리를 이용하여 서버에 닉네임을 업데이트하고, 성공적으로 업데이트되었다면 localStorage에 저장된 닉네임 값도 같이 변경하고 페이지를 새로고침합니다.
+  const handleUserNicknameUpdate = () => {
     axios
-      .post('https://cocodingding.shop/user/info', {
-        nickname: nickname,
-      })
+      .put(
+        `https://cocodingding.shop/user/info/${localStorage.getItem(
+          'userNickname'
+        )}`,
+        {
+          userNickname: userNickname,
+        }
+      )
       .then((response) => {
-        localStorage.setItem('Nickname', nickname);
+        console.log(response);
+        localStorage.setItem('userNickname', userNickname);
         window.location.reload();
       })
       .catch((error) => {
@@ -32,6 +40,8 @@ export default function MyPage({ onClose }) {
 
   const handleLogout = () => {
     localStorage.removeItem('Authorization');
+    localStorage.removeItem('Access');
+    localStorage.removeItem('Refresh');
     navigate('/');
     window.location.reload();
   };
@@ -48,11 +58,15 @@ export default function MyPage({ onClose }) {
       </StHeader>
       <StDivider />
       <StProfile>
-        <div>프로필</div>
+        <div>닉네임: {localStorage.getItem('userNickname')}</div>
         <div>
-          <input type='text' value={nickname} onChange={handleNicknameChange} />
+          <input
+            type='text'
+            value={userNickname}
+            onChange={handleUserNicknameChange}
+          />
         </div>
-        <button onClick={handleNicknameUpdate}>변경하기</button>
+        <button onClick={handleUserNicknameUpdate}>변경하기</button>
       </StProfile>
 
       <StProfile>
