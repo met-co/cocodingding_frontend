@@ -1,15 +1,17 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 /* Action Type */
 export const actionType = {
   room: {
-    POST_ROOM: 'POST_ROOM',
-    GET_ROOM: 'GET_ROOM',
+    POST_ROOM: "POST_ROOM",
+    GET_ROOM: "GET_ROOM",
+    POST_VIDEO_ROOM: "POST_VIDEO_ROOM",
+    POST_VIDEO_TOKEN: "POST_VIDEO_TOKEN",
   },
 };
 
-const token = `${localStorage.getItem('Authorization')}`;
+const token = `${localStorage.getItem("Authorization")}`;
 
 // const token =
 //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaWhpIiwiZXhwIjoxNjc2NDQ0ODI5LCJpYXQiOjE2NzY0NDMwMjl9.BZ7oeJvMZCtvyTfuLmPTu3UpXhczsXVhbEmGJLoBRvw';
@@ -22,11 +24,11 @@ export const __createRoom = createAsyncThunk(
       const result = await axios.post(
         `https://cocodingding.shop/chat/rooms`,
 
-        console.log('hi'),
+        console.log("hi"),
 
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
           params: {
@@ -48,13 +50,57 @@ export const __getRoom = createAsyncThunk(
   actionType.room.GET_ROOM,
   async (payload, thunkAPI) => {
     try {
-      console.log('123');
+      console.log("123");
       const result = await axios.get(
         `https://cocodingding.shop/chat/rooms`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(result.data);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+/* 화상채팅 방 생성 POST */
+export const __postVideoRoom = createAsyncThunk(
+  actionType.room.POST_VIDEO_ROOM,
+  async (payload, thunkAPI) => {
+    try {
+      const result = await axios.post(
+        `https://cocodingding.shop/detail/room`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(result.data);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+/* 화상채팅 방 입장 (토큰 생성) POST */
+export const __postVideoToken = createAsyncThunk(
+  actionType.room.POST_VIDEO_TOKEN,
+  async (payload, thunkAPI) => {
+    try {
+      const result = await axios.post(
+        `https://cocodingding.shop/detail/room/${payload}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
           },
         },
         { withCredentials: true }
@@ -77,7 +123,7 @@ const initialState = {
 
 /* slice */
 const roomSlice = createSlice({
-  name: 'room',
+  name: "room",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -88,7 +134,7 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__createRoom.fulfilled, (state, action) => {
-        console.log('byebye');
+        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
 
@@ -105,7 +151,7 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__getRoom.fulfilled, (state, action) => {
-        console.log('byebye');
+        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
         state.rooms = action.payload;
