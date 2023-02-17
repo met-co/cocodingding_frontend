@@ -210,16 +210,19 @@ const StCategorys = styled.div`
 `;
 
 const StCategory = styled.div`
-  border: solid 1px black;
+  border: solid 1px gray;
   border-radius: 1.5rem;
+  background-color: #fff1ad;
   margin-left: 1rem;
   margin-right: 1rem;
 
   padding: 0.7rem;
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    /* background-color: black; */
+    color: black;
+    border: 2px solid #3d8afd;
+    margin-bottom: -2px;
   }
 `;
 
