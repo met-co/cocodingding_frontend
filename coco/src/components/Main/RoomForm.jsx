@@ -1,19 +1,19 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Slider from "react-slick";
-import CreateRoomButton from "./CreateRoomButton";
-import Topbar from "../Topbar/Topbar";
-import { useDispatch, useSelector } from "react-redux";
-import { __getRoom } from "../../redux/modules/roomSlice";
-import { __postVideoRoom } from "../../redux/modules/roomSlice";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getRoom } from '../../redux/modules/roomSlice';
+import { __postVideoRoom } from '../../redux/modules/roomSlice';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,32 +24,9 @@ export default function RoomForm() {
   const { rooms } = useSelector((state) => state.room);
   console.log(rooms);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    arrows: true,
-  };
   // rooms 상태정의, setRooms 함수 정의
-  // const [rooms, setRooms] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
-
-  // useEffect(() => {
-  //   async function fetchRooms() {
-  //     // localhost:3001/rooms에서 데이터 가져오기
-  //     const response = await axios.get("https://cocodingding.shop/chat/rooms");
-  //     // const response = await axios.get('http://localhost:3001/rooms');
-
-  //     // 가져온 데이터를 rooms 상태에 넣기
-  //     setRooms(response.data);
-  //     console.log(response);
-  //   }
-  //   // 함수 호출
-  //   fetchRooms();
-  // }, []);
 
   useEffect(() => {
     setFilteredRooms(
@@ -62,11 +39,11 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch("");
+    setSearch('');
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   const [sessionid, setSessionid] = useState(null);
   const [token, setToken] = useState(null);
@@ -82,8 +59,8 @@ export default function RoomForm() {
 
   const createSession = async () => {
     const sessionResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room",
-      { headers: { "Content-Type": "application/json" } },
+      APPLICATION_SERVER_URL + 'detail/room',
+      { headers: { 'Content-Type': 'application/json' } },
       { withCredentials: true }
     );
     setSessionid(sessionResponse.data);
@@ -92,8 +69,8 @@ export default function RoomForm() {
 
   const createToken = async (sessionId) => {
     const tokenResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room/" + sessionId,
-      { headers: { "Content-Type": "application/json" } },
+      APPLICATION_SERVER_URL + 'detail/room/' + sessionId,
+      { headers: { 'Content-Type': 'application/json' } },
       { withCredentials: true }
     );
     setToken(tokenResponse.data);
@@ -103,27 +80,48 @@ export default function RoomForm() {
   console.log(sessionid);
   console.log(token);
 
+  //명언기능 한번 테스트해봄.
+  const wisdomList = [
+    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 키아.. 김지석 미쳤다.`,
+    '"인생은 될 대로 되는것이 아니라 생각대로 되는것이다."\n- 조엘오스틴',
+    '"성공을 거둬야 한다면 실패를 거둬야 한다. 실패를 두려워하지 마라." \n- 존 우든',
+    '"자신감이란 태도다. 성공에 필요한 것은 자신감이다." \n- 트루먼 카포티"',
+    '"어려움이 있으면 기회가 있다." \n- 에디슨',
+  ];
+  const [wisdom, setWisdom] = useState(
+    wisdomList[Math.floor(Math.random() * wisdomList.length)]
+  );
+
+  useEffect(() => {
+    setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
+  }, []);
+
   return (
     <div>
       <StSearch>
-        <StInput
-          type="text"
-          placeholder="참여하고싶은 방을 찾아보세요"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <StCategorys>
-          {Array.from(new Set(rooms.map((room) => room.category))).map(
-            (category) => (
-              <StCategory
-                key={category}
-                onClick={() => selectCategory(category)}
-              >
-                #{category}
-              </StCategory>
-            )
-          )}
-        </StCategorys>
+        <StBackground>
+          <StInput
+            type='text'
+            placeholder='참여하고싶은 방을 찾아보세요'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <StCategorys>
+            {Array.from(new Set(rooms.map((room) => room.category))).map(
+              (category) => (
+                <StCategory
+                  key={category}
+                  onClick={() => selectCategory(category)}
+                >
+                  #{category}
+                </StCategory>
+              )
+            )}
+          </StCategorys>
+        </StBackground>
+
+        {/* 명언 */}
+        <StWisdom>{wisdom}</StWisdom>
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>
@@ -136,16 +134,18 @@ export default function RoomForm() {
       <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
+            <div>
+              <div> 닉네임</div>
+              <div>#{room.category}</div>
+            </div>
             <div>{room.roomName}</div>
-            <div> 닉네임</div>
-            <div>#{room.category}</div>
             <div>
               <StButton
                 onClick={() => {
                   if (isLoggedIn) {
                     navigate(`/detail/${room.id}`);
                   } else {
-                    alert("로그인이 필요한 기능입니다.");
+                    alert('로그인이 필요한 기능입니다.');
                   }
                 }}
               >
@@ -165,18 +165,25 @@ const StSearch = styled.div`
   justify-content: center;
 `;
 
+const StBackground = styled.div`
+  background-color: #ffe45c;
+  width: 100.7vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StWisdom = styled.h3`
+  white-space: pre-line;
+  display: flex;
+  text-align: center; // 가운데 정렬
+  margin-top: 50px;
+`;
+
 const StCreateRooms = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* overflow: scroll;
-  overflow-y: auto;
-  //   // 뭔진 모르겠는데 스크롤 숨기는 기능임...
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-  } */
 `;
 
 const StCreatedRoom = styled.div`
@@ -186,7 +193,7 @@ const StCreatedRoom = styled.div`
   align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
-  margin-top: 10px;
+  margin-top: 40px;
   padding: 2rem;
   width: 250px;
   height: 200px;
@@ -198,28 +205,32 @@ const StCreatedRoom = styled.div`
 const StCategorys = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 50px;
 `;
 
 const StCategory = styled.div`
-  border: solid 1px black;
+  border: solid 1px gray;
   border-radius: 1.5rem;
+  background-color: #fff1ad;
   margin-left: 1rem;
   margin-right: 1rem;
 
   padding: 0.7rem;
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    /* background-color: black; */
+    color: black;
+    border: 2px solid #3d8afd;
+    margin-bottom: -2px;
   }
 `;
 
 const StInput = styled.input`
-  width: 35%;
-  height: 35px;
-  border: solid 1px black;
-  border-radius: 0.5rem;
+  width: 25%;
+  height: 43px;
+  border: solid 1px gray;
+  border-radius: 10px;
   background-color: white; ;
 `;
 

@@ -37,15 +37,16 @@ export default function CreateRoomButton() {
 const StButton = styled.button`
   /* position: relative;
   top: 130px; */
-  width: 4rem;
-  border: solid 1px black;
-  border-radius: 0.5rem;
-  background-color: white;
+  width: 190px;
+  height: 51px;
+  border: solid 1px gray;
+  border-radius: 15px;
+  background-color: #ffe45c;
   width: 200px;
-  height: 40px;
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: #ffe45c;
+    color: black;
+    border: solid 2px #3d8afd;
   }
 `;
