@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import room from '../modules/roomSlice';
 import LoginSlice from '../modules/LoginSlice';
 // import kakaoList from '../modules/kakaoSlice';
-
+import kakaoList from '../modules/LoginSlice';
 import chatcollect from '../modules/chatSlice';
 import socket from '../modules/socketSlice';
 import messages from '../modules/socketSlice';
@@ -18,7 +18,7 @@ const store = configureStore({
     socket,
     messages,
     chatSlice,
-    // kakaoList,
+    kakaoList,
   },
 });
 
