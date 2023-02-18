@@ -6,6 +6,7 @@ export const actionType = {
   room: {
     POST_ROOM: "POST_ROOM",
     GET_ROOM: "GET_ROOM",
+    GET_ROOM_INFO: "GET_ROOM_INFO",
     POST_VIDEO_ROOM: "POST_VIDEO_ROOM",
     POST_VIDEO_TOKEN: "POST_VIDEO_TOKEN",
   },
@@ -14,7 +15,7 @@ export const actionType = {
 const token = `${localStorage.getItem("Authorization")}`;
 
 // const token =
-//   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoaWhpIiwiZXhwIjoxNjc2NDQ0ODI5LCJpYXQiOjE2NzY0NDMwMjl9.BZ7oeJvMZCtvyTfuLmPTu3UpXhczsXVhbEmGJLoBRvw';
+//   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1NTU5LCJpYXQiOjE2NzY3MDM3NTl9.hJjLiaBsOTFQ_eykdGwtnjnBuUHS3es5JV3yoOcH9ykKsiuEMJq3ZacZwH2grsikz4ajfooLIep0fiscxzya4w";
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
@@ -50,7 +51,6 @@ export const __getRoom = createAsyncThunk(
   actionType.room.GET_ROOM,
   async (payload, thunkAPI) => {
     try {
-      console.log("123");
       const result = await axios.get(
         `https://cocodingding.shop/chat/rooms`,
         {
@@ -68,6 +68,32 @@ export const __getRoom = createAsyncThunk(
     }
   }
 );
+
+/* 상세 페이지 조회 GET */
+export const __getRoomInfo = createAsyncThunk(
+  actionType.room.GET_ROOM_INFO,
+  async (payload, thunkAPI) => {
+    try {
+      console.log("123");
+      const result = await axios.get(
+        `https://cocodingding.shop/detail/room/${payload}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(result.data);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+///////////// RTC ///////////////////
 
 /* 화상채팅 방 생성 POST */
 export const __postVideoRoom = createAsyncThunk(
@@ -116,6 +142,7 @@ export const __postVideoToken = createAsyncThunk(
 /* initial state */
 const initialState = {
   rooms: [],
+  roomInfo: [],
   error: null,
   isSuccess: false,
   isLoading: false,
@@ -137,8 +164,7 @@ const roomSlice = createSlice({
         console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
-
-        window.location.reload();
+        // window.location.reload();
       })
       .addCase(__createRoom.rejected, (state, action) => {
         state.isSuccess = false;
@@ -151,12 +177,26 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__getRoom.fulfilled, (state, action) => {
-        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
         state.rooms = action.payload;
       })
       .addCase(__getRoom.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // 방 단일 조회하기
+      .addCase(__getRoomInfo.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(__getRoomInfo.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.roomInfo = action.payload;
+      })
+      .addCase(__getRoomInfo.rejected, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.error = action.payload;

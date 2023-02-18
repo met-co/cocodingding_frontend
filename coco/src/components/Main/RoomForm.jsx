@@ -13,7 +13,6 @@ import { __postVideoRoom } from "../../redux/modules/roomSlice";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,41 +66,6 @@ export default function RoomForm() {
 
   //로그인여부
   const isLoggedIn = !!localStorage.getItem("Authorization");
-
-  const [sessionid, setSessionid] = useState(null);
-  const [token, setToken] = useState(null);
-
-  const handleEnter = () => {
-    getToken();
-  };
-
-  const getToken = async () => {
-    const sessionId = await createSession();
-    return await createToken(sessionId);
-  };
-
-  const createSession = async () => {
-    const sessionResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room",
-      { headers: { "Content-Type": "application/json" } },
-      { withCredentials: true }
-    );
-    setSessionid(sessionResponse.data);
-    return sessionResponse.data; // The sessionId
-  };
-
-  const createToken = async (sessionId) => {
-    const tokenResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room/" + sessionId,
-      { headers: { "Content-Type": "application/json" } },
-      { withCredentials: true }
-    );
-    setToken(tokenResponse.data);
-    return tokenResponse.data; // The token
-  };
-
-  console.log(sessionid);
-  console.log(token);
 
   return (
     <div>

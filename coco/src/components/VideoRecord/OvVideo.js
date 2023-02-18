@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const OpenViduVideoComponent = (props) => {
-  const videoRef = React.useRef();
+  const videoRef = useRef();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.streamManager && !!videoRef) {
       props.streamManager.addVideoElement(videoRef.current);
     }
