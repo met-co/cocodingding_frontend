@@ -7,6 +7,7 @@ import { __createRoom } from "../../redux/modules/roomSlice";
 import { useNavigate } from "react-router-dom";
 
 function ModalCreateRoom({ onClose }) {
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,7 +29,48 @@ function ModalCreateRoom({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(__createRoom(post));
-    navigate("/");
+    getToken();
+    // navigate("/");
+  };
+
+  const getToken = async () => {
+    const sessionId = await createSession();
+    return await createToken(sessionId);
+  };
+
+  const createSession = async () => {
+    const sessionResponse = await axios.post(
+      APPLICATION_SERVER_URL + "detail/room",
+      // {
+      //   maxUser: 0,
+      //   roomTitle: "string",
+      // },
+
+      {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization:
+          //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
+        },
+      },
+      { withCredentials: true }
+    );
+    return sessionResponse.data; // The sessionId
+  };
+
+  const createToken = async (sessionId) => {
+    const tokenResponse = await axios.post(
+      APPLICATION_SERVER_URL + "detail/room/" + sessionId,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization:
+          //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
+        },
+      },
+      { withCredentials: true }
+    );
+    return tokenResponse.data; // The token
   };
 
   // const handleSelectChange = (e) => {
