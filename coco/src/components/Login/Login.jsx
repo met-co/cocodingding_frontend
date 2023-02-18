@@ -12,11 +12,6 @@ export default function Login({ onClose }) {
     onClose();
   };
 
-  //카카오로그인 인가코드 받아내기 위한 주소로 넘어감..
-  const onClickKakaoLongin = () => {
-    window.location.href = KAKAO_AUTH_URL;
-  };
-
   const [userEmail, setuserEmail] = useState('');
   const [userPassword, setuserPassword] = useState('');
   const [error, setError] = useState('');
@@ -127,12 +122,12 @@ export default function Login({ onClose }) {
         <StDivider />
         <h2>SNS계정 간편 로그인</h2>
         <div>
-          <div onClick={onClickKakaoLongin}>
+          <a href={KAKAO_AUTH_URL}>
             <img
               src={`${process.env.PUBLIC_URL}/img/kakao_login_medium_wide.png`}
             ></img>
             {/* <span>카카오계정 로그인</span> */}
-          </div>
+          </a>
         </div>
       </Stform>
     </StContainer>

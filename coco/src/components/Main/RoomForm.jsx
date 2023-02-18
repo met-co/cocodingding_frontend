@@ -82,8 +82,7 @@ export default function RoomForm() {
 
   //명언기능 한번 테스트해봄.
   const wisdomList = [
-    `"나비와 나방의 차이점을 아세요?".\n- 항해11기 3조 유현승`,
-    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 김지석`,
+    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 키아.. 김지석 미쳤다.`,
     '"인생은 될 대로 되는것이 아니라 생각대로 되는것이다."\n- 조엘오스틴',
     '"성공을 거둬야 한다면 실패를 거둬야 한다. 실패를 두려워하지 마라." \n- 존 우든',
     '"자신감이란 태도다. 성공에 필요한 것은 자신감이다." \n- 트루먼 카포티"',
@@ -198,10 +197,9 @@ const StCreatedRoom = styled.div`
   padding: 2rem;
   width: 250px;
   height: 200px;
-  background-color: white;
-  border: solid 1px white;
+  background-color: gray;
+  border: solid 1px gray;
   border-radius: 3rem;
-  box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
 const StCategorys = styled.div`
@@ -238,14 +236,15 @@ const StInput = styled.input`
 
 const StButton = styled.button`
   width: 5rem;
-  border: solid 1px gray;
+  border: none;
   border-radius: 0.5rem;
-  background-color: #fff1ad;
+  background-color: white;
   width: 200px;
   height: 40px;
   cursor: pointer;
   &:hover {
-    border: 2px solid #3d8afd;
+    background-color: black;
+    color: white;
   }
 `;
 
