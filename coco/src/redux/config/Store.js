@@ -3,13 +3,13 @@ import { configureStore } from '@reduxjs/toolkit';
 //리덕스 툴킷 모듈 임포트(계속 추가시킴...)
 import room from '../modules/roomSlice';
 import LoginSlice from '../modules/LoginSlice';
+// import kakaoList from '../modules/kakaoSlice';
+
 import chatcollect from '../modules/chatSlice';
 import socket from '../modules/socketSlice';
 import messages from '../modules/socketSlice';
-
-//여기부터 지석이의 코드~
-
 import chatSlice from '../modules/chatSlice';
+
 const store = configureStore({
   reducer: {
     room,
@@ -18,6 +18,7 @@ const store = configureStore({
     socket,
     messages,
     chatSlice,
+    // kakaoList,
   },
 });
 

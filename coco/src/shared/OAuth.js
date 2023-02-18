@@ -17,6 +17,9 @@ const REDIRECT_URI = 'http://localhost:3000/user/kakao';
 // const REDIRECT_URI = 'http://cocodingding.shop/user/kakao';
 //현우
 // const REDIRECT_URI = 'https://cocodingding.shop/test/kakao';
+// const REDIRECT_URI = 'https://getpostman.com/oauth2/callback';
+
+// export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=306c476f21776ce73e2df07d1ca45995&redirect_uri=http://localhost:3000/user/kakao&response_type=code`;
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
