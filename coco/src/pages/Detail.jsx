@@ -3,15 +3,22 @@ import Layout from "../components/Layout/Layout";
 import Topbar from "../components/Topbar/Topbar";
 import styled from "styled-components";
 // import { OpenVidu } from 'openvidu-browser';
+import { OpenVidu } from "openvidu-browser";
 import { useLocation } from "react-router-dom";
 // import VideoRecord from "../components/videoRecord/VideoRecord";
+import VideoRecord from "../components/VideoRecord/VideoRecord";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import axios from "axios";
 import Chat from "../components/Chat/Chat";
 import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
+// import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
+import { __getRoomInfo } from "../redux/modules/roomSlice";
 
 export default function Detail() {
   const location = useLocation();
+  console.log(location.state);
   const dispatch = useDispatch();
   const { roomId } = useParams();
   console.log(roomId);
@@ -212,13 +219,53 @@ export default function Detail() {
 
   return (
     <>
-      <Topbar />
       <Layout>
         <StTitle>
           <h1>Welcome ! (방이름) 방 입니다.</h1>
         </StTitle>
         <StContainer>
           {/* <StVideoContainer><UserVideoComponent /></StVideoContainer> */}
+          <StVideoContainer>
+            {/* <UserVideoComponent /> */}
+            <div className="video-chat">
+              {session !== undefined ? (
+                <div className="room-video">
+                  {/* 메인스트림매니저가 있을 때 */}
+                  {mainStreamManager !== undefined ? (
+                    <div className="pub">
+                      <VideoRecord
+                        streamManager={mainStreamManager}
+                        // role={location.state.role}
+                        // nicknames={nicknames}
+                      ></VideoRecord>
+                    </div>
+                  ) : null}
+
+                  {/* 퍼블리셔가 있을 때 */}
+                  {publisher !== null ? (
+                    <div className="sub">
+                      <VideoRecord
+                        streamManager={publisher}
+                        // role={location.state.role}
+                      ></VideoRecord>
+                      {subscribers.length > 0
+                        ? subscribers.map((sub, index) => {
+                            return (
+                              <VideoRecord
+                                streamManager={sub}
+                                key={index}
+                                // role={location.state.role}
+                              ></VideoRecord>
+                            );
+                          })
+                        : null}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
+          </StVideoContainer>
+
           <StChatContainer>{/* <Chat /> */}</StChatContainer>
         </StContainer>
       </Layout>
