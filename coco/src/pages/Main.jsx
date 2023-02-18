@@ -22,36 +22,41 @@ const Main = () => {
       <StTopbar>
         <Topbar />
       </StTopbar>
-      <Layout>
-        {isLoggedIn ? (
-          <>
-            <StTopContainer>
+
+      {/* <Layout> */}
+      {isLoggedIn ? (
+        <>
+          <StTopContainer>
+            <StBackground>
               <StTitle>
                 <h1>
                   안녕하세요, {localStorage.getItem('userNickname')}님! 오늘도
                   함께 공부해요.
                 </h1>
               </StTitle>
-              <BsBroadcast />
+            </StBackground>
+            <Layout>
               <RoomForm />
-            </StTopContainer>
-          </>
-        ) : (
-          <>
-            <StTopContainer>
+            </Layout>
+          </StTopContainer>
+        </>
+      ) : (
+        <>
+          <StTopContainer>
+            <StBackground>
               <StTitle>
                 <h1>함께 공부좀하시죠?</h1>
               </StTitle>
-
+            </StBackground>
+            <Layout>
               <RoomForm />
-            </StTopContainer>
-          </>
-        )}
-      </Layout>
+            </Layout>
+          </StTopContainer>
+        </>
+      )}
+      {/* </Layout> */}
 
-      <StBottom>
-        <BottomBar>{/* 여기서 가로배치,, */}</BottomBar>
-      </StBottom>
+      <StBottom>{/* <BottomBar>여기서 가로배치,,</BottomBar> */}</StBottom>
     </div>
   );
 };
@@ -62,19 +67,29 @@ const StTopbar = styled.div`
   z-index: 999;
 `;
 
-const StTopContainer = styled.div`
-  margin-left: 2rem;
-  margin-right: 2rem;
+const StBackground = styled.div`
+  background-color: #ffe45c;
+  width: 100vw;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StTopContainer = styled.div`
+  /* margin-left: 2rem;
+  margin-right: 2rem; */
+  /* display: flex;
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  gap: 10px;
-  z-index: -1;
+  gap: 10px; */
+
+  /* background-color: yellow; */
 `;
 
 const StTitle = styled.div`
-  margin-top: 3rem;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
 `;

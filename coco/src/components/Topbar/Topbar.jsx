@@ -4,6 +4,7 @@ import Login from '../Login/Login';
 import Layout from '../Layout/Layout';
 import MyPage from '../Login/MyPage';
 import { useNavigate } from 'react-router-dom';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 export default function Topbar() {
   const navigate = useNavigate();
@@ -30,6 +31,12 @@ export default function Topbar() {
   // 로그인 상태 판별
   const isLoggedIn = !!localStorage.getItem('Authorization');
 
+  // 로그아웃 기능
+  const handleLogout = () => {
+    localStorage.removeItem('Authorization');
+    window.location.reload();
+  };
+
   return (
     <StContainer>
       <Layout>
@@ -46,7 +53,11 @@ export default function Topbar() {
             {/* localStorage에 "Authorization"이 존재할때 "마이페이지", 존재하지않을때 "로그인"  */}
             {isLoggedIn ? (
               <>
-                <StButton onClick={handleMyPageModalOpen}>마이페이지</StButton>
+                <div onClick={handleMyPageModalOpen}>
+                  <FaRegUserCircle />
+                </div>
+                <StButton onClick={handleLogout}>로그아웃</StButton>
+
                 {isMyPageModalOpen && (
                   <MyPage onClose={handleMyPageModalClose} />
                 )}
