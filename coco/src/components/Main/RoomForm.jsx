@@ -168,7 +168,7 @@ const StSearch = styled.div`
 
 const StBackground = styled.div`
   background-color: #ffe45c;
-  width: 100vw;
+  width: 100.7vw;
   display: flex;
   flex-direction: column;
   align-items: center;

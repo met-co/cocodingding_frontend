@@ -13,22 +13,40 @@ const initialState = {
 export const __kakaoLogin = createAsyncThunk(
   'login',
   async (payload, thunkAPI) => {
+    // try {
+    //   console.log(payload);
+    //   const { data } = await axios
+    //     .post(`https://cocodingding.shop/user/kakao${payload}`, payload, {
+    //       withCredentials: true,
+    //     })
+    //     // /kakao?code=1231241513551 <<< 이거
+    //     .then((res) => {
+    //       console.log(res);
+    //       const accessToken = res.headers.authorization;
+    //       sessionStorage.setItem('accessToken', accessToken);
+    //       console.log(res);
+    //       return res;
+    //     });
+    //   console.log(data);
+    //   return thunkAPI.fulfillWithValue(data.data);
+    // }
     try {
       console.log(payload);
-      const { data } = await axios
-        .post(`https://cocodingding.shop/user/kakao${payload}`, payload, {
-          withCredentials: true,
-        })
-        // /kakao?code=1231241513551 <<< 이거
-        .then((res) => {
-          console.log(res);
-          const accessToken = res.headers.authorization;
-          sessionStorage.setItem('accessToken', accessToken);
-          console.log(res);
-          return res;
-        });
-      console.log(data);
-      return thunkAPI.fulfillWithValue(data.data);
+
+      const response = await axios.get(
+        `https://cocodingding.shop/user/kakao?code=${payload}`
+      );
+      console.log(response);
+      const accessToken = response.headers.authorization;
+      //   const refreshToken = response.headers.refreshtoken;
+      //   const eMail = response.data.data.email;
+      const nickName = response.data.data.nickname;
+
+      localStorage.setItem('accessToken', accessToken);
+      //   localStorage.setItem('refreshtoken', refreshToken);
+      //   localStorage.setItem('email', eMail);
+      localStorage.setItem('nickname', nickName);
+      // localStorage.setItem("userImgUrl", response.payload);
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error);
