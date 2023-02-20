@@ -52,7 +52,7 @@ export const __getRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.get(
-        `https://cocodingding.shop/chat/rooms`,
+        `https://cocodingding.shop/detail/room`,
         {
           headers: {
             "Content-Type": "application/json",
