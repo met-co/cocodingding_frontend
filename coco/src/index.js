@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       { index: true, element: <Main /> },
       { path: "Login", element: <Login /> },
       { path: "SignUp", element: <SignUp /> },
-      { path: "detail/:id", element: <Detail /> },
+      { path: "detail/:openviduRoomId", element: <Detail /> },
       { path: "user/kakao", element: <Kakao /> },
       { path: "test", element: <Test /> },
     ],

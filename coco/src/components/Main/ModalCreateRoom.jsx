@@ -20,8 +20,8 @@ function ModalCreateRoom({ onClose }) {
     roomName: '',
   });
 
-  const handleChange = (evnet) => {
-    const { name, value } = evnet.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setPost({ ...post, [name]: value });
   };
 
@@ -37,16 +37,18 @@ function ModalCreateRoom({ onClose }) {
 
   const getToken = async () => {
     const sessionId = await createSession();
-    return await createToken(sessionId);
+    // return await createToken(sessionId);
   };
+
+  const [roomId, setRoomId] = useState('');
 
   const createSession = async () => {
     const sessionResponse = await axios.post(
       APPLICATION_SERVER_URL + 'detail/room',
-      // {
-      //   maxUser: 0,
-      //   roomTitle: "string",
-      // },
+      {
+        roomTitle: post.roomName,
+        category: post.category,
+      },
 
       {
         headers: {
@@ -57,23 +59,29 @@ function ModalCreateRoom({ onClose }) {
       },
       { withCredentials: true }
     );
+    console.log(sessionResponse.data);
+    setRoomId(sessionResponse.data.roomId);
+    console.log(roomId);
     return sessionResponse.data; // The sessionId
   };
 
-  const createToken = async (sessionId) => {
-    const tokenResponse = await axios.post(
-      APPLICATION_SERVER_URL + 'detail/room/' + sessionId,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          // Authorization:
-          //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
-        },
-      },
-      { withCredentials: true }
-    );
-    return tokenResponse.data; // The token
-  };
+  console.log(roomId);
+
+  // const createToken = async (sessionId) => {
+  //   console.log(roomId);
+  //   const tokenResponse = await axios.post(
+  //     APPLICATION_SERVER_URL + `detail/room/17`,
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization:
+  //         //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
+  //       },
+  //     },
+  //     { withCredentials: true }
+  //   );
+  //   return tokenResponse.data; // The token
+  // };
 
   // const handleSelectChange = (e) => {
   //   setCategory(e.target.value);
