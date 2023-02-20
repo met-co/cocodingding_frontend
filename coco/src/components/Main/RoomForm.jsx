@@ -1,19 +1,19 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Slider from "react-slick";
-import CreateRoomButton from "./CreateRoomButton";
-import Topbar from "../Topbar/Topbar";
-import { useDispatch, useSelector } from "react-redux";
-import { __getRoom } from "../../redux/modules/roomSlice";
-import { __postVideoRoom } from "../../redux/modules/roomSlice";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getRoom } from '../../redux/modules/roomSlice';
+import { __postVideoRoom } from '../../redux/modules/roomSlice';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export default function RoomForm() {
   console.log(rooms);
 
   // rooms 상태정의, setRooms 함수 정의
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
 
   useEffect(() => {
@@ -39,11 +39,11 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch("");
+    setSearch('');
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   const [sessionid, setSessionid] = useState(null);
   const [token, setToken] = useState(null);
@@ -59,8 +59,8 @@ export default function RoomForm() {
 
   const createSession = async () => {
     const sessionResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room",
-      { headers: { "Content-Type": "application/json" } },
+      APPLICATION_SERVER_URL + 'detail/room',
+      { headers: { 'Content-Type': 'application/json' } },
       { withCredentials: true }
     );
     setSessionid(sessionResponse.data);
@@ -69,8 +69,8 @@ export default function RoomForm() {
 
   const createToken = async (sessionId) => {
     const tokenResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room/" + sessionId,
-      { headers: { "Content-Type": "application/json" } },
+      APPLICATION_SERVER_URL + 'detail/room/' + sessionId,
+      { headers: { 'Content-Type': 'application/json' } },
       { withCredentials: true }
     );
     setToken(tokenResponse.data);
@@ -82,10 +82,16 @@ export default function RoomForm() {
 
   //명언기능 한번 테스트해봄.
   const wisdomList = [
-    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 키아.. 김지석 미쳤다.`,
-    '"인생은 될 대로 되는것이 아니라 생각대로 되는것이다."\n- 조엘오스틴',
-    '"성공을 거둬야 한다면 실패를 거둬야 한다. 실패를 두려워하지 마라." \n- 존 우든',
-    '"자신감이란 태도다. 성공에 필요한 것은 자신감이다." \n- 트루먼 카포티"',
+    `"중요한건 꺾이지 않는 마음.".\n-  DRX 소속 프로게이머 김혁규(Deft)`,
+    `"나비와 나방은 생물학적으로 크게 다를 게 없죠,하지만 사람들은 주로 밤에 보이는 나방을 나비보다 못한 것으로 생각하곤 합니다 ".\n- 3조 유현승`,
+    `"우리 어린애 아니잖아요?".\n- 박응수매니저`,
+    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 4조 김지석`,
+    '"야 내도 한다, 니라고 못할것 같나?" \n- 5조 전병진',
+    '"그 동안 행복코딩하셨잖아요 ^^, 이젠 저희도 좀 즐길게요" \n- 5조 홍정기',
+    '"지금 그렇게 유튜브 보면서 놀때 인가요??" \n- 4조 김현우',
+    '"괜찮으신가요?? ㅠㅠ 파이팅입니다." \n- 5조 이정우',
+    '"아니, 고작 이것도 못하면 다른일은 잘할수 있을것 같아요??" \n- 6조 이채정',
+
     '"어려움이 있으면 기회가 있다." \n- 에디슨',
   ];
   const [wisdom, setWisdom] = useState(
@@ -101,8 +107,8 @@ export default function RoomForm() {
       <StSearch>
         <StBackground>
           <StInput
-            type="text"
-            placeholder="참여하고싶은 방을 찾아보세요"
+            type='text'
+            placeholder='참여하고싶은 방을 찾아보세요'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -145,7 +151,7 @@ export default function RoomForm() {
                   if (isLoggedIn) {
                     navigate(`/detail/${room.id}`);
                   } else {
-                    alert("로그인이 필요한 기능입니다.");
+                    alert('로그인이 필요한 기능입니다.');
                   }
                 }}
               >
@@ -197,9 +203,10 @@ const StCreatedRoom = styled.div`
   padding: 2rem;
   width: 250px;
   height: 200px;
-  background-color: gray;
-  border: solid 1px gray;
+  background-color: white;
+  border: solid 1px white;
   border-radius: 3rem;
+  box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
 const StCategorys = styled.div`
@@ -236,15 +243,14 @@ const StInput = styled.input`
 
 const StButton = styled.button`
   width: 5rem;
-  border: none;
+  border: solid 1px gray;
   border-radius: 0.5rem;
-  background-color: white;
+  background-color: #fff1ad;
   width: 200px;
   height: 40px;
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    border: 2px solid #3d8afd;
   }
 `;
 

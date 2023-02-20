@@ -123,9 +123,10 @@ const StButton = styled.button`
   padding: 8px 16px;
   cursor: pointer;
   outline: none;
-
+  transition: background-color 0.5ms, color 1s;
   &:hover {
     background-color: #333;
     color: #fff;
+    /* transition: background-color 0.5ms; */
   }
 `;
