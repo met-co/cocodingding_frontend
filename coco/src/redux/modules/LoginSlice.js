@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 axios.defaults.withCredentials = true;
 const initialState = {
@@ -30,8 +31,19 @@ export const __kakaoLogin = createAsyncThunk(
 
         .then((res) => {
           console.log(res);
-          //   const accessToken = res.headers.authorization;
-          //   sessionStorage.setItem('accessToken', accessToken);
+          // const accessToken = res.headers.authorization;
+          // localStorage.setItem('Authorization', accessToken);
+
+          localStorage.setItem(
+            'Authorization',
+            res.headers.get('Authorization')
+          );
+
+          console.log('로그인정보', res);
+          const userNickname = res.data.userNickname;
+          console.log(userNickname);
+          localStorage.setItem('userNickname', userNickname);
+
           return res;
         });
       console.log(data);

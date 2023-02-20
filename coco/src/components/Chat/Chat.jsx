@@ -17,7 +17,7 @@ const Chat = () => {
   // const navigate = useNavigate();
   const { chatRoomId } = useParams();
   const dispatch = useDispatch();
-  console.log(chatRoomId);
+  console.log('방 id', chatRoomId);
 
   const [message, setMessage] = useState('');
 
@@ -151,7 +151,7 @@ const Chat = () => {
               onKeyDown={handleEnterPress}
               placeholder='내용을 입력해주세요.'
             />
-            <button>전송</button>
+            <button onClick={myChat}>전송</button>
           </Footer>
         </Down>
       </Container>
@@ -163,7 +163,7 @@ export default Chat;
 
 const Container = styled.div`
   width: 500px;
-  height: 700px;
+  height: 100%;
   border-radius: 10px;
   background-color: #c2c1c1;
   display: flex;
