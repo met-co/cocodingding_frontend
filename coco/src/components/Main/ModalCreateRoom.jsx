@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { addRoom } from "../../redux/modules/roomSlice";
-import { __createRoom } from "../../redux/modules/roomSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addRoom } from '../../redux/modules/roomSlice';
+import { __createRoom } from '../../redux/modules/roomSlice';
+import { useNavigate } from 'react-router-dom';
 
 function ModalCreateRoom({ onClose }) {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,8 +16,8 @@ function ModalCreateRoom({ onClose }) {
   };
 
   const [post, setPost] = useState({
-    category: "",
-    roomName: "",
+    category: '',
+    roomName: '',
   });
 
   const handleChange = (event) => {
@@ -30,7 +30,7 @@ function ModalCreateRoom({ onClose }) {
     e.preventDefault();
     dispatch(__createRoom(post));
     getToken();
-    alert("방이 생성되었습니다.");
+    alert('방이 생성되었습니다.');
     window.location.reload();
     // navigate("/");
   };
@@ -44,7 +44,6 @@ function ModalCreateRoom({ onClose }) {
 
   const createSession = async () => {
     const sessionResponse = await axios.post(
-<<<<<<< HEAD
       APPLICATION_SERVER_URL + 'detail/room',
       {
         roomTitle: post.roomName,
@@ -59,43 +58,14 @@ function ModalCreateRoom({ onClose }) {
         },
       },
       { withCredentials: true }
-=======
-      APPLICATION_SERVER_URL + "detail/room",
-      {
-        roomTitle: post.roomTitle,
-        category: post.category,
-      },
-
-      {
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization:
-          //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
-        },
-      }
->>>>>>> 0ad73705416a0f196958e7487e711f191bc20ab9
     );
-    return sessionResponse.data;
+    console.log(sessionResponse.data);
+    setRoomId(sessionResponse.data.roomId);
+    console.log(roomId);
+    return sessionResponse.data; // The sessionId
   };
 
-  // const createToken = async (sessionId) => {
-  //   const tokenResponse = await axios.post(
-  //     APPLICATION_SERVER_URL + 'detail/room/' + sessionId,
-
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // Authorization:
-  //         //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
-  //       },
-  //     },
-  //     { withCredentials: true }
-  //   );
-  //   console.log(sessionResponse.data);
-  //   setRoomId(sessionResponse.data.roomId);
-  //   console.log(roomId);
-  //   return sessionResponse.data; // The sessionId
-  // };
+  console.log(roomId);
 
   // const createToken = async (sessionId) => {
   //   console.log(roomId);
@@ -132,16 +102,16 @@ function ModalCreateRoom({ onClose }) {
         <div>
           <h3>방이름</h3>
           <StInput
-            type="text"
-            placeholder="여기에 입력합니다."
+            type='text'
+            placeholder='여기에 입력합니다.'
             value={post.title}
-            name="roomName"
+            name='roomName'
             onChange={handleChange}
           />
         </div>
 
         <h3>카테고리</h3>
-        <StSelect value={post.category} name="category" onChange={handleChange}>
+        <StSelect value={post.category} name='category' onChange={handleChange}>
           <option>카테고리 선택하세요.</option>
           <option>수학</option>
           <option>심리학</option>
@@ -150,13 +120,12 @@ function ModalCreateRoom({ onClose }) {
         </StSelect>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
-          <StButton type="submit">방만들기</StButton>
+          <StButton type='submit'>방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
   );
 }
-
 export default ModalCreateRoom;
 
 const StContainer = styled.div`
