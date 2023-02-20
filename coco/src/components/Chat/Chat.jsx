@@ -17,7 +17,7 @@ const Chat = () => {
   // const navigate = useNavigate();
   const { chatRoomId } = useParams();
   const dispatch = useDispatch();
-  console.log(chatRoomId);
+  console.log('방 id', chatRoomId);
 
   const [message, setMessage] = useState('');
 

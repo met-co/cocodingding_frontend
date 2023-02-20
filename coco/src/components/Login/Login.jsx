@@ -59,6 +59,7 @@ export default function Login({ onClose }) {
     }
   }
 
+  //FIXME: 이거 왜 필요한지 모르겠음... -지석
   useEffect(() => {
     axios
       .get('https://cocodingding.shop/user/login')
