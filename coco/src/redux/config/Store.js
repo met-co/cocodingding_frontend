@@ -10,9 +10,13 @@ import chatcollect from '../modules/chatSlice';
 import socket from '../modules/socketSlice';
 import messages from '../modules/socketSlice';
 
+//투두리스트
+import todoSlice from '../modules/todoSlice';
+import { saveState, loadState } from './localStoge';
 //여기부터 지석이의 코드~
-
 import chatSlice from '../modules/chatSlice';
+const persistedState = loadState();
+
 const store = configureStore({
   reducer: {
     room,
@@ -21,9 +25,14 @@ const store = configureStore({
     socket,
     messages,
     chatSlice,
-
     kakaoList,
+    todos: todoSlice,
   },
+  preloadedState: persistedState,
+});
+
+store.subscribe(() => {
+  saveState(store.getState());
 });
 
 export default store;

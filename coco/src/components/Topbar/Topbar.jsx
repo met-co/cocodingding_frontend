@@ -5,9 +5,12 @@ import Layout from '../Layout/Layout';
 import MyPage from '../Login/MyPage';
 import { useNavigate } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { resetTodos } from '../../redux/modules/todoSlice';
 
 export default function Topbar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isMyPageModalOpen, setIsMyPageModalOpen] = useState(false);
@@ -33,6 +36,7 @@ export default function Topbar() {
 
   // 로그아웃 기능
   const handleLogout = () => {
+    dispatch(resetTodos());
     localStorage.removeItem('Authorization');
     window.location.reload();
   };
