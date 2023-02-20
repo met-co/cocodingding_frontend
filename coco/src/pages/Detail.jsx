@@ -20,8 +20,8 @@ export default function Detail() {
   const location = useLocation();
   console.log(location.state);
   const dispatch = useDispatch();
-  const { roomId } = useParams();
-  console.log(roomId);
+  const { openviduRoomId } = useParams();
+  console.log(openviduRoomId);
 
   //오픈비듀
   const [session, setSession] = useState(undefined);
@@ -44,7 +44,7 @@ export default function Detail() {
   const [nicknames, setNickNames] = useState(null);
 
   useEffect(() => {
-    dispatch(__getRoomInfo(roomId));
+    dispatch(__getRoomInfo(openviduRoomId));
   }, []);
 
   // get한 데이터가 들어왔을 때 useState로 관리

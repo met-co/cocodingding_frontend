@@ -31,7 +31,7 @@ export default function RoomForm() {
   useEffect(() => {
     setFilteredRooms(
       rooms.filter((room) =>
-        room.roomName.toLowerCase().includes(search.toLowerCase())
+        room.roomTitle.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, rooms]);
@@ -44,41 +44,6 @@ export default function RoomForm() {
 
   //로그인여부
   const isLoggedIn = !!localStorage.getItem("Authorization");
-
-  const [sessionid, setSessionid] = useState(null);
-  const [token, setToken] = useState(null);
-
-  const handleEnter = () => {
-    getToken();
-  };
-
-  const getToken = async () => {
-    const sessionId = await createSession();
-    return await createToken(sessionId);
-  };
-
-  const createSession = async () => {
-    const sessionResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room",
-      { headers: { "Content-Type": "application/json" } },
-      { withCredentials: true }
-    );
-    setSessionid(sessionResponse.data);
-    return sessionResponse.data; // The sessionId
-  };
-
-  const createToken = async (sessionId) => {
-    const tokenResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room/" + sessionId,
-      { headers: { "Content-Type": "application/json" } },
-      { withCredentials: true }
-    );
-    setToken(tokenResponse.data);
-    return tokenResponse.data; // The token
-  };
-
-  console.log(sessionid);
-  console.log(token);
 
   //명언기능 한번 테스트해봄.
   const wisdomList = [
@@ -142,8 +107,8 @@ export default function RoomForm() {
             <div>
               <StButton
                 onClick={() => {
-                  if (isLoggedIn) {
-                    navigate(`/detail/${room.id}`);
+                  if (!isLoggedIn) {
+                    navigate(`/detail/${room.openviduRoomId}`);
                   } else {
                     alert("로그인이 필요한 기능입니다.");
                   }
