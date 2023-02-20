@@ -29,6 +29,7 @@ export default function RoomForm() {
   const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
 
+  console.log(rooms);
   useEffect(() => {
     setFilteredRooms(
       rooms.filter((room) =>
