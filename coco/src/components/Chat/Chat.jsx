@@ -151,7 +151,7 @@ const Chat = () => {
               onKeyDown={handleEnterPress}
               placeholder='내용을 입력해주세요.'
             />
-            <button onClick={myChat}>전송</button>
+            <button>전송</button>
           </Footer>
         </Down>
       </Container>
@@ -163,7 +163,7 @@ export default Chat;
 
 const Container = styled.div`
   width: 500px;
-  height: 100%;
+  height: 700px;
   border-radius: 10px;
   background-color: #c2c1c1;
   display: flex;

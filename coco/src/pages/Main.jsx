@@ -56,9 +56,7 @@ const Main = () => {
       )}
       {/* </Layout> */}
 
-      <StBottom>
-        <BottomBar>여기서 가로배치,,</BottomBar>
-      </StBottom>
+      <StBottom>{/* <BottomBar>여기서 가로배치,,</BottomBar> */}</StBottom>
     </div>
   );
 };

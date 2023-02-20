@@ -10,7 +10,6 @@ import Topbar from '../Topbar/Topbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getRoom } from '../../redux/modules/roomSlice';
 import { __postVideoRoom } from '../../redux/modules/roomSlice';
-import TodoList from './TodoList';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
@@ -59,6 +58,7 @@ export default function RoomForm() {
     '"왜 이렇게 책임감없는 소릴하시죠? 잘하시면서 왜 그래요?" \n- 4조 김혜성',
     '"괜찮으신가요?? ㅠㅠ 파이팅입니다." \n- 5조 이정우',
     '"아니, 고작 이것도 못하면 다른일은 잘할수 있을것 같아요??" \n- 6조 이채정',
+
     '"어려움이 있으면 기회가 있다." \n- 에디슨',
   ];
   const [wisdom, setWisdom] = useState(
@@ -95,7 +95,6 @@ export default function RoomForm() {
 
         {/* 명언 */}
         <StWisdom>{wisdom}</StWisdom>
-        <TodoList />
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>
