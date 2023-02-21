@@ -1,14 +1,20 @@
 import React, { Component } from "react";
 import OpenViduVideoComponent from "./OvVideo";
+import styled from "styled-components";
 
 const VideoRecord = (props) => {
   return (
-    <div>
+    <StContainer>
       {props.streamManager !== undefined ? (
         <OpenViduVideoComponent streamManager={props.streamManager} />
       ) : null}
-    </div>
+    </StContainer>
   );
 };
 
 export default VideoRecord;
+
+const StContainer = styled.div`
+  width: 20px;
+  height: 20px;
+`;

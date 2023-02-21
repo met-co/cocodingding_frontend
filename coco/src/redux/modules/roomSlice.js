@@ -25,9 +25,8 @@ export const __createRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.post(
-        `https://cocodingding.shop/chat/room`,
-        // payload,
-        console.log("hi"),
+        `https://cocodingding.shop/detail/room`,
+        payload,
 
         {
           headers: {
@@ -167,6 +166,7 @@ const roomSlice = createSlice({
         console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
+        // state.roomInfo = action.payload;
         // state.roomInfo = action.payload;
         // window.location.reload();
       })
