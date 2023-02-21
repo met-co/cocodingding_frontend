@@ -27,8 +27,6 @@ export const __createRoom = createAsyncThunk(
       const result = await axios.post(
         `https://cocodingding.shop/detail/room`,
         payload,
-        console.log('hi'),
-
         {
           headers: {
             'Content-Type': 'application/json',
@@ -168,6 +166,7 @@ const roomSlice = createSlice({
         console.log('byebye');
         state.isLoading = false;
         state.isSuccess = true;
+        // state.roomInfo = action.payload;
         // state.roomInfo = action.payload;
         // window.location.reload();
       })

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
 
 const OpenViduVideoComponent = (props) => {
   const videoRef = useRef();
@@ -10,7 +11,16 @@ const OpenViduVideoComponent = (props) => {
     return () => {};
   }, [props.streamManager, videoRef]);
 
-  return <video autoPlay={true} ref={videoRef} />;
+  return (
+    <StContainer>
+      <video autoPlay={true} ref={videoRef} />
+    </StContainer>
+  );
 };
 
 export default OpenViduVideoComponent;
+
+const StContainer = styled.div`
+  /* width: 30px;
+  height: 30px; */
+`;
