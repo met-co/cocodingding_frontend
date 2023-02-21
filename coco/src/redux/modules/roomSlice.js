@@ -60,7 +60,6 @@ export const __getRoom = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
           },
         },
         { withCredentials: true }
