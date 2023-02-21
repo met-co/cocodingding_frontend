@@ -123,7 +123,7 @@ export default function RoomForm() {
               <StButton
                 onClick={() => {
                   handleSubmit(room.openviduRoomId);
-                  if (!isLoggedIn) {
+                  if (isLoggedIn) {
                     navigate(`/detail/${room.openviduRoomId}`);
                   } else {
                     alert('로그인이 필요한 기능입니다.');
