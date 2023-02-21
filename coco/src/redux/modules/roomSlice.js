@@ -25,8 +25,8 @@ export const __createRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.post(
-        `https://cocodingding.shop/chat/room`,
-        // payload,
+        `https://cocodingding.shop/detail/room`,
+        payload,
         console.log('hi'),
 
         {
@@ -53,6 +53,8 @@ export const __getRoom = createAsyncThunk(
   actionType.room.GET_ROOM,
   async (payload, thunkAPI) => {
     try {
+      console.log('gdgd');
+
       const result = await axios.get(
         `https://cocodingding.shop/detail/room`,
         {
@@ -82,7 +84,7 @@ export const __getRoomInfo = createAsyncThunk(
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: token,
+            // Authorization: token,
           },
         },
         { withCredentials: true }

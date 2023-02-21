@@ -60,24 +60,21 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log(chatcollect.chatRoomId);
-    if (chatcollect.chatRoomId) {
+    console.log(chatRoomId);
+    if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
       try {
         client.connect(
           {},
           () => {
-            console.log(chatcollect.chatRoomId);
+            console.log(chatRoomId);
             // 채팅방 구독
-            client.subscribe(
-              `/sub/chat/room/${chatcollect.chatRoomId}`,
-              (res) => {
-                console.log(res.body);
-                const receive = JSON.parse(res.body);
-                console.log(receive);
-                dispatch(subMessage(receive));
-              }
-            );
+            client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
+              console.log(res.body);
+              const receive = JSON.parse(res.body);
+              console.log(receive);
+              dispatch(subMessage(receive));
+            });
           },
           {}
         );
@@ -97,14 +94,14 @@ const Chat = (props) => {
       `/pub/chat/message`,
       headers,
       JSON.stringify({
-        chatRoomId: chatcollect.chatRoomId,
+        chatRoomId: chatRoomId,
         userEmail: myEmail,
         message: message,
       })
     );
     chatRef.current.value = null;
   };
-  console.log(9999, messages);
+  console.log('방아이디', chatRoomId, messages);
 
   console.log(987, Myname);
   // console.log(789, userNickname);
