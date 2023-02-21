@@ -52,8 +52,11 @@ export default function Detail() {
     setRoomTitle(roomData.roomTitle);
     setKeyToken(roomData.enterRoomToken);
     setSessionId(roomData.sessionId);
-    joinSession();
   }, [roomData]);
+
+  useEffect(() => {
+    joinSession();
+  }, [keyToken]);
 
   console.log(sessionId);
   console.log(keyToken);
@@ -100,6 +103,7 @@ export default function Detail() {
     console.log("join");
     console.log("join");
     console.log("join");
+    console.log("join");
 
     // openvidu 세션 생성하기
     // 1. openvidu 객체 생성
@@ -130,6 +134,7 @@ export default function Detail() {
     // 토큰값 가져오기
 
     // getToken().then((token) => {
+    console.log("keytoken", keyToken);
     newsession
       .connect(keyToken, { clientData: nickname })
       .then(async () => {
@@ -157,6 +162,7 @@ export default function Detail() {
             newPublisher.once("accessAllowed", () => {
               newsession.publish(newPublisher);
               setPublisher(newPublisher);
+              console.log("pub", publisher);
             });
 
             // Obtain the current video device in use
@@ -253,39 +259,48 @@ export default function Detail() {
             {/* <UserVideoComponent /> */}
             <div className="video-chat">
               {session !== undefined ? (
-                <div className="room-video">
+                <StRoomVideo>
                   {/* 메인스트림매니저가 있을 때 */}
                   {mainStreamManager !== undefined ? (
-                    <div className="pub">
+                    <StPub>
                       <VideoRecord
                         streamManager={mainStreamManager}
                         // role={location.state.role}
                         // nicknames={nicknames}
                       ></VideoRecord>
-                    </div>
+                    </StPub>
                   ) : null}
 
                   {/* 퍼블리셔가 있을 때 */}
                   {publisher !== null ? (
-                    <div className="sub">
-                      <VideoRecord
-                        streamManager={publisher}
-                        // role={location.state.role}
-                      ></VideoRecord>
-                      {subscribers.length > 0
-                        ? subscribers.map((sub, index) => {
-                            return (
-                              <VideoRecord
-                                streamManager={sub}
-                                key={index}
-                                // role={location.state.role}
-                              ></VideoRecord>
-                            );
-                          })
-                        : null}
-                    </div>
+                    <StSub>
+                      <Stbox>
+                        <div className="sub">
+                          <StnickName>나</StnickName>
+                          <VideoRecord
+                            streamManager={publisher}
+                            // role={location.state.role}
+                          ></VideoRecord>
+                        </div>
+                      </Stbox>
+
+                      <Stbox>
+                        {subscribers.length > 0
+                          ? subscribers.map((sub, index) => (
+                              <>
+                                <StnickName>닉네임</StnickName>
+                                <VideoRecord
+                                  streamManager={sub}
+                                  key={index}
+                                  // role={location.state.role}
+                                ></VideoRecord>
+                              </>
+                            ))
+                          : null}
+                      </Stbox>
+                    </StSub>
                   ) : null}
-                </div>
+                </StRoomVideo>
               ) : null}
             </div>
           </StVideoContainer>
@@ -320,4 +335,39 @@ const StVideoContainer = styled.div`
 
 const StChatContainer = styled.div`
   width: 30%;
+`;
+
+const StPub = styled.div`
+  /* width: 200px;
+  height: 400px; */
+`;
+
+const StRoomVideo = styled.div`
+  /* width: 500px;
+  height: 500px; */
+`;
+
+const StSub = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+  height: 700px;
+`;
+
+const Stbox = styled.div`
+  width: 300px;
+  height: 300px;
+`;
+
+const StnickName = styled.div`
+  /* position: absolute;
+  top: 300px;
+  left: 10px;
+  z-index: 1;
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 14px;
+  background-color: rgba(0, 0, 0, 0.5); */
 `;
