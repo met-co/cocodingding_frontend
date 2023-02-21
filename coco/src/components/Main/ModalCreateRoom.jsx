@@ -17,7 +17,7 @@ function ModalCreateRoom({ onClose }) {
 
   const [post, setPost] = useState({
     category: "",
-    roomName: "",
+    roomTitle: "",
   });
 
   const handleChange = (event) => {
@@ -30,36 +30,36 @@ function ModalCreateRoom({ onClose }) {
     e.preventDefault();
     dispatch(__createRoom(post));
     getToken();
-    alert("방이 생성되었습니다.");
-    window.location.reload();
+    // alert("방이 생성되었습니다.");
+    // window.location.reload();
     // navigate("/");
   };
 
   const getToken = async () => {
-    const sessionId = await createSession();
+    // const sessionId = await createSession();
     // return await createToken(sessionId);
   };
 
-  const [roomId, setRoomId] = useState("");
+  // const [roomId, setRoomId] = useState("");
 
-  const createSession = async () => {
-    const sessionResponse = await axios.post(
-      APPLICATION_SERVER_URL + "detail/room",
-      {
-        roomTitle: post.roomTitle,
-        category: post.category,
-      },
+  // const createSession = async () => {
+  //   const sessionResponse = await axios.post(
+  //     APPLICATION_SERVER_URL + "detail/room",
+  //     {
+  //       roomTitle: post.roomTitle,
+  //       category: post.category,
+  //     },
 
-      {
-        headers: {
-          "Content-Type": "application/json",
-          // Authorization:
-          //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
-        },
-      }
-    );
-    return sessionResponse.data;
-  };
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         // Authorization:
+  //         //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1MDc1LCJpYXQiOjE2NzY3MDMyNzV9.pbFr0vxt3HEflehW-pcauZSw2Jn5PRYXgwYZ0UdJyt8RPj9Xh7krp5b8wQxKDcg8SFuXAQITteHjYAOQhJi-qQ",
+  //       },
+  //     }
+  //   );
+  //   return sessionResponse.data;
+  // };
 
   // const createToken = async (sessionId) => {
   //   const tokenResponse = await axios.post(
@@ -118,7 +118,7 @@ function ModalCreateRoom({ onClose }) {
             type="text"
             placeholder="여기에 입력합니다."
             value={post.title}
-            name="roomName"
+            name="roomTitle"
             onChange={handleChange}
           />
         </div>
