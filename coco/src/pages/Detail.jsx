@@ -14,11 +14,11 @@ import axios from 'axios';
 import Chat from '../components/Chat/Chat';
 import UserVideoComponent from '../components/VideoRecord/UserVideoComponent';
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
-import { __getRoomInfo, __postVideoToken } from '../redux/modules/roomSlice';
+import { __postVideoToken } from '../redux/modules/roomSlice';
 
 export default function Detail() {
   const location = useLocation();
-  console.log(location.state);
+
   const dispatch = useDispatch();
   const { openviduRoomId } = useParams();
   console.log(openviduRoomId);
@@ -43,19 +43,21 @@ export default function Detail() {
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   const [nicknames, setNickNames] = useState(null);
 
-  useEffect(() => {
-    dispatch(__getRoomInfo(openviduRoomId));
-  }, []);
-  useEffect(() => {
-    dispatch(__postVideoToken(openviduRoomId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(__getRoomInfo(openviduRoomId));
+  // }, []);
 
   // get한 데이터가 들어왔을 때 useState로 관리
   useEffect(() => {
     setRoomTitle(roomData.roomTitle);
-    setKeyToken(roomData.keyToken);
+    setKeyToken(roomData.enterRoomToken);
     setSessionId(roomData.sessionId);
+    joinSession();
   }, [roomData]);
+
+  console.log(sessionId);
+  console.log(keyToken);
+  console.log(roomData);
 
   // 오픈 비듀
   const deleteSubscriber = (streamManagerId) => {
@@ -94,6 +96,11 @@ export default function Detail() {
   // }
 
   const joinSession = () => {
+    console.log('join');
+    console.log('join');
+    console.log('join');
+    console.log('join');
+
     // openvidu 세션 생성하기
     // 1. openvidu 객체 생성
     const newOV = new OpenVidu();
@@ -120,6 +127,9 @@ export default function Detail() {
     // 1-3 예외처리
     newsession.on('exception', (exception) => {});
 
+    // 토큰값 가져오기
+
+    // getToken().then((token) => {
     newsession
       .connect(keyToken, { clientData: nickname })
       .then(async () => {
@@ -174,6 +184,22 @@ export default function Detail() {
           error.message
         );
       });
+    // });
+  };
+
+  const getToken = async () => {
+    await createSession();
+    return await createToken();
+  };
+
+  const createSession = async () => {
+    const sessionResponse = sessionId;
+    return sessionResponse;
+  };
+
+  const createToken = async () => {
+    const tokenResponse = keyToken;
+    return tokenResponse; // The token
   };
 
   // 유저 계속 갱신
@@ -214,11 +240,6 @@ export default function Detail() {
   // },60000 * 10)
 
   useEffect(() => {}, [subscribers]);
-
-  useEffect(() => {
-    joinSession();
-    return () => {};
-  }, []);
 
   return (
     <>

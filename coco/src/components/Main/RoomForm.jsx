@@ -9,7 +9,8 @@ import CreateRoomButton from './CreateRoomButton';
 import Topbar from '../Topbar/Topbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getRoom } from '../../redux/modules/roomSlice';
-import { __postVideoRoom } from '../../redux/modules/roomSlice';
+import { __postVideoToken } from '../../redux/modules/roomSlice';
+import TodoList from './TodoList';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
@@ -69,6 +70,11 @@ export default function RoomForm() {
     setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
   }, []);
 
+  const handleSubmit = (id) => {
+    console.log(id);
+    dispatch(__postVideoToken(id));
+  };
+
   return (
     <div>
       <StSearch>
@@ -115,7 +121,8 @@ export default function RoomForm() {
             <div>
               <StButton
                 onClick={() => {
-                  if (isLoggedIn) {
+                  handleSubmit(room.openviduRoomId);
+                  if (!isLoggedIn) {
                     navigate(`/detail/${room.openviduRoomId}`);
                   } else {
                     alert('로그인이 필요한 기능입니다.');

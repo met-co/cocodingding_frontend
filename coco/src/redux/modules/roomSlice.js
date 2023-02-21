@@ -17,6 +17,8 @@ const token = `${localStorage.getItem('Authorization')}`;
 // const token =
 //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1NTU5LCJpYXQiOjE2NzY3MDM3NTl9.hJjLiaBsOTFQ_eykdGwtnjnBuUHS3es5JV3yoOcH9ykKsiuEMJq3ZacZwH2grsikz4ajfooLIep0fiscxzya4w";
 
+//detail/room으로 변경하기
+
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
   actionType.room.POST_ROOM,
@@ -24,25 +26,21 @@ export const __createRoom = createAsyncThunk(
     try {
       const result = await axios.post(
         `https://cocodingding.shop/chat/room`,
-
-        {
-          category: payload.category,
-          name: payload.roomName,
-        },
+        // payload,
+        console.log('hi'),
 
         {
           headers: {
             'Content-Type': 'application/json',
             Authorization: token,
           },
-          // params: {
-          //   category: payload.category,
-          //   roomName: payload.roomName,
-          //   // roomName: payload.roomName,
-          // },
+          params: {
+            name: payload.roomTitle,
+          },
         },
         { withCredentials: true }
       );
+      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -135,7 +133,8 @@ export const __postVideoToken = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result.data);
+      console.log('byebye');
+      console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -168,6 +167,7 @@ const roomSlice = createSlice({
         console.log('byebye');
         state.isLoading = false;
         state.isSuccess = true;
+        // state.roomInfo = action.payload;
         // window.location.reload();
       })
       .addCase(__createRoom.rejected, (state, action) => {
@@ -201,6 +201,21 @@ const roomSlice = createSlice({
         state.roomInfo = action.payload;
       })
       .addCase(__getRoomInfo.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // 방 입장 POST
+      .addCase(__postVideoToken.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(__postVideoToken.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.roomInfo = action.payload;
+      })
+      .addCase(__postVideoToken, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.error = action.payload;
