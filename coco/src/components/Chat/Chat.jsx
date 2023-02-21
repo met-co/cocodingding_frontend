@@ -69,12 +69,15 @@ const Chat = (props) => {
           () => {
             console.log(chatcollect.chatRoomId);
             // 채팅방 구독
-            client.subscribe(`/sub/chats/${chatcollect.chatRoomId}`, (res) => {
-              console.log(res.body);
-              const receive = JSON.parse(res.body);
-              console.log(receive);
-              dispatch(subMessage(receive));
-            });
+            client.subscribe(
+              `/sub/chat/room/${chatcollect.chatRoomId}`,
+              (res) => {
+                console.log(res.body);
+                const receive = JSON.parse(res.body);
+                console.log(receive);
+                dispatch(subMessage(receive));
+              }
+            );
           },
           {}
         );
@@ -91,7 +94,7 @@ const Chat = (props) => {
       return;
     }
     client.send(
-      `/chat/message`,
+      `/pub/chat/message`,
       headers,
       JSON.stringify({
         chatRoomId: chatcollect.chatRoomId,
