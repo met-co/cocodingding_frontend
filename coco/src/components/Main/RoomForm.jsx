@@ -101,6 +101,7 @@ export default function RoomForm() {
 
         {/* 명언 */}
         <StWisdom>{wisdom}</StWisdom>
+        <TodoList>투두리스트</TodoList>
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>

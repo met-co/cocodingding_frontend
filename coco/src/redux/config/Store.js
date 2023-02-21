@@ -12,7 +12,7 @@ import messages from '../modules/socketSlice';
 
 //투두리스트
 import todoSlice from '../modules/todoSlice';
-import { saveState, loadState } from './localStoge';
+import { saveState, loadState } from './localStorage';
 //여기부터 지석이의 코드~
 import chatSlice from '../modules/chatSlice';
 const persistedState = loadState();
