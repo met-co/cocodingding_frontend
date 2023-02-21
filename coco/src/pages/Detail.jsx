@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Layout from '../components/Layout/Layout';
-import Topbar from '../components/Topbar/Topbar';
-import styled from 'styled-components';
+import React, { useState, useEffect, useCallback } from "react";
+import Layout from "../components/Layout/Layout";
+import Topbar from "../components/Topbar/Topbar";
+import styled from "styled-components";
 // import { OpenVidu } from 'openvidu-browser';
-import { OpenVidu } from 'openvidu-browser';
-import { useLocation } from 'react-router-dom';
+import { OpenVidu } from "openvidu-browser";
+import { useLocation } from "react-router-dom";
 // import VideoRecord from "../components/videoRecord/VideoRecord";
-import VideoRecord from '../components/VideoRecord/VideoRecord';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import VideoRecord from "../components/VideoRecord/VideoRecord";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import axios from 'axios';
-import Chat from '../components/Chat/Chat';
-import UserVideoComponent from '../components/VideoRecord/UserVideoComponent';
+import axios from "axios";
+import Chat from "../components/Chat/Chat";
+import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
-import { __getRoomInfo } from '../redux/modules/roomSlice';
+import { __postVideoToken } from "../redux/modules/roomSlice";
 
 export default function Detail() {
   const location = useLocation();
-  console.log(location.state);
+
   const dispatch = useDispatch();
   const { openviduRoomId } = useParams();
   console.log(openviduRoomId);
@@ -29,12 +29,12 @@ export default function Detail() {
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(null);
   const [subscribers, setSubscribers] = useState([]);
-  const [checkMyScreen, setCheckMyScreen] = useState('');
+  const [checkMyScreen, setCheckMyScreen] = useState("");
   const [isConnect, setIsConnect] = useState(false); // 커넥팅 체크
   // const [role,setRole] = useState(location.state.role) // 역할군
 
   ////////////////////////////////////////////////////////////////////
-  const nickname = localStorage.getItem('nickname');
+  const nickname = localStorage.getItem("nickname");
   const roomData = useSelector((state) => state.room.roomInfo);
   // const accessToken = localStorage.getItem("Authorization");
   const [roomTitle, setRoomTitle] = useState(null);
@@ -43,16 +43,21 @@ export default function Detail() {
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   const [nicknames, setNickNames] = useState(null);
 
-  useEffect(() => {
-    dispatch(__getRoomInfo(openviduRoomId));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(__getRoomInfo(openviduRoomId));
+  // }, []);
 
   // get한 데이터가 들어왔을 때 useState로 관리
   useEffect(() => {
     setRoomTitle(roomData.roomTitle);
-    setKeyToken(roomData.keyToken);
+    setKeyToken(roomData.enterRoomToken);
     setSessionId(roomData.sessionId);
+    joinSession();
   }, [roomData]);
+
+  console.log(sessionId);
+  console.log(keyToken);
+  console.log(roomData);
 
   // 오픈 비듀
   const deleteSubscriber = (streamManagerId) => {
@@ -91,6 +96,11 @@ export default function Detail() {
   // }
 
   const joinSession = () => {
+    console.log("join");
+    console.log("join");
+    console.log("join");
+    console.log("join");
+
     // openvidu 세션 생성하기
     // 1. openvidu 객체 생성
     const newOV = new OpenVidu();
@@ -101,22 +111,25 @@ export default function Detail() {
     // 3. 미팅을 종료하거나 뒤로가기 등의 이벤트를 통해 세션을 disconnect 해주기 위해 state에 저장
     setOV(newOV);
     // 4. session에 connect하는 과정
-    newsession.on('streamCreated', (e) => {
+    newsession.on("streamCreated", (e) => {
       const newSubscriber = newsession.subscribe(e.stream, undefined);
       setSubscribers(() => [...subscribers, newSubscriber]);
       setIsConnect(true);
     });
     // 1-2 session에서 disconnect한 사용자 삭제
-    newsession.on('streamDestroyed', (e) => {
-      if (e.stream.typeOfVideo === 'CUSTOM') {
+    newsession.on("streamDestroyed", (e) => {
+      if (e.stream.typeOfVideo === "CUSTOM") {
         deleteSubscriber(e.stream.connection.connectionId);
       } else {
         // setCheckMyScreen(true);
       }
     });
     // 1-3 예외처리
-    newsession.on('exception', (exception) => {});
+    newsession.on("exception", (exception) => {});
 
+    // 토큰값 가져오기
+
+    // getToken().then((token) => {
     newsession
       .connect(keyToken, { clientData: nickname })
       .then(async () => {
@@ -124,7 +137,7 @@ export default function Detail() {
           .getUserMedia({
             audioSource: false,
             videoSource: undefined,
-            resolution: '380x240',
+            resolution: "380x240",
             frameRate: 10,
           })
           .then((mediaStream) => {
@@ -137,11 +150,11 @@ export default function Detail() {
               publishVideo: true, // Whether you want to start the publishing with video enabled or disabled
               // resolution: '1280x720',  // The resolution of your video
               // frameRate: 10,   // The frame rate of your video
-              insertMode: 'APPEND', // How the video will be inserted according to targetElement
+              insertMode: "APPEND", // How the video will be inserted according to targetElement
               mirror: true, // Whether to mirror your local video or not
             });
             // 4-b user media 객체 생성
-            newPublisher.once('accessAllowed', () => {
+            newPublisher.once("accessAllowed", () => {
               newsession.publish(newPublisher);
               setPublisher(newPublisher);
             });
@@ -149,7 +162,7 @@ export default function Detail() {
             // Obtain the current video device in use
             let devices = newOV.getDevices();
             let videoDevices = devices.filter(
-              (device) => device.kind === 'videoinput'
+              (device) => device.kind === "videoinput"
             );
             let currentVideoDeviceId = publisher.stream
               .getMediaStream()
@@ -166,11 +179,27 @@ export default function Detail() {
       })
       .catch((error) => {
         console.warn(
-          'There was an error connecting to the session:',
+          "There was an error connecting to the session:",
           error.code,
           error.message
         );
       });
+    // });
+  };
+
+  const getToken = async () => {
+    await createSession();
+    return await createToken();
+  };
+
+  const createSession = async () => {
+    const sessionResponse = sessionId;
+    return sessionResponse;
+  };
+
+  const createToken = async () => {
+    const tokenResponse = keyToken;
+    return tokenResponse; // The token
   };
 
   // 유저 계속 갱신
@@ -212,11 +241,6 @@ export default function Detail() {
 
   useEffect(() => {}, [subscribers]);
 
-  useEffect(() => {
-    joinSession();
-    return () => {};
-  }, []);
-
   return (
     <>
       <Layout>
@@ -227,12 +251,12 @@ export default function Detail() {
           {/* <StVideoContainer><UserVideoComponent /></StVideoContainer> */}
           <StVideoContainer>
             {/* <UserVideoComponent /> */}
-            <div className='video-chat'>
+            <div className="video-chat">
               {session !== undefined ? (
-                <div className='room-video'>
+                <div className="room-video">
                   {/* 메인스트림매니저가 있을 때 */}
                   {mainStreamManager !== undefined ? (
-                    <div className='pub'>
+                    <div className="pub">
                       <VideoRecord
                         streamManager={mainStreamManager}
                         // role={location.state.role}
@@ -243,7 +267,7 @@ export default function Detail() {
 
                   {/* 퍼블리셔가 있을 때 */}
                   {publisher !== null ? (
-                    <div className='sub'>
+                    <div className="sub">
                       <VideoRecord
                         streamManager={publisher}
                         // role={location.state.role}

@@ -1,21 +1,23 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 /* Action Type */
 export const actionType = {
   room: {
-    POST_ROOM: 'POST_ROOM',
-    GET_ROOM: 'GET_ROOM',
-    GET_ROOM_INFO: 'GET_ROOM_INFO',
-    POST_VIDEO_ROOM: 'POST_VIDEO_ROOM',
-    POST_VIDEO_TOKEN: 'POST_VIDEO_TOKEN',
+    POST_ROOM: "POST_ROOM",
+    GET_ROOM: "GET_ROOM",
+    GET_ROOM_INFO: "GET_ROOM_INFO",
+    POST_VIDEO_ROOM: "POST_VIDEO_ROOM",
+    POST_VIDEO_TOKEN: "POST_VIDEO_TOKEN",
   },
 };
 
-const token = `${localStorage.getItem('Authorization')}`;
+const token = `${localStorage.getItem("Authorization")}`;
 
 // const token =
 //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1NTU5LCJpYXQiOjE2NzY3MDM3NTl9.hJjLiaBsOTFQ_eykdGwtnjnBuUHS3es5JV3yoOcH9ykKsiuEMJq3ZacZwH2grsikz4ajfooLIep0fiscxzya4w";
+
+//detail/room으로 변경하기
 
 /* 방 만들기 POST */
 export const __createRoom = createAsyncThunk(
@@ -23,22 +25,22 @@ export const __createRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.post(
-        `https://cocodingding.shop/chat/rooms`,
-
-        console.log('hi'),
+        `https://cocodingding.shop/chat/room`,
+        // payload,
+        console.log("hi"),
 
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
           params: {
-            category: payload.category,
-            roomName: payload.roomName,
+            name: payload.roomTitle,
           },
         },
         { withCredentials: true }
       );
+      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -55,7 +57,7 @@ export const __getRoom = createAsyncThunk(
         `https://cocodingding.shop/detail/room`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         },
@@ -74,12 +76,12 @@ export const __getRoomInfo = createAsyncThunk(
   actionType.room.GET_ROOM_INFO,
   async (payload, thunkAPI) => {
     try {
-      console.log('123');
+      console.log("123");
       const result = await axios.get(
         `https://cocodingding.shop/detail/room/${payload}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         },
@@ -104,7 +106,7 @@ export const __postVideoRoom = createAsyncThunk(
         `https://cocodingding.shop/detail/room`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         },
         { withCredentials: true }
@@ -126,12 +128,13 @@ export const __postVideoToken = createAsyncThunk(
         `https://cocodingding.shop/detail/room/${payload}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         },
         { withCredentials: true }
       );
-      console.log(result.data);
+      console.log("byebye");
+      console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -150,7 +153,7 @@ const initialState = {
 
 /* slice */
 const roomSlice = createSlice({
-  name: 'room',
+  name: "room",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -161,9 +164,10 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__createRoom.fulfilled, (state, action) => {
-        console.log('byebye');
+        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
+        // state.roomInfo = action.payload;
         // window.location.reload();
       })
       .addCase(__createRoom.rejected, (state, action) => {
@@ -197,6 +201,21 @@ const roomSlice = createSlice({
         state.roomInfo = action.payload;
       })
       .addCase(__getRoomInfo.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // 방 입장 POST
+      .addCase(__postVideoToken.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(__postVideoToken.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.roomInfo = action.payload;
+      })
+      .addCase(__postVideoToken, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.error = action.payload;

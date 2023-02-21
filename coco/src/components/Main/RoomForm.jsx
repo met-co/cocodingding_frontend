@@ -1,20 +1,20 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Slider from 'react-slick';
-import CreateRoomButton from './CreateRoomButton';
-import Topbar from '../Topbar/Topbar';
-import { useDispatch, useSelector } from 'react-redux';
-import { __getRoom } from '../../redux/modules/roomSlice';
-import { __postVideoRoom } from '../../redux/modules/roomSlice';
-import TodoList from './TodoList';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Slider from "react-slick";
+import CreateRoomButton from "./CreateRoomButton";
+import Topbar from "../Topbar/Topbar";
+import { useDispatch, useSelector } from "react-redux";
+import { __getRoom } from "../../redux/modules/roomSlice";
+import { __postVideoToken } from "../../redux/modules/roomSlice";
+import TodoList from "./TodoList";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
-  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function RoomForm() {
   console.log(rooms);
 
   // rooms 상태정의, setRooms 함수 정의
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filteredRooms, setFilteredRooms] = useState([]);
 
   useEffect(() => {
@@ -40,11 +40,11 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch('');
+    setSearch("");
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem('Authorization');
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   //명언기능 한번 테스트해봄.
   const wisdomList = [
@@ -68,13 +68,18 @@ export default function RoomForm() {
     setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
   }, []);
 
+  const handleSubmit = (id) => {
+    console.log(id);
+    dispatch(__postVideoToken(id));
+  };
+
   return (
     <div>
       <StSearch>
         <StBackground>
           <StInput
-            type='text'
-            placeholder='참여하고싶은 방을 찾아보세요'
+            type="text"
+            placeholder="참여하고싶은 방을 찾아보세요"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -115,10 +120,11 @@ export default function RoomForm() {
             <div>
               <StButton
                 onClick={() => {
+                  handleSubmit(room.openviduRoomId);
                   if (!isLoggedIn) {
                     navigate(`/detail/${room.openviduRoomId}`);
                   } else {
-                    alert('로그인이 필요한 기능입니다.');
+                    alert("로그인이 필요한 기능입니다.");
                   }
                 }}
               >
