@@ -6,22 +6,27 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 import { subMessage } from '../../redux/modules/socketSlice';
-
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
 
-const Chat = () => {
+const Chat = (props) => {
   const myEmail = localStorage.getItem('userEmail');
   const Myname = localStorage.getItem('userNickname');
   const chatRef = useRef('');
 
   // const navigate = useNavigate();
-  const { chatRoomId } = useParams();
+  // const { chatRoomId } = useParams();
+  //console.log('방 id', chatRoomId);
+
+  //프롭스로 방 id 들고옴.
+  const { openviduRoomId } = useParams(); // useParams()로 라우트 매개변수 가져오기
+  const chatRoomId = openviduRoomId;
+  console.log(chatRoomId);
+
   const dispatch = useDispatch();
-  console.log('방 id', chatRoomId);
 
   const [message, setMessage] = useState('');
 
-  const sock = new SockJS('https://iamhyunjun.shop/ws-stomp');
+  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
@@ -86,8 +91,8 @@ const Chat = () => {
       return;
     }
     client.send(
-      `/pub/chats`,
-      {},
+      `/chat/message`,
+      headers,
       JSON.stringify({
         chatRoomId: chatcollect.chatRoomId,
         userEmail: myEmail,
@@ -151,7 +156,7 @@ const Chat = () => {
               onKeyDown={handleEnterPress}
               placeholder='내용을 입력해주세요.'
             />
-            <button>전송</button>
+            <button onClick={myChat}>전송</button>
           </Footer>
         </Down>
       </Container>

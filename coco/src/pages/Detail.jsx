@@ -14,7 +14,7 @@ import axios from 'axios';
 import Chat from '../components/Chat/Chat';
 import UserVideoComponent from '../components/VideoRecord/UserVideoComponent';
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
-import { __getRoomInfo } from '../redux/modules/roomSlice';
+import { __getRoomInfo, __postVideoToken } from '../redux/modules/roomSlice';
 
 export default function Detail() {
   const location = useLocation();
@@ -45,6 +45,9 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(__getRoomInfo(openviduRoomId));
+  }, []);
+  useEffect(() => {
+    dispatch(__postVideoToken(openviduRoomId));
   }, []);
 
   // get한 데이터가 들어왔을 때 useState로 관리
@@ -267,7 +270,8 @@ export default function Detail() {
           </StVideoContainer>
 
           <StChatContainer>
-            <Chat />
+            {/* 방id 파람값전달.. */}
+            <Chat openviduRoomId={openviduRoomId} />
           </StChatContainer>
         </StContainer>
       </Layout>

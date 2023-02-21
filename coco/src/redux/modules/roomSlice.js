@@ -23,19 +23,23 @@ export const __createRoom = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const result = await axios.post(
-        `https://cocodingding.shop/chat/rooms`,
+        `https://cocodingding.shop/chat/room`,
 
-        console.log('hi'),
+        {
+          category: payload.category,
+          name: payload.roomName,
+        },
 
         {
           headers: {
             'Content-Type': 'application/json',
             Authorization: token,
           },
-          params: {
-            category: payload.category,
-            roomName: payload.roomName,
-          },
+          // params: {
+          //   category: payload.category,
+          //   roomName: payload.roomName,
+          //   // roomName: payload.roomName,
+          // },
         },
         { withCredentials: true }
       );

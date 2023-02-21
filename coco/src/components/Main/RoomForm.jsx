@@ -111,11 +111,11 @@ export default function RoomForm() {
               <div> 닉네임</div>
               <div>#{room.category}</div>
             </div>
-            <div>{room.roomName}</div>
+            <div>{room.roomTitle}</div>
             <div>
               <StButton
                 onClick={() => {
-                  if (!isLoggedIn) {
+                  if (isLoggedIn) {
                     navigate(`/detail/${room.openviduRoomId}`);
                   } else {
                     alert('로그인이 필요한 기능입니다.');
