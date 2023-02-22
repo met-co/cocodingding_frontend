@@ -1,3 +1,97 @@
+// import { useRef, useState, useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
+// import * as StompJs from '@stomp/stompjs';
+// // import instance from '../../utils/axiosConfig';
+
+// export default function Chat() {
+//   const [chatList, setChatList] = useState([]);
+//   const [chat, setChat] = useState('');
+
+//   // const { chatRoomId } = useParams();
+//   const client = useRef({});
+
+//   const { openviduRoomId } = useParams(); // useParams()로 라우트 매개변수 가져오기
+//   const chatRoomId = openviduRoomId;
+//   console.log(chatRoomId);
+
+//   const connect = () => {
+//     client.current = new StompJs.Client({
+//       brokerURL: 'ws://cocodingding.shop/ws',
+//       onConnect: () => {
+//         console.log('success');
+//         subscribe();
+//       },
+//       connectHeaders: {
+//         // 이 부분 새로 추가
+//         Authorization: window.localStorage.getItem('authorization'),
+//       },
+//     });
+//     client.current.activate();
+//   };
+
+//   const publish = (chat) => {
+//     if (!client.current.connected) return;
+
+//     client.current.publish({
+//       destination: '/pub/chat/message',
+//       body: JSON.stringify({
+//         chatRoomId: chatRoomId,
+//         chat: chat,
+//       }),
+//     });
+
+//     setChat('');
+//   };
+
+//   const subscribe = () => {
+//     client.current.subscribe('/sub/chat/message' + chatRoomId, (body) => {
+//       const json_body = JSON.parse(body.body);
+//       setChatList((_chat_list) => [..._chat_list, json_body]);
+//     });
+//   };
+
+//   const disconnect = () => {
+//     client.current.deactivate();
+//   };
+
+//   const handleChange = (event) => {
+//     // 채팅 입력 시 state에 값 설정
+//     setChat(event.target.value);
+//   };
+
+//   const handleSubmit = (event, chat) => {
+//     // 보내기 버튼 눌렀을 때 publish
+//     event.preventDefault();
+
+//     publish(chat);
+//   };
+
+//   useEffect(() => {
+//     connect();
+
+//     return () => disconnect();
+//   }, []);
+
+//   return (
+//     <div>
+//       <div className={'chat-list'}>{chatList}</div>
+//       <form onSubmit={(event) => handleSubmit(event, chat)}>
+//         <div>
+//           <input
+//             type={'text'}
+//             name={'chatInput'}
+//             onChange={handleChange}
+//             value={chat}
+//           />
+//         </div>
+//         <input type={'submit'} value={'의견 보내기'} />
+//       </form>
+//     </div>
+//   );
+// }
+
+// FIXME: 원래 코드
+
 import styled from 'styled-components';
 import { React, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,12 +119,12 @@ const Chat = (props) => {
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState('');
-
-  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
+  // const sock = new SockJS('http://localhost:8080/ws-stomp');
+  const sock = new SockJS('https://cocodingding.shop/ws');
   const client = Stomp.over(sock);
 
   const headers = {
-    Authorization: localStorage.getItem('token'),
+    Authorization: localStorage.getItem('Authorization'),
   };
 
   const { chatcollect } = useSelector((state) => state.chatcollect);
@@ -70,6 +164,8 @@ const Chat = (props) => {
             console.log(chatRoomId);
             // 채팅방 구독
             client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
+              console.log('sub 확인');
+
               console.log(res.body);
               const receive = JSON.parse(res.body);
               console.log(receive);
@@ -96,6 +192,8 @@ const Chat = (props) => {
       JSON.stringify({
         chatRoomId: chatRoomId,
         userEmail: myEmail,
+        userNickname: Myname,
+
         message: message,
       })
     );
@@ -127,19 +225,19 @@ const Chat = (props) => {
                   <SendMessage>
                     <div>
                       <span>{chating.message}</span>
-                      <img
+                      {/* <img
                         src={process.env.PUBLIC_URL + '/basic.png'}
                         alt='로고'
-                      />
+                      /> */}
                     </div>
                   </SendMessage>
                 ) : (
                   <ReceivedMessage>
                     <div>
-                      <img
+                      {/* <img
                         src={process.env.PUBLIC_URL + '/basic.png'}
                         alt='로고'
-                      />
+                      /> */}
                       <Dou>
                         <h4>{chating.userNickname}님</h4>
                         <span>{chating.message}</span>
