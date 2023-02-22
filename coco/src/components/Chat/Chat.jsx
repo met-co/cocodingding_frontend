@@ -6,22 +6,27 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 
 import { subMessage } from '../../redux/modules/socketSlice';
-
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
 
-const Chat = () => {
+const Chat = (props) => {
   const myEmail = localStorage.getItem('userEmail');
   const Myname = localStorage.getItem('userNickname');
   const chatRef = useRef('');
 
   // const navigate = useNavigate();
-  const { chatRoomId } = useParams();
+  // const { chatRoomId } = useParams();
+  //console.log('방 id', chatRoomId);
+
+  //프롭스로 방 id 들고옴.
+  const { openviduRoomId } = useParams(); // useParams()로 라우트 매개변수 가져오기
+  const chatRoomId = openviduRoomId;
+  console.log(chatRoomId);
+
   const dispatch = useDispatch();
-  console.log('방 id', chatRoomId);
 
   const [message, setMessage] = useState('');
 
-  const sock = new SockJS('https://iamhyunjun.shop/ws-stomp');
+  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
@@ -55,16 +60,16 @@ const Chat = () => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log(chatcollect.chatRoomId);
-    if (chatcollect.chatRoomId) {
+    console.log(chatRoomId);
+    if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
       try {
         client.connect(
           {},
           () => {
-            console.log(chatcollect.chatRoomId);
+            console.log(chatRoomId);
             // 채팅방 구독
-            client.subscribe(`/sub/chats/${chatcollect.chatRoomId}`, (res) => {
+            client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
               console.log(res.body);
               const receive = JSON.parse(res.body);
               console.log(receive);
@@ -86,17 +91,17 @@ const Chat = () => {
       return;
     }
     client.send(
-      `/pub/chats`,
-      {},
+      `/pub/chat/message`,
+      headers,
       JSON.stringify({
-        chatRoomId: chatcollect.chatRoomId,
+        chatRoomId: chatRoomId,
         userEmail: myEmail,
         message: message,
       })
     );
     chatRef.current.value = null;
   };
-  console.log(9999, messages);
+  console.log('방아이디', chatRoomId, messages);
 
   console.log(987, Myname);
   // console.log(789, userNickname);
@@ -163,7 +168,7 @@ export default Chat;
 
 const Container = styled.div`
   width: 500px;
-  height: 100%;
+  height: 700px;
   border-radius: 10px;
   background-color: #c2c1c1;
   display: flex;

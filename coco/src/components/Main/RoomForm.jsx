@@ -1,20 +1,20 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import Slider from "react-slick";
-import CreateRoomButton from "./CreateRoomButton";
-import Topbar from "../Topbar/Topbar";
-import { useDispatch, useSelector } from "react-redux";
-import { __getRoom } from "../../redux/modules/roomSlice";
-import { __postVideoToken } from "../../redux/modules/roomSlice";
-import TodoList from "./TodoList";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import Slider from 'react-slick';
+import CreateRoomButton from './CreateRoomButton';
+import Topbar from '../Topbar/Topbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getRoom } from '../../redux/modules/roomSlice';
+import { __postVideoToken } from '../../redux/modules/roomSlice';
+import TodoList from './TodoList';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm() {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,9 +26,10 @@ export default function RoomForm() {
   console.log(rooms);
 
   // rooms 상태정의, setRooms 함수 정의
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
 
+  console.log(rooms);
   useEffect(() => {
     setFilteredRooms(
       rooms.filter((room) =>
@@ -40,11 +41,11 @@ export default function RoomForm() {
   const selectCategory = (category) => {
     setFilteredRooms(rooms.filter((room) => room.category === category));
     // 검색어 상태(search) 초기화
-    setSearch("");
+    setSearch('');
   };
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   //명언기능 한번 테스트해봄.
   const wisdomList = [
@@ -58,6 +59,7 @@ export default function RoomForm() {
     '"왜 이렇게 책임감없는 소릴하시죠? 잘하시면서 왜 그래요?" \n- 4조 김혜성',
     '"괜찮으신가요?? ㅠㅠ 파이팅입니다." \n- 5조 이정우',
     '"아니, 고작 이것도 못하면 다른일은 잘할수 있을것 같아요??" \n- 6조 이채정',
+
     '"어려움이 있으면 기회가 있다." \n- 에디슨',
   ];
   const [wisdom, setWisdom] = useState(
@@ -78,8 +80,8 @@ export default function RoomForm() {
       <StSearch>
         <StBackground>
           <StInput
-            type="text"
-            placeholder="참여하고싶은 방을 찾아보세요"
+            type='text'
+            placeholder='참여하고싶은 방을 찾아보세요'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -99,7 +101,7 @@ export default function RoomForm() {
 
         {/* 명언 */}
         <StWisdom>{wisdom}</StWisdom>
-        <TodoList />
+        <TodoList>투두리스트</TodoList>
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>
@@ -116,15 +118,15 @@ export default function RoomForm() {
               <div> 닉네임</div>
               <div>#{room.category}</div>
             </div>
-            <div>{room.roomName}</div>
+            <div>{room.roomTitle}</div>
             <div>
               <StButton
                 onClick={() => {
                   handleSubmit(room.openviduRoomId);
-                  if (!isLoggedIn) {
+                  if (isLoggedIn) {
                     navigate(`/detail/${room.openviduRoomId}`);
                   } else {
-                    alert("로그인이 필요한 기능입니다.");
+                    alert('로그인이 필요한 기능입니다.');
                   }
                 }}
               >
@@ -146,7 +148,8 @@ const StSearch = styled.div`
 
 const StBackground = styled.div`
   background-color: #ffe45c;
-  width: 100.7vw;
+  width: 100vw;
+  max-width: 105vw;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -40,12 +40,12 @@ export const __postChatopenThunk = createAsyncThunk(
   }
 );
 
-// 전체 채팅 GET요청
+// 전체 채팅 GET요청//FIXME:
 export const __getChatListThunk = createAsyncThunk(
   'GET_CHATS',
   async (_, thunkAPI) => {
     try {
-      const Request = await axiosInstance.get('/chats', config);
+      const Request = await axiosInstance.get('/chat/rooms', config);
       return thunkAPI.fulfillWithValue(Request.data);
     } catch (e) {
       return thunkAPI.rejectWithValue(e.code);
