@@ -14,7 +14,12 @@ import axios from 'axios';
 import Chat from '../components/Chat/Chat';
 import UserVideoComponent from '../components/VideoRecord/UserVideoComponent';
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
-import { __postVideoToken, __postExitRoom } from '../redux/modules/roomSlice';
+import {
+  __postVideoToken,
+  __postExitRoom,
+  __getRoomNickname,
+  __getRoom,
+} from '../redux/modules/roomSlice';
 
 export default function Detail() {
   const location = useLocation();
@@ -37,12 +42,14 @@ export default function Detail() {
   ////////////////////////////////////////////////////////////////////
   const nickname = localStorage.getItem('nickname');
   const roomData = useSelector((state) => state.room.roomInfo);
+  const { roomNicknames } = useSelector((state) => state.room);
   // const accessToken = localStorage.getItem("Authorization");
   const [roomTitle, setRoomTitle] = useState(null);
   const [keyToken, setKeyToken] = useState(null);
   const [sessionId, setSessionId] = useState(null);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   const [nicknames, setNickNames] = useState(null);
+  // const [usernickname, setUsernickname] = useState(null);
 
   // useEffect(() => {
   //   dispatch(__getRoomInfo(openviduRoomId));
@@ -249,64 +256,63 @@ export default function Detail() {
     <>
       <Layout>
         <StTitle>
-          <h1>Welcome ! (방이름) 방 입니다.</h1>
-          <button onClick={leaveSession}>나가기</button>
+          <h1>Welcome ! {roomData.roomTitle} 방 입니다.</h1>
         </StTitle>
         <StContainer>
           {/* <StVideoContainer><UserVideoComponent /></StVideoContainer> */}
           <StVideoContainer>
-            {/* <UserVideoComponent /> */}
-            <div className='video-chat'>
-              {session !== undefined ? (
-                <StRoomVideo>
-                  {/* 메인스트림매니저가 있을 때 */}
-                  {mainStreamManager !== undefined ? (
-                    <StPub>
-                      <VideoRecord
-                        streamManager={mainStreamManager}
-                        // role={location.state.role}
-                        // nicknames={nicknames}
-                      ></VideoRecord>
-                    </StPub>
-                  ) : null}
+            <StVideo>
+              {/* <UserVideoComponent /> */}
+              <div className='video-chat'>
+                {session !== undefined ? (
+                  <StRoomVideo>
+                    {/* 메인스트림매니저가 있을 때 */}
+                    {mainStreamManager !== undefined ? (
+                      <StPub>
+                        <VideoRecord
+                          streamManager={mainStreamManager}
+                          // role={location.state.role}
+                          // nicknames={nicknames}
+                        ></VideoRecord>
+                      </StPub>
+                    ) : null}
 
-                  {/* 퍼블리셔가 있을 때 */}
-                  {publisher !== null ? (
-                    <StSub>
-                      <Stbox>
-                        <div className='sub'>
-                          <StnickName>
-                            {' '}
-                            {roomData.roomMemberNickname}
-                          </StnickName>
-                          <VideoRecord
-                            streamManager={publisher}
-                            // role={location.state.role}
-                          ></VideoRecord>
-                        </div>
-                      </Stbox>
+                    {/* 퍼블리셔가 있을 때 */}
+                    {publisher !== null ? (
+                      <StSub>
+                        <Stbox>
+                          <div className='sub'>
+                            {/* <StnickName>나</StnickName> */}
+                            <VideoRecord
+                              streamManager={publisher}
+                              // role={location.state.role}
+                            ></VideoRecord>
+                          </div>
+                        </Stbox>
 
-                      <Stbox>
-                        {subscribers.length > 0
-                          ? subscribers.map((sub, index) => (
-                              <>
-                                <StnickName>
-                                  상대닉{roomData.roomMemberNickname}
-                                </StnickName>
-                                <VideoRecord
-                                  streamManager={sub}
-                                  key={index}
-                                  // role={location.state.role}
-                                ></VideoRecord>
-                              </>
-                            ))
-                          : null}
-                      </Stbox>
-                    </StSub>
-                  ) : null}
-                </StRoomVideo>
-              ) : null}
-            </div>
+                        <Stbox>
+                          {subscribers.length > 0
+                            ? subscribers.map((sub, index) => (
+                                <>
+                                  <StnickName></StnickName>
+                                  <VideoRecord
+                                    streamManager={sub}
+                                    key={index}
+                                    // role={location.state.role}
+                                  ></VideoRecord>
+                                </>
+                              ))
+                            : null}
+                        </Stbox>
+                      </StSub>
+                    ) : null}
+                  </StRoomVideo>
+                ) : null}
+              </div>
+            </StVideo>
+            <StcontrolBox>
+              <button onClick={leaveSession}>나가기</button>
+            </StcontrolBox>
           </StVideoContainer>
 
           <StChatContainer>
@@ -339,7 +345,8 @@ const StContainer = styled.div`
 const StVideoContainer = styled.div`
   width: 70%;
   height: 100%;
-  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
 `;
 
 const StChatContainer = styled.div`
@@ -358,7 +365,7 @@ const StRoomVideo = styled.div`
 
 const StSub = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   width: 700px;
@@ -379,4 +386,13 @@ const StnickName = styled.div`
   padding: 6px 16px;
   border-radius: 14px;
   background-color: rgba(0, 0, 0, 0.5); */
+`;
+
+const StVideo = styled.div`
+  height: 90%;
+`;
+
+const StcontrolBox = styled.div`
+  background-color: aliceblue;
+  height: 10%;
 `;

@@ -14,36 +14,13 @@ export default function RoomForm({ rooms, search, category }) {
 
   useEffect(() => {
     dispatch(__getRoom());
-  }, [dispatch]);
+  }, []);
 
   const filteredRooms = rooms
     .filter((room) =>
       room.roomTitle.toLowerCase().includes(search.toLowerCase())
     )
     .filter((room) => (category ? room.category === category : true));
-  //FIXME:여기 30번부터 52번 까지 지우기.
-  // const { rooms } = useSelector((state) => state.room);
-  // console.log(rooms);
-  // // rooms 상태정의, setRooms 함수 정의
-  // const [search, setSearch] = useState('');
-  // const [filteredRooms, setFilteredRooms] = useState([]);
-  // const [category, setCategory] = useState(null);
-
-  // useEffect(() => {
-  //   let filtered = rooms;
-
-  //   if (search) {
-  //     filtered = filtered.filter((room) =>
-  //       room.roomTitle.toLowerCase().includes(search.toLowerCase())
-  //     );
-  //   }
-
-  //   if (category) {
-  //     filtered = filtered.filter((room) => room.category === category);
-  //   }
-
-  //   setFilteredRooms(filtered);
-  // }, [rooms, search, category]);
 
   //로그인여부
   const isLoggedIn = !!localStorage.getItem('Authorization');
@@ -58,8 +35,8 @@ export default function RoomForm({ rooms, search, category }) {
       <StSearch>
         {/* <StBackground>
           <StInput
-            type='text'
-            placeholder='참여하고싶은 방을 찾아보세요'
+            type="text"
+            placeholder="참여하고싶은 방을 찾아보세요"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
