@@ -238,7 +238,7 @@ const Chat = (props) => {
                         alt='로고'
                       /> */}
                       <Dou>
-                        <h4>{chating.userNickname}님</h4>
+                        <h4>{Myname}님</h4>
                         <span>{chating.message}</span>
                       </Dou>
                     </div>

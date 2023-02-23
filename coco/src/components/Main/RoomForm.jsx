@@ -28,47 +28,26 @@ export default function RoomForm() {
   // rooms 상태정의, setRooms 함수 정의
   const [search, setSearch] = useState('');
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [category, setCategory] = useState(null);
 
-  console.log(rooms);
   useEffect(() => {
-    setFilteredRooms(
-      rooms.filter((room) =>
-        room.roomTitle.toLowerCase().includes(search.toLowerCase())
-      )
-    );
-  }, [search, rooms]);
+    let filtered = rooms;
 
-  const selectCategory = (category) => {
-    setFilteredRooms(rooms.filter((room) => room.category === category));
-    // 검색어 상태(search) 초기화
-    setSearch('');
-  };
+    if (search) {
+      filtered = filtered.filter((room) =>
+        room.roomTitle.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (category) {
+      filtered = filtered.filter((room) => room.category === category);
+    }
+
+    setFilteredRooms(filtered);
+  }, [rooms, search, category]);
 
   //로그인여부
   const isLoggedIn = !!localStorage.getItem('Authorization');
-
-  //명언기능 한번 테스트해봄.
-  const wisdomList = [
-    `"중요한건 꺾이지 않는 마음.".\n-  DRX 소속 프로게이머 김혁규(Deft)`,
-    `"나비와 나방은 생물학적으로 크게 다를 게 없죠,하지만 사람들은 주로 밤에 보이는 나방을 나비보다 못한 것으로 생각하곤 합니다 ".\n- 3조 유현승`,
-    `"우리 어린애 아니잖아요?".\n- 박응수매니저`,
-    `"세잎크로버의 꽃말은 행복입니다. 우리는 왜 그동안 수많은 행복들 사이에서 행운이라는 네잎크로버를 찾는데 집중했을까요? ".\n- 4조 김지석`,
-    '"야 내도 한다, 니라고 못할것 같나?" \n- 5조 전병진',
-    '"그 동안 행복코딩하셨잖아요 ^^, 이젠 저희도 좀 즐길게요" \n- 5조 홍정기',
-    '"지금 그렇게 유튜브 보면서 놀때 인가요??" \n- 4조 김현우',
-    '"왜 이렇게 책임감없는 소릴하시죠? 잘하시면서 왜 그래요?" \n- 4조 김혜성',
-    '"괜찮으신가요?? ㅠㅠ 파이팅입니다." \n- 5조 이정우',
-    '"아니, 고작 이것도 못하면 다른일은 잘할수 있을것 같아요??" \n- 6조 이채정',
-
-    '"어려움이 있으면 기회가 있다." \n- 에디슨',
-  ];
-  const [wisdom, setWisdom] = useState(
-    wisdomList[Math.floor(Math.random() * wisdomList.length)]
-  );
-
-  useEffect(() => {
-    setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
-  }, []);
 
   const handleSubmit = (id) => {
     console.log(id);
@@ -78,7 +57,7 @@ export default function RoomForm() {
   return (
     <div>
       <StSearch>
-        <StBackground>
+        {/* <StBackground>
           <StInput
             type='text'
             placeholder='참여하고싶은 방을 찾아보세요'
@@ -97,11 +76,8 @@ export default function RoomForm() {
               )
             )}
           </StCategorys>
-        </StBackground>
+        </StBackground> */}
 
-        {/* 명언 */}
-        <StWisdom>{wisdom}</StWisdom>
-        <TodoList>투두리스트</TodoList>
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>

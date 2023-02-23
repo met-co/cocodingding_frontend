@@ -11,6 +11,8 @@ import Layout from '../components/Layout/Layout';
 import BottomBar from '../components/BottomBar/BottomBar';
 import __getRoom from '../redux/modules/roomSlice';
 import SearchBar from '../components/Main/SearchBar';
+import WisdomQuote from '../components/Main/WisdomQuote';
+import TodoList from '../components/Main/TodoList';
 
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
@@ -53,7 +55,10 @@ const Main = () => {
                 rooms={rooms}
               />
             </StBackground>
+
             <Layout>
+              <WisdomQuote>명언</WisdomQuote>
+              <TodoList>투두리스트</TodoList>
               <RoomForm rooms={filteredRooms} />
             </Layout>
           </StTopContainer>
@@ -67,6 +72,8 @@ const Main = () => {
               </StTitle>
             </StBackground>
             <Layout>
+              <WisdomQuote>명언</WisdomQuote>
+              <TodoList>투두리스트</TodoList>
               <RoomForm rooms={filteredRooms} />
             </Layout>
           </StTopContainer>
