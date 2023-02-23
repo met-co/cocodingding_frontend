@@ -14,7 +14,7 @@ import axios from "axios";
 import Chat from "../components/Chat/Chat";
 import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
-import { __postVideoToken } from "../redux/modules/roomSlice";
+import { __postVideoToken, __postExitRoom } from "../redux/modules/roomSlice";
 
 export default function Detail() {
   const location = useLocation();
@@ -98,7 +98,8 @@ export default function Detail() {
     setPublisher(null);
     setMainStreamManager(undefined);
     setKeyToken(null);
-    navigate(`/`);
+    dispatch(__postExitRoom(roomData.openviduRoomId));
+    // navigate(`/`);
   };
 
   const joinSession = () => {

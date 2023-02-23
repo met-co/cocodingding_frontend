@@ -9,6 +9,7 @@ export const actionType = {
     GET_ROOM_INFO: "GET_ROOM_INFO",
     POST_VIDEO_ROOM: "POST_VIDEO_ROOM",
     POST_VIDEO_TOKEN: "POST_VIDEO_TOKEN",
+    POST_EXIT_ROOM: "POST_EXIT_ROOM",
   },
 };
 
@@ -143,6 +144,30 @@ export const __postVideoToken = createAsyncThunk(
   }
 );
 
+/* 방 나가기 POST */
+export const __postExitRoom = createAsyncThunk(
+  actionType.room.POST_EXIT_ROOM,
+  async (payload, thunkAPI) => {
+    try {
+      const result = await axios.post(
+        `https://cocodingding.shop/detail/room/exit/${payload}`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        },
+        { withCredentials: true }
+      );
+      console.log(result);
+      return thunkAPI.fulfillWithValue(result.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 /* initial state */
 const initialState = {
   rooms: [],
@@ -217,7 +242,21 @@ const roomSlice = createSlice({
         state.isSuccess = true;
         state.roomInfo = action.payload;
       })
-      .addCase(__postVideoToken, (state, action) => {
+      .addCase(__postVideoToken.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // 방 나가기
+      .addCase(__postExitRoom.pending, (state) => {
+        state.isLoading = true;
+        state.isSuccess = false;
+      })
+      .addCase(__postExitRoom.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(__postExitRoom.rejected, (state, action) => {
         state.isSuccess = false;
         state.isLoading = false;
         state.error = action.payload;
