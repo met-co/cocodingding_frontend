@@ -121,23 +121,6 @@ const StSearch = styled.div`
   justify-content: center;
 `;
 
-const StBackground = styled.div`
-  background-color: #ffe45c;
-  width: 100vw;
-  max-width: 105vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StWisdom = styled.h3`
-  white-space: pre-line;
-  display: flex;
-  text-align: center; // 가운데 정렬
-  margin-top: 50px;
-`;
-
 const StCreateRooms = styled.div`
   display: flex;
   flex-wrap: wrap;
