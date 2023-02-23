@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { BsBroadcast } from 'react-icons/bs';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import { BsBroadcast } from "react-icons/bs";
 //컴포넌트
 
-import Topbar from '../components/Topbar/Topbar';
-import CreateRoomButton from '../components/Main/CreateRoomButton';
-import RoomForm from '../components/Main/RoomForm';
-import Layout from '../components/Layout/Layout';
-import BottomBar from '../components/BottomBar/BottomBar';
-import __getRoom from '../redux/modules/roomSlice';
-import SearchBar from '../components/Main/SearchBar';
+import Topbar from "../components/Topbar/Topbar";
+import CreateRoomButton from "../components/Main/CreateRoomButton";
+import RoomForm from "../components/Main/RoomForm";
+import Layout from "../components/Layout/Layout";
+import BottomBar from "../components/BottomBar/BottomBar";
+import __getRoom from "../redux/modules/roomSlice";
+import SearchBar from "../components/Main/SearchBar";
 
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
   const dispatch = useDispatch();
   //검색기능 프롭스 전달
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('');
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
   const { rooms } = useSelector((state) => state.room);
 
   const filteredRooms = rooms
@@ -27,7 +27,7 @@ const Main = () => {
     .filter((room) => (category ? room.category === category : true));
 
   //로그인 여부
-  const isLoggedIn = !!localStorage.getItem('Authorization');
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   return (
     <div>
@@ -42,7 +42,7 @@ const Main = () => {
             <StBackground>
               <StTitle>
                 <h1>
-                  안녕하세요, {localStorage.getItem('userNickname')}님! 오늘도
+                  안녕하세요, {localStorage.getItem("userNickname")}님! 오늘도
                   함께 공부해요.
                 </h1>
               </StTitle>

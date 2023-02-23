@@ -13,7 +13,14 @@ const OpenViduVideoComponent = (props) => {
 
   return (
     <StContainer>
-      <video autoPlay={true} ref={videoRef} />
+      <StNickname>
+        {props.streamManager.stream.connection.data.split("%")[2]}
+      </StNickname>
+      <video
+        autoPlay={true}
+        ref={videoRef}
+        style={{ width: "200px", borderRadius: "10px" }}
+      />
     </StContainer>
   );
 };
@@ -23,4 +30,8 @@ export default OpenViduVideoComponent;
 const StContainer = styled.div`
   /* width: 30px;
   height: 30px; */
+`;
+
+const StNickname = styled.div`
+  width: 50px;
 `;
