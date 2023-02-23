@@ -1,19 +1,13 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Slider from 'react-slick';
-import CreateRoomButton from './CreateRoomButton';
-import Topbar from '../Topbar/Topbar';
 import { useDispatch, useSelector } from 'react-redux';
+import CreateRoomButton from './CreateRoomButton';
 import { __getRoom } from '../../redux/modules/roomSlice';
 import { __postVideoToken } from '../../redux/modules/roomSlice';
-import TodoList from './TodoList';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
-export default function RoomForm() {
+export default function RoomForm({ rooms, search, category }) {
   const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,29 +16,34 @@ export default function RoomForm() {
     dispatch(__getRoom());
   }, [dispatch]);
 
-  const { rooms } = useSelector((state) => state.room);
-  console.log(rooms);
+  const filteredRooms = rooms
+    .filter((room) =>
+      room.roomTitle.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((room) => (category ? room.category === category : true));
+  //FIXME:여기 30번부터 52번 까지 지우기.
+  // const { rooms } = useSelector((state) => state.room);
+  // console.log(rooms);
+  // // rooms 상태정의, setRooms 함수 정의
+  // const [search, setSearch] = useState('');
+  // const [filteredRooms, setFilteredRooms] = useState([]);
+  // const [category, setCategory] = useState(null);
 
-  // rooms 상태정의, setRooms 함수 정의
-  const [search, setSearch] = useState('');
-  const [filteredRooms, setFilteredRooms] = useState([]);
-  const [category, setCategory] = useState(null);
+  // useEffect(() => {
+  //   let filtered = rooms;
 
-  useEffect(() => {
-    let filtered = rooms;
+  //   if (search) {
+  //     filtered = filtered.filter((room) =>
+  //       room.roomTitle.toLowerCase().includes(search.toLowerCase())
+  //     );
+  //   }
 
-    if (search) {
-      filtered = filtered.filter((room) =>
-        room.roomTitle.toLowerCase().includes(search.toLowerCase())
-      );
-    }
+  //   if (category) {
+  //     filtered = filtered.filter((room) => room.category === category);
+  //   }
 
-    if (category) {
-      filtered = filtered.filter((room) => room.category === category);
-    }
-
-    setFilteredRooms(filtered);
-  }, [rooms, search, category]);
+  //   setFilteredRooms(filtered);
+  // }, [rooms, search, category]);
 
   //로그인여부
   const isLoggedIn = !!localStorage.getItem('Authorization');

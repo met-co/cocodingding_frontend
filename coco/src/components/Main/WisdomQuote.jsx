@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 export default function WisdomQuote() {
   //명언기능 한번 테스트해봄.
@@ -23,5 +24,11 @@ export default function WisdomQuote() {
   useEffect(() => {
     setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
   }, []);
-  return <div>{wisdom}</div>;
+  return <StWisdom>{wisdom}</StWisdom>;
 }
+const StWisdom = styled.h3`
+  white-space: pre-line;
+  display: flex;
+  text-align: center; // 가운데 정렬
+  margin-top: 50px;
+`;

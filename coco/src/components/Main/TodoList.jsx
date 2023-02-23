@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import {
   toggleTodo,
   deleteTodo,
@@ -45,10 +46,10 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <ul>
+    <StTodoList>
+      <StTodoListContainer>
         {todos.map((todo) => (
-          <li key={todo.id}>
+          <div key={todo.id}>
             <input
               type='checkbox'
               checked={todo.completed}
@@ -72,9 +73,9 @@ const TodoList = () => {
             >
               Edit
             </button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </StTodoListContainer>
       <div>
         <input
           type='text'
@@ -83,8 +84,21 @@ const TodoList = () => {
         />
         <button onClick={handleAddTodo}>Add Todo</button>
       </div>
-    </div>
+    </StTodoList>
   );
 };
 
 export default TodoList;
+
+const StTodoList = styled.div`
+  width: 100%;
+  height: 160px;
+  margin: 2rem auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+`;
+const StTodoListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+`;

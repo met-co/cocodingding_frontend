@@ -57,9 +57,22 @@ const Main = () => {
             </StBackground>
 
             <Layout>
-              <WisdomQuote>명언</WisdomQuote>
-              <TodoList>투두리스트</TodoList>
-              <RoomForm rooms={filteredRooms} />
+              <StMidBoxs>
+                <StWisdom>
+                  <h2>오늘의 한마디</h2>
+                  <WisdomQuote />
+                </StWisdom>
+                <StTodoList>
+                  <h2>오늘의 할일</h2>
+                  <TodoList>투두리스트</TodoList>
+                </StTodoList>
+              </StMidBoxs>
+              <RoomForm
+                search={search}
+                setSearch={setSearch}
+                setCategory={setCategory}
+                rooms={rooms}
+              />
             </Layout>
           </StTopContainer>
         </>
@@ -70,11 +83,23 @@ const Main = () => {
               <StTitle>
                 <h1>함께 공부좀하시죠?</h1>
               </StTitle>
+              <SearchBar
+                search={search}
+                setSearch={setSearch}
+                setCategory={setCategory}
+                rooms={rooms}
+              />
             </StBackground>
             <Layout>
               <WisdomQuote>명언</WisdomQuote>
               <TodoList>투두리스트</TodoList>
-              <RoomForm rooms={filteredRooms} />
+              <RoomForm
+                // rooms={filteredRooms}
+                search={search}
+                setSearch={setSearch}
+                Category={setCategory}
+                rooms={rooms}
+              />
             </Layout>
           </StTopContainer>
         </>
@@ -119,17 +144,18 @@ const StTitle = styled.div`
   justify-content: center;
 `;
 
-const StRoomContainer = styled.div`
+const StMidBoxs = styled.div`
+  margin-top: 50px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  gap: 10px;
-  h2 {
-    font-weight: 700;
-  }
+`;
 
-  margin-top: 120px;
-  padding: 4rem;
+const StWisdom = styled.div`
+  flex-basis: 30%;
+`;
+
+const StTodoList = styled.div`
+  flex-basis: 70%;
 `;
 
 const StBottom = styled.div`
