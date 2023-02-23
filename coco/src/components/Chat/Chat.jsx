@@ -193,7 +193,6 @@ const Chat = (props) => {
         roomId: chatRoomId,
         // userEmail: myEmail,
         sender: Myname,
-
         message: message,
       })
     );
