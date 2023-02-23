@@ -120,7 +120,7 @@ const Chat = (props) => {
 
   const [message, setMessage] = useState('');
   // const sock = new SockJS('http://localhost:8080/ws-stomp');
-  const sock = new SockJS('https://cocodingding.shop/ws');
+  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
@@ -190,9 +190,9 @@ const Chat = (props) => {
       `/pub/chat/message`,
       headers,
       JSON.stringify({
-        chatRoomId: chatRoomId,
-        userEmail: myEmail,
-        userNickname: Myname,
+        roomId: chatRoomId,
+        // userEmail: myEmail,
+        sender: Myname,
 
         message: message,
       })
