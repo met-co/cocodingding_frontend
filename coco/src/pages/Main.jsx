@@ -10,11 +10,23 @@ import RoomForm from '../components/Main/RoomForm';
 import Layout from '../components/Layout/Layout';
 import BottomBar from '../components/BottomBar/BottomBar';
 import __getRoom from '../redux/modules/roomSlice';
+import SearchBar from '../components/Main/SearchBar';
 
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
   const dispatch = useDispatch();
+  //검색기능 프롭스 전달
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('');
+  const { rooms } = useSelector((state) => state.room);
 
+  const filteredRooms = rooms
+    .filter((room) =>
+      room.roomTitle.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((room) => (category ? room.category === category : true));
+
+  //로그인 여부
   const isLoggedIn = !!localStorage.getItem('Authorization');
 
   return (
@@ -34,9 +46,15 @@ const Main = () => {
                   함께 공부해요.
                 </h1>
               </StTitle>
+              <SearchBar
+                search={search}
+                setSearch={setSearch}
+                setCategory={setCategory}
+                rooms={rooms}
+              />
             </StBackground>
             <Layout>
-              <RoomForm />
+              <RoomForm rooms={filteredRooms} />
             </Layout>
           </StTopContainer>
         </>
@@ -49,7 +67,7 @@ const Main = () => {
               </StTitle>
             </StBackground>
             <Layout>
-              <RoomForm />
+              <RoomForm rooms={filteredRooms} />
             </Layout>
           </StTopContainer>
         </>
