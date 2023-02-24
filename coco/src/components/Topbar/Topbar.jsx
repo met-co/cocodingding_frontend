@@ -47,7 +47,7 @@ export default function Topbar() {
               window.location.reload();
             }}
           >
-            코코딩딩
+            <img src={`${process.env.PUBLIC_URL}/img/logo_1x.png`}></img>
           </StStudy>
           <StRight>
             {/* localStorage에 "Authorization"이 존재할때 "마이페이지", 존재하지않을때 "로그인"  */}
@@ -94,7 +94,7 @@ const StContainer = styled.div`
 `;
 
 const StWrapBox = styled.div`
-  height: 60px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -107,6 +107,7 @@ const StStudy = styled.div`
   display: flex;
   align-items: center;
   margin-left: 1rem;
+  cursor: pointer;
 `;
 
 const StRight = styled.div`

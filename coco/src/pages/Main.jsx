@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { BsBroadcast } from 'react-icons/bs';
+
 //컴포넌트
 
 import Topbar from '../components/Topbar/Topbar';
@@ -91,8 +91,16 @@ const Main = () => {
               />
             </StBackground>
             <Layout>
-              <WisdomQuote>명언</WisdomQuote>
-              <TodoList>투두리스트</TodoList>
+              <StMidBoxs>
+                <StWisdom>
+                  <h2>오늘의 한마디</h2>
+                  <WisdomQuote />
+                </StWisdom>
+                <StTodoList>
+                  <h2>오늘의 할일</h2>
+                  <TodoList>투두리스트</TodoList>
+                </StTodoList>
+              </StMidBoxs>
               <RoomForm
                 // rooms={filteredRooms}
                 search={search}
