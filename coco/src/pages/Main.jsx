@@ -152,6 +152,7 @@ const StMidBoxs = styled.div`
 
 const StWisdom = styled.div`
   flex-basis: 30%;
+  margin-right: 100px;
 `;
 
 const StTodoList = styled.div`
