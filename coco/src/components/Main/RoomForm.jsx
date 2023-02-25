@@ -45,7 +45,12 @@ export default function RoomForm({ rooms, search, category }) {
       </StSearch>
 
       {filteredRooms.length === 0 ? (
-        <div>방이없음.. 방 만드셈..</div>
+        <StCreatedRoom>
+          <h3>
+            방이없음.. 방 만드셈.. 일단 이거 1차로 할지 2차로 할지 결정이
+            안됨...
+          </h3>
+        </StCreatedRoom>
       ) : (
         <StCreateRooms>
           {filteredRooms.map((room) => (
