@@ -64,6 +64,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
+    console.log("sub연결 테스트");
     console.log(chatRoomId);
     if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
@@ -107,6 +108,7 @@ const Chat = (props) => {
       })
     );
     chatRef.current.value = null;
+    console.log("방아이디", chatRoomId, messages);
   };
   console.log("방아이디", chatRoomId, messages);
 
