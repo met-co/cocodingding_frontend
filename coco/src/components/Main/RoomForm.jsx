@@ -34,27 +34,6 @@ export default function RoomForm({ rooms, search, category }) {
   return (
     <div>
       <StSearch>
-        {/* <StBackground>
-          <StInput
-            type="text"
-            placeholder="참여하고싶은 방을 찾아보세요"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <StCategorys>
-            {Array.from(new Set(rooms.map((room) => room.category))).map(
-              (category) => (
-                <StCategory
-                  key={category}
-                  onClick={() => selectCategory(category)}
-                >
-                  #{category}
-                </StCategory>
-              )
-            )}
-          </StCategorys>
-        </StBackground> */}
-
         <StCreateRoomButton>
           <div>
             <h2> 방에 참여해보세요.</h2>
@@ -64,37 +43,42 @@ export default function RoomForm({ rooms, search, category }) {
           </div>
         </StCreateRoomButton>
       </StSearch>
-      <StCreateRooms>
-        {filteredRooms.map((room) => (
-          <StCreatedRoom key={room.id}>
-            <StRoomUpper>
-              <div>
-                <StNickname> 닉네임</StNickname>
-                <StCategory>#{room.category}</StCategory>
-              </div>
 
-              <StBroadcast>
-                <BsBroadcast />
-              </StBroadcast>
-            </StRoomUpper>
-            <StRoomTitle>{room.roomTitle}</StRoomTitle>
-            <div>
-              <StButton
-                onClick={() => {
-                  handleSubmit(room.openviduRoomId);
-                  if (isLoggedIn) {
-                    navigate(`/detail/${room.openviduRoomId}`);
-                  } else {
-                    alert('로그인이 필요한 기능입니다.');
-                  }
-                }}
-              >
-                입장하기
-              </StButton>
-            </div>
-          </StCreatedRoom>
-        ))}
-      </StCreateRooms>
+      {filteredRooms.length === 0 ? (
+        <div>방이없음.. 방 만드셈..</div>
+      ) : (
+        <StCreateRooms>
+          {filteredRooms.map((room) => (
+            <StCreatedRoom key={room.id}>
+              <StRoomUpper>
+                <div>
+                  <StNickname> 닉네임</StNickname>
+                  <StCategory>#{room.category}</StCategory>
+                </div>
+
+                <StBroadcast>
+                  <BsBroadcast />
+                </StBroadcast>
+              </StRoomUpper>
+              <StRoomTitle>{room.roomTitle}</StRoomTitle>
+              <div>
+                <StButton
+                  onClick={() => {
+                    handleSubmit(room.openviduRoomId);
+                    if (isLoggedIn) {
+                      navigate(`/detail/${room.openviduRoomId}`);
+                    } else {
+                      alert('로그인이 필요한 기능입니다.');
+                    }
+                  }}
+                >
+                  입장하기
+                </StButton>
+              </div>
+            </StCreatedRoom>
+          ))}
+        </StCreateRooms>
+      )}
     </div>
   );
 }
