@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CreateRoomButton from './CreateRoomButton';
 import { __getRoom } from '../../redux/modules/roomSlice';
 import { __postVideoToken } from '../../redux/modules/roomSlice';
+import { BsBroadcast } from 'react-icons/bs';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
@@ -66,11 +67,17 @@ export default function RoomForm({ rooms, search, category }) {
       <StCreateRooms>
         {filteredRooms.map((room) => (
           <StCreatedRoom key={room.id}>
-            <div>
-              <div> 닉네임</div>
-              <div>#{room.category}</div>
-            </div>
-            <div>{room.roomTitle}</div>
+            <StRoomUpper>
+              <div>
+                <StNickname> 닉네임</StNickname>
+                <StCategory>#{room.category}</StCategory>
+              </div>
+
+              <StBroadcast>
+                <BsBroadcast />
+              </StBroadcast>
+            </StRoomUpper>
+            <StRoomTitle>{room.roomTitle}</StRoomTitle>
             <div>
               <StButton
                 onClick={() => {
@@ -107,7 +114,7 @@ const StCreatedRoom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 40px;
@@ -120,48 +127,45 @@ const StCreatedRoom = styled.div`
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
-const StCategorys = styled.div`
+const StRoomUpper = styled.div`
   display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 50px;
+  font-size: 17px;
+  color: gray;
+  justify-content: space-between;
 `;
 
-const StCategory = styled.div`
-  border: solid 1px gray;
-  border-radius: 1.5rem;
-  background-color: #fff1ad;
-  margin-left: 1rem;
-  margin-right: 1rem;
-
-  padding: 0.7rem;
-  cursor: pointer;
-  &:hover {
-    /* background-color: black; */
-    color: black;
-    border: 2px solid #3d8afd;
-    margin-bottom: -2px;
-  }
+const StNickname = styled.div`
+  margin-right: 40px;
 `;
 
-const StInput = styled.input`
-  width: 25%;
-  height: 43px;
-  border: solid 1px gray;
-  border-radius: 10px;
-  background-color: white; ;
+const StCategory = styled.div``;
+
+const StBroadcast = styled.div`
+  color: red;
+  font-size: 25px;
 `;
+
+const StRoomTitle = styled.h2``;
+
+// const StButtonBox = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `;
 
 const StButton = styled.button`
-  width: 5rem;
-  border: solid 1px gray;
-  border-radius: 0.5rem;
-  background-color: #fff1ad;
-  width: 200px;
+  font-size: 20px;
+  border: solid 2px #3d8afd;
+  color: #3d8afd;
+  border-radius: 30px;
+  background-color: white;
+  width: 164px;
   height: 40px;
+  margin-left: 45px;
   cursor: pointer;
   &:hover {
-    border: 2px solid #3d8afd;
+    border: 3px solid #3d8afd;
+    background-color: #ffe45c;
   }
 `;
 
