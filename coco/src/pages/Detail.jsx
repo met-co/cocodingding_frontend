@@ -213,15 +213,10 @@ export default function Detail() {
     return tokenResponse; // The token
   };
 
-  // 유저 계속 갱신
+  // 새로운 유저 받아오기
   // const getUserName = async () => {
-  //   setNickNames(null)
-  //   try{
-  //     const repo = await axios.get(`/report?sessionID=${location.state.sessionId}`,{headers:{"authorization":accessToken,"refreshtoken":refreshtoken}})
-  //     setNickNames(repo.data.data)
-  //   }catch(error){
+  //   setNickNames(streamManager.stream.connection.data.split("%")[2])
   //   }
-  // }
 
   // 유저 갱신 useEffect
   // useEffect(() => {
@@ -317,7 +312,10 @@ export default function Detail() {
 
           <StChatContainer>
             {/* 방id 파람값전달.. */}
-            <Chat openviduRoomId={openviduRoomId} />
+            <Chat
+              openviduRoomId={openviduRoomId}
+              nickname={localStorage.getItem("userNickname")}
+            />
           </StChatContainer>
         </StContainer>
       </Layout>
