@@ -1,19 +1,19 @@
 // FIXME: 원래 코드
 
-import styled from "styled-components";
-import { React, useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import styled from 'styled-components';
+import { React, useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
-import { subMessage } from "../../redux/modules/socketSlice";
+import { subMessage } from '../../redux/modules/socketSlice';
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
 
 const Chat = (props) => {
-  const myEmail = localStorage.getItem("userEmail");
-  const Myname = localStorage.getItem("userNickname");
-  const chatRef = useRef("");
+  const myEmail = localStorage.getItem('userEmail');
+  const Myname = localStorage.getItem('userNickname');
+  const chatRef = useRef('');
 
   console.log(props.nickname);
 
@@ -28,13 +28,13 @@ const Chat = (props) => {
 
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   // const sock = new SockJS('http://localhost:8080/ws-stomp');
-  const sock = new SockJS("https://cocodingding.shop/ws-stomp");
+  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
-    Authorization: localStorage.getItem("Authorization"),
+    Authorization: localStorage.getItem('Authorization'),
   };
 
   const { chatcollect } = useSelector((state) => state.chatcollect);
@@ -64,7 +64,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log("sub연결 테스트");
+    console.log('sub연결 테스트');
     console.log(chatRoomId);
     if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
@@ -75,7 +75,7 @@ const Chat = (props) => {
             console.log(chatRoomId);
             // 채팅방 구독
             client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
-              console.log("sub 확인");
+              console.log('sub 확인');
 
               console.log(res.body);
               const receive = JSON.parse(res.body);
@@ -94,7 +94,7 @@ const Chat = (props) => {
   // 채팅 전송
   const myChat = () => {
     const message = chatRef.current.value;
-    if (message === "") {
+    if (message === '') {
       return;
     }
     client.send(
@@ -108,9 +108,9 @@ const Chat = (props) => {
       })
     );
     chatRef.current.value = null;
-    console.log("방아이디", chatRoomId, messages);
+    console.log('방아이디', chatRoomId, messages);
   };
-  console.log("방아이디", chatRoomId, messages);
+  console.log('방아이디', chatRoomId, messages);
 
   console.log(987, Myname);
   // console.log(789, userNickname);
@@ -125,60 +125,70 @@ const Chat = (props) => {
   }, []);
 
   return (
-    <div>
-      <Container>
-        <StFont>실시간채팅</StFont>
-        <Down>
-          <div ref={scrollRef} style={{ overflow: "auto", height: "500px" }}>
-            {Myname &&
-              messages.map((chating) =>
-                chating.userNickname === Myname ? (
-                  <SendMessage>
-                    <div>
-                      <span>{chating.message}</span>
-                      {/* <img
+    <Container>
+      <ChatHeader>실시간 채팅</ChatHeader>
+      <StChatBox ref={scrollRef}>
+        {Myname &&
+          messages.map((chating) =>
+            chating.sender === Myname ? (
+              <SendMessage>
+                <div>
+                  <h4>{chating.sender}님</h4>
+                  <span>{chating.message}</span>
+                  {/* <img
                         src={process.env.PUBLIC_URL + '/basic.png'}
                         alt='로고'
                       /> */}
-                    </div>
-                  </SendMessage>
-                ) : (
-                  <ReceivedMessage>
-                    <div>
-                      {/* <img
+                </div>
+              </SendMessage>
+            ) : (
+              <ReceivedMessage>
+                <div>
+                  {/* <img
                         src={process.env.PUBLIC_URL + '/basic.png'}
                         alt='로고'
                       /> */}
-                      <Dou>
-                        <h4>{props.nickname}님</h4>
-                        <span>{chating.message}</span>
-                      </Dou>
-                    </div>
-                  </ReceivedMessage>
-                )
-              )}
-          </div>
-          <Footer>
-            <input
-              type="text"
-              ref={chatRef}
-              onKeyDown={handleEnterPress}
-              placeholder="내용을 입력해주세요."
-            />
-            <button onClick={myChat}>전송</button>
-          </Footer>
-        </Down>
-      </Container>
-    </div>
+                  <Dou>
+                    <h4>{chating.sender}님</h4>
+                    <span>{chating.message}</span>
+                  </Dou>
+                </div>
+              </ReceivedMessage>
+            )
+          )}
+      </StChatBox>
+      <Footer>
+        <input
+          type='text'
+          ref={chatRef}
+          onKeyDown={handleEnterPress}
+          placeholder='내용을 입력해주세요.'
+        />
+        <button onClick={myChat}>전송</button>
+      </Footer>
+    </Container>
   );
 };
 
 export default Chat;
 
+const ChatHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid gray;
+  background-color: #f0f0f0;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+//
 const Container = styled.div`
-  width: 500px;
-  height: 700px;
-  border-radius: 10px;
+  /* width: 500px; */
+  height: 800px;
+  /* border-radius: 10px; */
   background-color: #c2c1c1;
   display: flex;
   flex-direction: column;
@@ -188,27 +198,23 @@ const Container = styled.div`
   box-sizing: border-box;
   position: relative;
 `;
-const StFont = styled.p`
-  position: absolute;
-  font-weight: 700;
-  font-size: 1.5em;
-  color: #fff;
-  left: 20px;
+
+const StChatBox = styled.div`
+  /* display: flex;
+  flex-direction: column-reverse; */
+  /* background-color: blue; */
+  /* flex-basis: 50%; */
+  overflow-y: auto;
+  height: 800px;
 `;
 
 const Dou = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   line-height: 10px;
   h4 {
     margin-top: 10px;
-  }
-`;
-
-const Down = styled.div`
-  width: 500px;
-  height: 500px;
-  overflow-y: scroll;
+  } */
 `;
 
 const ReceivedMessage = styled.div`
@@ -246,25 +252,37 @@ const SendMessage = styled.div`
     border-radius: 5%;
   }
 `;
+const ChatText = styled.div`
+  padding: 10px;
+  background-color: ${(props) => (props.isMe ? '#007bff' : '#f0f0f0')};
+  color: ${(props) => (props.isMe ? 'white' : 'black')};
+  border-radius: ${(props) =>
+    props.isMe ? '10px 0 10px 10px' : '0 10px 10px 10px'};
+`;
 
 const Footer = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-top: 140px;
+  height: 80px;
+  align-items: center;
+
+  /* flex-basis: 50%; */
+  /* background-color: red; */
+  /* flex-direction: row; */
+  /* margin-top: 140px; */
   position: relative;
   input {
-    width: 490px;
-    height: 50px;
-    border-radius: 25px;
+    width: 460px;
+    height: 60px;
+    border-radius: 30px;
     outline: none;
     border: 0 solid black;
   }
   button {
     width: 55px;
-    height: 52px;
+    height: 55px;
     position: absolute;
-    top: 0px;
-    right: 5px;
+    line-height: 40px;
+    right: 2px;
     border-radius: 50%;
     cursor: pointer;
     border: 0 solid black;

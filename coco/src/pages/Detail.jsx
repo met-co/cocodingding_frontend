@@ -1,25 +1,25 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Layout from "../components/Layout/Layout";
-import Topbar from "../components/Topbar/Topbar";
-import styled from "styled-components";
+import React, { useState, useEffect, useCallback } from 'react';
+import Layout from '../components/Layout/Layout';
+import TopbarDetail from '../components/Topbar/TopbarDetail';
+import styled from 'styled-components';
 // import { OpenVidu } from 'openvidu-browser';
-import { OpenVidu } from "openvidu-browser";
-import { useLocation } from "react-router-dom";
+import { OpenVidu } from 'openvidu-browser';
+import { useLocation } from 'react-router-dom';
 // import VideoRecord from "../components/videoRecord/VideoRecord";
-import VideoRecord from "../components/VideoRecord/VideoRecord";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import VideoRecord from '../components/VideoRecord/VideoRecord';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import axios from "axios";
-import Chat from "../components/Chat/Chat";
-import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
+import axios from 'axios';
+import Chat from '../components/Chat/Chat';
+import UserVideoComponent from '../components/VideoRecord/UserVideoComponent';
 // import UserVideoComponent from "../components/VideoRecord/UserVideoComponent";
 import {
   __postVideoToken,
   __postExitRoom,
   __getRoomNickname,
   __getRoom,
-} from "../redux/modules/roomSlice";
+} from '../redux/modules/roomSlice';
 
 export default function Detail() {
   const location = useLocation();
@@ -35,12 +35,12 @@ export default function Detail() {
   const [mainStreamManager, setMainStreamManager] = useState(undefined);
   const [publisher, setPublisher] = useState(null);
   const [subscribers, setSubscribers] = useState([]);
-  const [checkMyScreen, setCheckMyScreen] = useState("");
+  const [checkMyScreen, setCheckMyScreen] = useState('');
   const [isConnect, setIsConnect] = useState(false); // 커넥팅 체크
   // const [role,setRole] = useState(location.state.role) // 역할군
 
   ////////////////////////////////////////////////////////////////////
-  const nickname = localStorage.getItem("nickname");
+  const nickname = localStorage.getItem('nickname');
   const roomData = useSelector((state) => state.room.roomInfo);
   const { roomNicknames } = useSelector((state) => state.room);
   // const accessToken = localStorage.getItem("Authorization");
@@ -120,26 +120,26 @@ export default function Detail() {
     // 3. 미팅을 종료하거나 뒤로가기 등의 이벤트를 통해 세션을 disconnect 해주기 위해 state에 저장
     setOV(newOV);
     // 4. session에 connect하는 과정
-    newsession.on("streamCreated", (e) => {
+    newsession.on('streamCreated', (e) => {
       const newSubscriber = newsession.subscribe(e.stream, undefined);
       setSubscribers(() => [...subscribers, newSubscriber]);
       setIsConnect(true);
     });
     // 1-2 session에서 disconnect한 사용자 삭제
-    newsession.on("streamDestroyed", (e) => {
-      if (e.stream.typeOfVideo === "CUSTOM") {
+    newsession.on('streamDestroyed', (e) => {
+      if (e.stream.typeOfVideo === 'CUSTOM') {
         deleteSubscriber(e.stream.connection.connectionId);
       } else {
         // setCheckMyScreen(true);
       }
     });
     // 1-3 예외처리
-    newsession.on("exception", (exception) => {});
+    newsession.on('exception', (exception) => {});
 
     // 토큰값 가져오기
 
     // getToken().then((token) => {
-    console.log("keytoken", keyToken);
+    console.log('keytoken', keyToken);
     newsession
       .connect(keyToken, { clientData: nickname })
       .then(async () => {
@@ -147,7 +147,7 @@ export default function Detail() {
           .getUserMedia({
             audioSource: false,
             videoSource: undefined,
-            resolution: "380x240",
+            resolution: '380x240',
             frameRate: 10,
           })
           .then((mediaStream) => {
@@ -160,20 +160,20 @@ export default function Detail() {
               publishVideo: true, // Whether you want to start the publishing with video enabled or disabled
               // resolution: '1280x720',  // The resolution of your video
               // frameRate: 10,   // The frame rate of your video
-              insertMode: "APPEND", // How the video will be inserted according to targetElement
+              insertMode: 'APPEND', // How the video will be inserted according to targetElement
               mirror: true, // Whether to mirror your local video or not
             });
             // 4-b user media 객체 생성
-            newPublisher.once("accessAllowed", () => {
+            newPublisher.once('accessAllowed', () => {
               newsession.publish(newPublisher);
               setPublisher(newPublisher);
-              console.log("pub", publisher);
+              console.log('pub', publisher);
             });
 
             // Obtain the current video device in use
             let devices = newOV.getDevices();
             let videoDevices = devices.filter(
-              (device) => device.kind === "videoinput"
+              (device) => device.kind === 'videoinput'
             );
             let currentVideoDeviceId = publisher.stream
               .getMediaStream()
@@ -190,7 +190,7 @@ export default function Detail() {
       })
       .catch((error) => {
         console.warn(
-          "There was an error connecting to the session:",
+          'There was an error connecting to the session:',
           error.code,
           error.message
         );
@@ -249,6 +249,7 @@ export default function Detail() {
 
   return (
     <>
+      <TopbarDetail />
       <Layout>
         <StTitle>
           <h1>Welcome ! {roomData.roomTitle} 방 입니다.</h1>
@@ -258,7 +259,7 @@ export default function Detail() {
           <StVideoContainer>
             <StVideo>
               {/* <UserVideoComponent /> */}
-              <div className="video-chat">
+              <div className='video-chat'>
                 {session !== undefined ? (
                   <StRoomVideo>
                     {/* 메인스트림매니저가 있을 때 */}
@@ -276,7 +277,7 @@ export default function Detail() {
                     {publisher !== null ? (
                       <StSub>
                         <Stbox>
-                          <div className="sub">
+                          <div className='sub'>
                             {/* <StnickName>나</StnickName> */}
                             <VideoRecord
                               streamManager={publisher}
@@ -314,7 +315,7 @@ export default function Detail() {
             {/* 방id 파람값전달.. */}
             <Chat
               openviduRoomId={openviduRoomId}
-              nickname={localStorage.getItem("userNickname")}
+              nickname={localStorage.getItem('userNickname')}
             />
           </StChatContainer>
         </StContainer>
@@ -335,12 +336,14 @@ const StContainer = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   width: 100%;
-  height: 70vh;
+  height: 800px;
   margin-top: 50px;
+
   display: flex;
 `;
 
 const StVideoContainer = styled.div`
+  flex-basis: 70%;
   width: 70%;
   height: 100%;
   display: flex;
@@ -348,7 +351,7 @@ const StVideoContainer = styled.div`
 `;
 
 const StChatContainer = styled.div`
-  width: 30%;
+  flex-basis: 30%;
 `;
 
 const StPub = styled.div`
@@ -392,5 +395,5 @@ const StVideo = styled.div`
 
 const StcontrolBox = styled.div`
   background-color: aliceblue;
-  height: 10%;
+  height: 80px;
 `;
