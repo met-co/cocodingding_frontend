@@ -22,6 +22,34 @@ import {
 } from '../redux/modules/roomSlice';
 
 export default function Detail() {
+  //리프레시토큰//
+  const reIssue = async () => {
+    try {
+      const Refresh = localStorage.getItem('Refresh');
+      const userEmail = localStorage.getItem('userEmail');
+
+      const data = {
+        headers: { Refresh: Refresh },
+        params: { userEmail: userEmail },
+      };
+
+      const repo = await axios.post(
+        'https://cocodingding.shop/user/refresh',
+        data
+      );
+
+      localStorage.removeItem('Authorization');
+      localStorage.setItem('Authorization', repo.headers.authorization);
+      localStorage.setItem('Refresh', repo.headers.refresh);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  setInterval(() => {
+    reIssue();
+  }, 30000 * 10);
+
   const location = useLocation();
   const navigate = useNavigate();
 

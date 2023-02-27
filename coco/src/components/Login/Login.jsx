@@ -30,17 +30,21 @@ export default function Login({ onClose }) {
       // 서버에 userEmail, userPassword를 보내서 요청
 
       await axios
-        .post('https://cocodingding.shop/user/login', {
-          userEmail,
-          userPassword,
-        })
+        .post(
+          'https://cocodingding.shop/user/login',
+          {
+            userEmail,
+            userPassword,
+          },
+          { withCredentials: true }
+        )
         .then((res) => {
           console.log(res);
           localStorage.setItem(
             'Authorization',
             res.headers.get('Authorization')
           );
-          localStorage.setItem('Access', res.headers.get('Access'));
+          // localStorage.setItem('Access', res.headers.get('Access'));
           localStorage.setItem('Refresh', res.headers.get('Refresh'));
 
           console.log('로그인정보', res);

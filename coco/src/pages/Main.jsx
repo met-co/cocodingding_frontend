@@ -13,7 +13,7 @@ import __getRoom from '../redux/modules/roomSlice';
 import SearchBar from '../components/Main/SearchBar';
 import WisdomQuote from '../components/Main/WisdomQuote';
 import TodoList from '../components/Main/TodoList';
-
+import axios from 'axios';
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
   const dispatch = useDispatch();
@@ -21,6 +21,34 @@ const Main = () => {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const { rooms } = useSelector((state) => state.room);
+
+  //리프레시토큰//
+  const reIssue = async () => {
+    try {
+      const Refresh = localStorage.getItem('Refresh');
+      const userEmail = localStorage.getItem('userEmail');
+
+      const data = {
+        headers: { Refresh: Refresh },
+        params: { userEmail: userEmail },
+      };
+
+      const repo = await axios.post(
+        'https://cocodingding.shop/user/refresh',
+        data
+      );
+
+      localStorage.removeItem('Authorization');
+      localStorage.setItem('Authorization', repo.headers.authorization);
+      localStorage.setItem('Refresh', repo.headers.refresh);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  setInterval(() => {
+    reIssue();
+  }, 30000 * 10);
 
   const filteredRooms = rooms
     .filter((room) =>
