@@ -312,10 +312,8 @@ export default function Detail() {
 
           <StChatContainer>
             {/* 방id 파람값전달.. */}
-            <Chat
-              openviduRoomId={openviduRoomId}
-              nickname={localStorage.getItem("userNickname")}
-            />
+
+            <Chat openviduRoomId={openviduRoomId} />
           </StChatContainer>
         </StContainer>
       </Layout>

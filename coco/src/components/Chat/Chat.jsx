@@ -150,7 +150,7 @@ const Chat = (props) => {
                         alt='로고'
                       /> */}
                       <Dou>
-                        <h4>{props.nickname}님</h4>
+                        <h4>{chating.sender}님</h4>
                         <span>{chating.message}</span>
                       </Dou>
                     </div>
