@@ -1,19 +1,19 @@
 // FIXME: 원래 코드
 
-import styled from "styled-components";
-import { React, useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import SockJS from "sockjs-client";
-import Stomp from "stompjs";
+import styled from 'styled-components';
+import { React, useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
 
-import { subMessage } from "../../redux/modules/socketSlice";
+import { subMessage } from '../../redux/modules/socketSlice';
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
 
 const Chat = (props) => {
-  const myEmail = localStorage.getItem("userEmail");
-  const Myname = localStorage.getItem("userNickname");
-  const chatRef = useRef("");
+  const myEmail = localStorage.getItem('userEmail');
+  const Myname = localStorage.getItem('userNickname');
+  const chatRef = useRef('');
 
   console.log(props.nickname);
 
@@ -28,13 +28,13 @@ const Chat = (props) => {
 
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   // const sock = new SockJS('http://localhost:8080/ws-stomp');
-  const sock = new SockJS("https://cocodingding.shop/ws-stomp");
+  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
   const client = Stomp.over(sock);
 
   const headers = {
-    Authorization: localStorage.getItem("Authorization"),
+    Authorization: localStorage.getItem('Authorization'),
   };
 
   const { chatcollect } = useSelector((state) => state.chatcollect);
@@ -64,7 +64,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log("sub연결 테스트");
+    console.log('sub연결 테스트');
     console.log(chatRoomId);
     if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
@@ -75,7 +75,7 @@ const Chat = (props) => {
             console.log(chatRoomId);
             // 채팅방 구독
             client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
-              console.log("sub 확인");
+              console.log('sub 확인');
 
               console.log(res.body);
               const receive = JSON.parse(res.body);
@@ -94,7 +94,7 @@ const Chat = (props) => {
   // 채팅 전송
   const myChat = () => {
     const message = chatRef.current.value;
-    if (message === "") {
+    if (message === '') {
       return;
     }
     client.send(
@@ -108,9 +108,9 @@ const Chat = (props) => {
       })
     );
     chatRef.current.value = null;
-    console.log("방아이디", chatRoomId, messages);
+    console.log('방아이디', chatRoomId, messages);
   };
-  console.log("방아이디", chatRoomId, messages);
+  console.log('방아이디', chatRoomId, messages);
 
   console.log(987, Myname);
   // console.log(789, userNickname);
@@ -125,61 +125,67 @@ const Chat = (props) => {
   }, []);
 
   return (
-    <div>
-      <Container>
-        <StFont>실시간채팅</StFont>
-        <Down>
-          <div ref={scrollRef} style={{ overflow: "auto", height: "500px" }}>
-            {Myname &&
-              messages.map((chating) =>
-                chating.userNickname === Myname ? (
-                  <SendMessage>
-                    <div>
-                      <span>{chating.message}</span>
-                      {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
-                    </div>
-                  </SendMessage>
-                ) : (
-                  <ReceivedMessage>
-                    <div>
-                      {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
-                      <Dou>
-                        <h4>{props.nickname}님</h4>
-                        <span>{chating.message}</span>
-                      </Dou>
-                    </div>
-                  </ReceivedMessage>
-                )
-              )}
-          </div>
-          <Footer>
-            <input
-              type="text"
-              ref={chatRef}
-              onKeyDown={handleEnterPress}
-              placeholder="내용을 입력해주세요."
-            />
-            <button onClick={myChat}>전송</button>
-          </Footer>
-        </Down>
-      </Container>
-    </div>
+    <Container>
+      <ChatHeader>실시간 채팅</ChatHeader>
+      <StChatBox ref={scrollRef}>
+        {Myname &&
+          messages.map((chating) => {
+            if (chating.roomId !== chatRoomId) {
+              return null;
+            }
+            return chating.sender === Myname ? (
+              <div>
+                <StSendBox>
+                  <h4>{chating.sender}님</h4>
+                  <SendMessage>{chating.message}</SendMessage>
+                </StSendBox>
+              </div>
+            ) : (
+              <div>
+                <div>
+                  <StReceiveBox>
+                    <h4>{chating.sender}님</h4>
+                    <ReceivedMessage>{chating.message}</ReceivedMessage>
+                  </StReceiveBox>
+                </div>
+              </div>
+            );
+          })}
+      </StChatBox>
+      <Footer>
+        <input
+          type='text'
+          ref={chatRef}
+          onKeyDown={handleEnterPress}
+          placeholder='내용을 입력해주세요.'
+        />
+        <button onClick={myChat}>전송</button>
+      </Footer>
+    </Container>
   );
 };
 
 export default Chat;
 
+const ChatHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid gray;
+  background-color: #c6ddff;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+//
 const Container = styled.div`
-  width: 500px;
-  height: 700px;
-  border-radius: 10px;
-  background-color: #c2c1c1;
+  /* width: 500px; */
+  height: 800px;
+  border-left: 1px solid black;
+  /* border-radius: 10px; */
+  /* background-color: #c2c1c1; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -188,83 +194,72 @@ const Container = styled.div`
   box-sizing: border-box;
   position: relative;
 `;
-const StFont = styled.p`
-  position: absolute;
-  font-weight: 700;
-  font-size: 1.5em;
-  color: #fff;
-  left: 20px;
+
+const StChatBox = styled.div`
+  overflow-y: auto;
+  height: 800px;
+  ::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `;
 
-const Dou = styled.div`
+const StSendBox = styled.div`
   display: flex;
   flex-direction: column;
-  line-height: 10px;
-  h4 {
-    margin-top: 10px;
-  }
+  align-items: flex-end;
 `;
 
-const Down = styled.div`
-  width: 500px;
-  height: 500px;
-  overflow-y: scroll;
+const StReceiveBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const ReceivedMessage = styled.div`
-  display: inline-block;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: left;
-  div {
-    display: flex;
-  }
-
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5%;
-    margin-top: 5px;
-  }
+const ChatBubble = styled.div`
+  display: block;
+  width: fit-content;
+  max-width: 60%;
+  margin: -10px 20px 10px 20px;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
 `;
 
-const SendMessage = styled.div`
-  display: inline-block;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+const SendMessage = styled(ChatBubble)`
+  background-color: #c6ddff;
+
   text-align: right;
-  div {
-    display: flex;
-    justify-content: flex-end;
-  }
+  border-radius: 30px 0 30px 30px;
+`;
 
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5%;
-  }
+const ReceivedMessage = styled(ChatBubble)`
+  background-color: gray;
+
+  text-align: left;
+  border-radius: 0 30px 30px 30px;
 `;
 
 const Footer = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-top: 140px;
+  width: 100%;
+  height: 100px;
+  align-items: center;
+  background-color: gray;
   position: relative;
   input {
-    width: 490px;
-    height: 50px;
-    border-radius: 25px;
+    width: 460px;
+    height: 60px;
+    margin: 0px 20px 0px 20px;
+    border-radius: 30px;
     outline: none;
     border: 0 solid black;
   }
   button {
     width: 55px;
-    height: 52px;
+    height: 55px;
     position: absolute;
-    top: 0px;
-    right: 5px;
+    line-height: 40px;
+    right: 25px;
     border-radius: 50%;
     cursor: pointer;
     border: 0 solid black;
