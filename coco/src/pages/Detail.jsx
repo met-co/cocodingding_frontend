@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Layout from "../components/Layout/Layout";
-import Topbar from "../components/Topbar/Topbar";
+import TopbarDetail from "../components/Topbar/TopbarDetail";
 import styled from "styled-components";
 // import { OpenVidu } from 'openvidu-browser';
 import { OpenVidu } from "openvidu-browser";
@@ -249,6 +249,7 @@ export default function Detail() {
 
   return (
     <>
+      <TopbarDetail />
       <Layout>
         <StTitle>
           <h1>Welcome ! {roomData.roomTitle} 방 입니다.</h1>
@@ -312,8 +313,10 @@ export default function Detail() {
 
           <StChatContainer>
             {/* 방id 파람값전달.. */}
-
-            <Chat openviduRoomId={openviduRoomId} />
+            <Chat
+              openviduRoomId={openviduRoomId}
+              nickname={localStorage.getItem("userNickname")}
+            />
           </StChatContainer>
         </StContainer>
       </Layout>
@@ -333,12 +336,14 @@ const StContainer = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   width: 100%;
-  height: 70vh;
+  height: 800px;
   margin-top: 50px;
+
   display: flex;
 `;
 
 const StVideoContainer = styled.div`
+  flex-basis: 70%;
   width: 70%;
   height: 100%;
   display: flex;
@@ -346,7 +351,7 @@ const StVideoContainer = styled.div`
 `;
 
 const StChatContainer = styled.div`
-  width: 30%;
+  flex-basis: 30%;
 `;
 
 const StPub = styled.div`
@@ -390,5 +395,5 @@ const StVideo = styled.div`
 
 const StcontrolBox = styled.div`
   background-color: aliceblue;
-  height: 10%;
+  height: 80px;
 `;
