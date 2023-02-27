@@ -34,6 +34,7 @@ export default function Topbar() {
   // 로그아웃 기능
   const handleLogout = () => {
     localStorage.removeItem('Authorization');
+    navigate(`/`);
     window.location.reload();
   };
 

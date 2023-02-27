@@ -129,33 +129,28 @@ const Chat = (props) => {
       <ChatHeader>실시간 채팅</ChatHeader>
       <StChatBox ref={scrollRef}>
         {Myname &&
-          messages.map((chating) =>
-            chating.sender === Myname ? (
-              <SendMessage>
-                <div>
+          messages.map((chating) => {
+            if (chating.roomId !== chatRoomId) {
+              return null;
+            }
+            return chating.sender === Myname ? (
+              <div>
+                <StSendBox>
                   <h4>{chating.sender}님</h4>
-                  <span>{chating.message}</span>
-                  {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
-                </div>
-              </SendMessage>
+                  <SendMessage>{chating.message}</SendMessage>
+                </StSendBox>
+              </div>
             ) : (
-              <ReceivedMessage>
+              <div>
                 <div>
-                  {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
-                  <Dou>
+                  <StReceiveBox>
                     <h4>{chating.sender}님</h4>
-                    <span>{chating.message}</span>
-                  </Dou>
+                    <ReceivedMessage>{chating.message}</ReceivedMessage>
+                  </StReceiveBox>
                 </div>
-              </ReceivedMessage>
-            )
-          )}
+              </div>
+            );
+          })}
       </StChatBox>
       <Footer>
         <input
@@ -179,7 +174,7 @@ const ChatHeader = styled.div`
   width: 100%;
   height: 50px;
   border: 1px solid gray;
-  background-color: #f0f0f0;
+  background-color: #c6ddff;
   font-size: 24px;
   font-weight: bold;
 `;
@@ -188,8 +183,9 @@ const ChatHeader = styled.div`
 const Container = styled.div`
   /* width: 500px; */
   height: 800px;
+  border-left: 1px solid black;
   /* border-radius: 10px; */
-  background-color: #c2c1c1;
+  /* background-color: #c2c1c1; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -200,79 +196,60 @@ const Container = styled.div`
 `;
 
 const StChatBox = styled.div`
-  /* display: flex;
-  flex-direction: column-reverse; */
-  /* background-color: blue; */
-  /* flex-basis: 50%; */
   overflow-y: auto;
   height: 800px;
+  ::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
 `;
 
-const Dou = styled.div`
-  /* display: flex;
+const StSendBox = styled.div`
+  display: flex;
   flex-direction: column;
-  line-height: 10px;
-  h4 {
-    margin-top: 10px;
-  } */
+  align-items: flex-end;
 `;
 
-const ReceivedMessage = styled.div`
-  display: inline-block;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  text-align: left;
-  div {
-    display: flex;
-  }
-
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5%;
-    margin-top: 5px;
-  }
+const StReceiveBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-const SendMessage = styled.div`
-  display: inline-block;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
+const ChatBubble = styled.div`
+  display: block;
+  width: fit-content;
+  max-width: 60%;
+  margin: -10px 20px 10px 20px;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+`;
+
+const SendMessage = styled(ChatBubble)`
+  background-color: #c6ddff;
+
   text-align: right;
-  div {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5%;
-  }
+  border-radius: 30px 0 30px 30px;
 `;
-const ChatText = styled.div`
-  padding: 10px;
-  background-color: ${(props) => (props.isMe ? '#007bff' : '#f0f0f0')};
-  color: ${(props) => (props.isMe ? 'white' : 'black')};
-  border-radius: ${(props) =>
-    props.isMe ? '10px 0 10px 10px' : '0 10px 10px 10px'};
+
+const ReceivedMessage = styled(ChatBubble)`
+  background-color: gray;
+
+  text-align: left;
+  border-radius: 0 30px 30px 30px;
 `;
 
 const Footer = styled.div`
   display: flex;
-  height: 80px;
+  width: 100%;
+  height: 100px;
   align-items: center;
-
-  /* flex-basis: 50%; */
-  /* background-color: red; */
-  /* flex-direction: row; */
-  /* margin-top: 140px; */
+  background-color: gray;
   position: relative;
   input {
     width: 460px;
     height: 60px;
+    margin: 0px 20px 0px 20px;
     border-radius: 30px;
     outline: none;
     border: 0 solid black;
@@ -282,7 +259,7 @@ const Footer = styled.div`
     height: 55px;
     position: absolute;
     line-height: 40px;
-    right: 2px;
+    right: 25px;
     border-radius: 50%;
     cursor: pointer;
     border: 0 solid black;
