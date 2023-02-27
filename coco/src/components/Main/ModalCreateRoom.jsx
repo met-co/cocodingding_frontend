@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { addRoom } from "../../redux/modules/roomSlice";
-import { __createRoom } from "../../redux/modules/roomSlice";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addRoom } from '../../redux/modules/roomSlice';
+import { __createRoom } from '../../redux/modules/roomSlice';
+import { useNavigate } from 'react-router-dom';
 
-function ModalCreateRoom({ onClose }) {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+function ModalCreateRoom({ onClose, isOpen }) {
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -16,8 +16,8 @@ function ModalCreateRoom({ onClose }) {
   };
 
   const [post, setPost] = useState({
-    category: "",
-    roomTitle: "",
+    category: '',
+    roomTitle: '',
   });
 
   const handleChange = (event) => {
@@ -97,26 +97,34 @@ function ModalCreateRoom({ onClose }) {
       <form onSubmit={handleSubmit}>
         <div>
           <h3>방이름</h3>
-          <StInput
-            type="text"
-            placeholder="여기에 입력합니다."
-            value={post.title}
-            name="roomTitle"
-            onChange={handleChange}
-          />
+          <Stcenter>
+            <StInput
+              type='text'
+              placeholder='여기에 입력합니다.'
+              value={post.title}
+              name='roomTitle'
+              onChange={handleChange}
+            />
+          </Stcenter>
         </div>
 
         <h3>카테고리</h3>
-        <StSelect value={post.category} name="category" onChange={handleChange}>
-          <option>카테고리 선택하세요.</option>
-          <option>수학</option>
-          <option>심리학</option>
-          <option>철학</option>
-          <option>뇌과학</option>
-        </StSelect>
+        <Stcenter>
+          <StSelect
+            value={post.category}
+            name='category'
+            onChange={handleChange}
+          >
+            <option>카테고리 선택하세요.</option>
+            <option>수학</option>
+            <option>심리학</option>
+            <option>철학</option>
+            <option>뇌과학</option>
+          </StSelect>
+        </Stcenter>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
-          <StButton type="submit">방만들기</StButton>
+          <StButton type='submit'>방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
@@ -124,10 +132,20 @@ function ModalCreateRoom({ onClose }) {
 }
 export default ModalCreateRoom;
 
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+`;
+
 const StContainer = styled.div`
   /* 모달창 크기 */
-  width: 40vw;
-  height: 40vh;
+  width: 704px;
+  height: 772px;
   /* 최상단 위치 */
   z-index: 50;
   /* 중앙 배치 */
@@ -138,7 +156,7 @@ const StContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   /* 모달창 디자인 */
-  background-color: #ece9e9;
+  background-color: white;
   border: 1px solid #ece9e9;
   border-radius: 8px;
   padding: 3rem;
@@ -173,19 +191,24 @@ const StDivider = styled.hr`
 
 const StInput = styled.input`
   display: flex;
-  width: 100%;
-  height: 35px;
+  width: 585px;
+  height: 80px;
   border: none;
   border-radius: 0.5rem;
   background-color: #a7a7a7;
 `;
 
 const StSelect = styled.select`
-  width: 100%;
-  height: 35px;
+  width: 585px;
+  height: 80px;
   border: none;
   border-radius: 0.5rem;
   background-color: #a7a7a7;
+`;
+
+const Stcenter = styled.div`
+  display: flex;
+  justify-content: space-evenly;
 `;
 
 const StButtons = styled.div`
@@ -195,12 +218,12 @@ const StButtons = styled.div`
 `;
 
 const StButton = styled.button`
-  width: 5rem;
-  border: none;
+  width: 272px;
+  height: 80px;
+  border: 2px solid #5cabff;
   border-radius: 0.5rem;
   background-color: white;
-  width: 200px;
-  height: 40px;
+
   cursor: pointer;
   &:hover {
     background-color: black;
