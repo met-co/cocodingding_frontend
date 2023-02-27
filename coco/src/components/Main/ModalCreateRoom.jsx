@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { addRoom } from '../../redux/modules/roomSlice';
 import { __createRoom } from '../../redux/modules/roomSlice';
 import { useNavigate } from 'react-router-dom';
+import { GrClose } from 'react-icons/gr';
 
 function ModalCreateRoom({ onClose, isOpen }) {
   const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
@@ -87,7 +88,9 @@ function ModalCreateRoom({ onClose, isOpen }) {
     <StContainer>
       <StHeader>
         <StTitle>방만들기</StTitle>
-        <StCloseButton onClick={closeModal}>×</StCloseButton>
+        <StCloseButton onClick={closeModal}>
+          <GrClose />
+        </StCloseButton>
       </StHeader>
       {/* 상단바.. */}
       <StDivider />
@@ -195,20 +198,23 @@ const StInput = styled.input`
   height: 80px;
   border: none;
   border-radius: 0.5rem;
-  background-color: #a7a7a7;
+  border: 2px solid #a7a7a7;
 `;
 
 const StSelect = styled.select`
   width: 585px;
   height: 80px;
-  border: none;
+  border: 2px solid #a7a7a7;
   border-radius: 0.5rem;
-  background-color: #a7a7a7;
+
+  color: #a7a7a7;
+  /* background-color: #a7a7a7; */
 `;
 
 const Stcenter = styled.div`
   display: flex;
   justify-content: space-evenly;
+  margin-bottom: 50px;
 `;
 
 const StButtons = styled.div`
@@ -220,13 +226,12 @@ const StButtons = styled.div`
 const StButton = styled.button`
   width: 272px;
   height: 80px;
-  border: 2px solid #5cabff;
+  border: 2px solid #a7a7a7;
   border-radius: 0.5rem;
   background-color: white;
 
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    border: 2px solid #5cabff;
   }
 `;

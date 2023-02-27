@@ -53,9 +53,9 @@ export default function Topbar() {
             {/* localStorage에 "Authorization"이 존재할때 "마이페이지", 존재하지않을때 "로그인"  */}
             {isLoggedIn ? (
               <>
-                <div onClick={handleMyPageModalOpen}>
+                <StMyPage onClick={handleMyPageModalOpen}>
                   <FaRegUserCircle />
-                </div>
+                </StMyPage>
                 <StButton onClick={handleLogout}>로그아웃</StButton>
 
                 {isMyPageModalOpen && (
@@ -116,18 +116,21 @@ const StRight = styled.div`
   margin-right: 1rem;
 `;
 
-const StButton = styled.button`
-  font-size: 14px;
-  background-color: transparent;
-  border: 1px solid #333;
-  border-radius: 4px;
-  padding: 8px 16px;
+const StMyPage = styled.div`
+  font-size: 25px;
   cursor: pointer;
   outline: none;
-  transition: background-color 0.5ms, color 1s;
   &:hover {
-    background-color: #333;
-    color: #fff;
-    /* transition: background-color 0.5ms; */
+    color: #3d8afd;
+  }
+`;
+const StButton = styled.h4`
+  font-size: 17px;
+
+  padding: 10px 30px;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    color: #3d8afd;
   }
 `;
