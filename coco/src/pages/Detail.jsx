@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Layout from "../components/Layout/Layout";
 import TopbarDetail from "../components/Topbar/TopbarDetail";
 import styled from "styled-components";
@@ -21,12 +21,14 @@ import {
   __getRoom,
 } from "../redux/modules/roomSlice";
 
+import ReactPlayer from "react-player";
+
 export default function Detail() {
   //리프레시토큰//
   const reIssue = async () => {
     try {
-      const refreshToken = localStorage.getItem('Refresh');
-      const userEmail = localStorage.getItem('userEmail');
+      const refreshToken = localStorage.getItem("Refresh");
+      const userEmail = localStorage.getItem("userEmail");
 
       const data = {
         headers: { Refresh: `${refreshToken}` },
@@ -34,13 +36,13 @@ export default function Detail() {
       };
 
       const repo = await axios.post(
-        'https://cocodingding.shop/user/refresh',
+        "https://cocodingding.shop/user/refresh",
         null,
         data
       );
 
-      localStorage.setItem('Authorization', repo.headers.authorization);
-      localStorage.setItem('Refresh', repo.headers.refresh);
+      localStorage.setItem("Authorization", repo.headers.authorization);
+      localStorage.setItem("Refresh", repo.headers.refresh);
     } catch (error) {
       console.error(error);
     }
@@ -300,6 +302,23 @@ export default function Detail() {
 
   useEffect(() => {}, [subscribers]);
 
+  const player = useRef();
+  const sendCurYoutubeTime = useRef();
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  // useEffect(() => {
+  //   if (isPlaying) {
+  //     sendCurYoutubeTime.current = setInterval(() => {
+  //       dispatch(
+  //         commonActions.setPlayInfo({
+  //           curYoutubeTime: Math.ceil(player.current.getCurrentTime()),
+  //         })
+  //       );
+  //     }, 1000);
+  //   }
+  //   return () => clearInterval(sendCurYoutubeTime.current);
+  // }, [isPlaying]);
+
   return (
     <>
       <TopbarDetail />
@@ -381,6 +400,31 @@ export default function Detail() {
                     )}
                   </StRoomVideo>
                 ) : null}
+
+                <StPlayerContainer>
+                  <ReactPlayer
+                    url="https://youtu.be/HdIumpGExJk"
+                    width="600px"
+                    height="100%"
+                    ref={player}
+                    // playing={isPlaying}
+                    // 특정시점부터 시작
+                    config={{
+                      youtube: {
+                        playerVars: {
+                          start: 1,
+                        },
+                      },
+                    }}
+                    // onStart={() => {
+                    //   props.setIsStart(true);
+                    // }}
+                    // onEnded={endVideo}
+                    // muted={isMuted}
+                    volume={5}
+                    controls
+                  />
+                </StPlayerContainer>
               </div>
             </StVideo>
 
@@ -461,12 +505,12 @@ const StSub = styled.div`
   justify-content: center;
   align-items: center;
   width: 700px;
-  height: 700px;
+  height: 300px;
 `;
 
 const Stbox = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 800px;
+  height: 200px;
   & > button {
     width: 200px;
     height: 30px;
@@ -495,4 +539,21 @@ const StcontrolBox = styled.div`
     width: 60px;
     height: 20px;
   }
+`;
+
+const StPlayerContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 400px;
+  justify-content: center;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 600px;
+  height: 400px; */
+  /* @media screen and (max-width: 1440px) {
+    width: 758px;
+    height: 426px;
+  } */
 `;
