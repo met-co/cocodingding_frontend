@@ -241,7 +241,6 @@ const SendMessage = styled(ChatBubble)`
 
 const ReceivedMessage = styled(ChatBubble)`
   background-color: gray;
-
   text-align: left;
   border-radius: 0 30px 30px 30px;
 `;
