@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import { GrClose } from 'react-icons/gr';
 
 //컴포넌트
 import { KAKAO_AUTH_URL } from '../../shared/OAuth';
@@ -38,14 +39,6 @@ export default function MyPage({ onClose }) {
       });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('Authorization');
-    localStorage.removeItem('Access');
-    localStorage.removeItem('Refresh');
-    navigate('/');
-    window.location.reload();
-  };
-
   const closeModal = () => {
     onClose();
   };
@@ -54,26 +47,26 @@ export default function MyPage({ onClose }) {
     <StContainer>
       <StHeader>
         <div>마이페이지</div>
-        <button onClick={closeModal}>X</button>
+        <StCloseButton onClick={closeModal}>
+          <GrClose />
+        </StCloseButton>
       </StHeader>
       <StDivider />
       <StProfile>
-        <div>닉네임: {localStorage.getItem('userNickname')}</div>
         <div>
-          <input
+          <StInput
             type='text'
             value={userNickname}
             onChange={handleUserNicknameChange}
           />
         </div>
-        <button onClick={handleUserNicknameUpdate}>변경하기</button>
+        <StButton onClick={handleUserNicknameUpdate}>변경</StButton>
       </StProfile>
-
+      {/* 
       <StProfile>
         <div>회원탈퇴</div>
         <div></div>
-        <button onClick={handleLogout}>로그아웃</button>
-      </StProfile>
+      </StProfile> */}
     </StContainer>
   );
 }
@@ -90,15 +83,16 @@ const StContainer = styled.div`
   /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
   /* translate는 본인의 크기 기준으로 작동한다. */
   position: absolute;
-  top: 350%;
+  top: 270%;
   left: 80%;
   transform: translate(-50%, -50%);
 
   /* 모달창 디자인 */
-  background-color: #ece9e9;
-  border: 1px solid #ece9e9;
+  background-color: white;
+  border: 1px solid white;
   border-radius: 8px;
   padding: 2rem;
+  box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
   /* 내부 박스 배치 */
   /* display: flex;
   flex-direction: column;
@@ -113,13 +107,51 @@ const StHeader = styled.div`
   padding: 0px 1rem 0px 1rem;
 `;
 
+const StCloseButton = styled.div`
+  width: 57px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+
+  cursor: pointer;
+  &:hover {
+    color: #3d8afd;
+  }
+`;
+
 const StDivider = styled.hr`
   border: 0;
-  border-top: 1px solid gray;
-  margin: 20px 0 40px 0;
+  border-top: 1px solid #ece9e9;
+  margin: 10px 0 20px 0;
 `;
 
 const StProfile = styled.div`
   display: flex;
   justify-content: space-around;
+  align-items: center;
+`;
+
+const StInput = styled.input`
+  width: 150px;
+  height: 44px;
+  border: 2px solid #ece9e9;
+  border-radius: 5px;
+`;
+
+const StButton = styled.div`
+  width: 57px;
+  height: 44px;
+  border: 2px solid #ece9e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+
+  cursor: pointer;
+  &:hover {
+    border: 2px solid #3d8afd;
+    border-radius: 5px;
+  }
 `;

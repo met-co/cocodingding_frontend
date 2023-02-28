@@ -129,28 +129,33 @@ const Chat = (props) => {
       <ChatHeader>실시간 채팅</ChatHeader>
       <StChatBox ref={scrollRef}>
         {Myname &&
-          messages.map((chating) => {
-            if (chating.roomId !== chatRoomId) {
-              return null;
-            }
-            return chating.sender === Myname ? (
+          messages.map((chating) =>
+            chating.sender === Myname ? (
               <div>
                 <StSendBox>
                   <h4>{chating.sender}님</h4>
                   <SendMessage>{chating.message}</SendMessage>
+                  {/* <img
+                        src={process.env.PUBLIC_URL + '/basic.png'}
+                        alt='로고'
+                      /> */}
                 </StSendBox>
               </div>
             ) : (
               <div>
                 <div>
+                  {/* <img
+                        src={process.env.PUBLIC_URL + '/basic.png'}
+                        alt='로고'
+                      /> */}
                   <StReceiveBox>
                     <h4>{chating.sender}님</h4>
                     <ReceivedMessage>{chating.message}</ReceivedMessage>
                   </StReceiveBox>
                 </div>
               </div>
-            );
-          })}
+            )
+          )}
       </StChatBox>
       <Footer>
         <input
@@ -189,7 +194,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  /* align-items: center; */
   margin: auto;
   box-sizing: border-box;
   position: relative;
