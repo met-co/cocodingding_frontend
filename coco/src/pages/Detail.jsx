@@ -468,7 +468,7 @@ const StTitle = styled.div`
 `;
 
 const StContainer = styled.div`
-  border: 1px solid black;
+  border: 1px solid #e3e3e3;
   border-radius: 10px;
   width: 100%;
   height: 700px;

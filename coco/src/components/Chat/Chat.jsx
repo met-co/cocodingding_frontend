@@ -178,21 +178,22 @@ const ChatHeader = styled.div`
   align-items: center;
   justify-content: center;
   /* width: 100%; */
-  height: 50px;
-  border: 1px solid gray;
-  background-color: #c6ddff;
-  font-size: 24px;
+  height: 100px;
+  border-radius: 0px 15px 0px 0px;
+  border-bottom: 1px solid #c2c1c1;
+  background-color: #ffe45c;
+  font-size: 15px;
   font-weight: bold;
 `;
 
 //
 const Container = styled.div`
-  width: 350px;
+  width: 100%;
   height: 700px;
 
-  border: 1px solid black;
+  border-left: 1px solid #c2c1c1;
   /* border-radius: 10px; */
-  background-color: #c2c1c1;
+  /* background-color: #c2c1c1; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -233,14 +234,14 @@ const ChatBubble = styled.div`
 `;
 
 const SendMessage = styled(ChatBubble)`
-  background-color: #c6ddff;
+  background-color: #fff5c1;
 
   text-align: right;
   border-radius: 30px 0 30px 30px;
 `;
 
 const ReceivedMessage = styled(ChatBubble)`
-  background-color: gray;
+  background-color: #dcdcdc;
   text-align: left;
   border-radius: 0 30px 30px 30px;
 `;
@@ -250,11 +251,12 @@ const Footer = styled.div`
   width: 100%;
   height: 100px;
   align-items: center;
+  margin: 20px 0px 20px 0px;
   /* background-color: gray; */
   position: relative;
   input {
-    width: 308.5px;
-    height: 78px;
+    width: 360px;
+    height: 70px;
     margin: 0px 20px 0px 20px;
     border-radius: 30px;
     outline: none;
@@ -268,7 +270,12 @@ const Footer = styled.div`
     right: 25px;
     border-radius: 50%;
     color: #777777;
-    font-size: 40px;
+    background-color: #ffe45c;
+
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     border: 0 solid black;
 
@@ -279,3 +286,34 @@ const Footer = styled.div`
     }
   }
 `;
+
+// const StInput = styled.input`
+//   width: 360px;
+//   height: 70px;
+//   margin: 0px 20px 0px 20px;
+//   border-radius: 30px;
+//   outline: none;
+//   border: 1px solid #e3e3e3;
+// `;
+
+// const StSendButton = styled.div`
+//   width: 55px;
+//   height: 55px;
+//   position: absolute;
+//   line-height: 40px;
+//   right: 25px;
+//   border-radius: 50%;
+//   color: black;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 30px;
+//   cursor: pointer;
+//   border: 0 solid black;
+//   background-color: #ffe45c;
+//   :hover {
+//     background-color: #c6ddff;
+//     color: white;
+//     transition: 0.1s ease;
+//   }
+// `;
