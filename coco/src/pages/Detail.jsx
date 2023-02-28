@@ -37,7 +37,7 @@ export default function Detail() {
   const [subscribers, setSubscribers] = useState([]);
   const [checkMyScreen, setCheckMyScreen] = useState("");
   const [isConnect, setIsConnect] = useState(false); // 커넥팅 체크
-  // const [role,setRole] = useState(location.state.role) // 역할군
+  // const [role,setRole] = useState(location.state.role) // 역할
 
   ////////////////////////////////////////////////////////////////////
   const nickname = localStorage.getItem("nickname");
@@ -49,7 +49,9 @@ export default function Detail() {
   const [sessionId, setSessionId] = useState(null);
   const [currentVideoDevice, setCurrentVideoDevice] = useState(null);
   const [nicknames, setNickNames] = useState(null);
+  const [videoOnOff, setVideoOnOff] = useState(true);
   // const [usernickname, setUsernickname] = useState(null);
+  const [nowSubscriber, setNowSubscriber] = useState(null);
 
   // useEffect(() => {
   //   dispatch(__getRoomInfo(openviduRoomId));
@@ -245,6 +247,29 @@ export default function Detail() {
   //   reIssue()
   // },60000 * 10)
 
+  //참여자 비디오 컨트롤
+  const onClickSubscriberVideoToggle = (connectionId) => {
+    const subConnectionId = connectionId;
+    setVideoOnOff(!videoOnOff);
+
+    const subscriberFilter = subscribers.filter((sub) => {
+      return sub.stream.connection.connectionId === subConnectionId;
+    });
+    setNowSubscriber(subscriberFilter);
+  };
+
+  //참여자 비디오 컨트롤
+  useEffect(() => {
+    console.log("onClickSubscriberVVVVideoToggle : ", videoOnOff);
+    console.log("❗ nowSubscriber : ", nowSubscriber);
+    if (nowSubscriber && nowSubscriber.length > 0) {
+      const subscriber = nowSubscriber;
+      subscriber[0].subscribeToVideo(videoOnOff);
+    }
+  }, [videoOnOff]);
+
+  console.log(videoOnOff);
+
   useEffect(() => {}, [subscribers]);
 
   return (
@@ -274,7 +299,7 @@ export default function Detail() {
                     ) : null}
 
                     {/* 퍼블리셔가 있을 때 */}
-                    {publisher !== null ? (
+                    {publisher !== null && (
                       <StSub>
                         <Stbox>
                           <div className="sub">
@@ -283,6 +308,19 @@ export default function Detail() {
                               streamManager={publisher}
                               // role={location.state.role}
                             ></VideoRecord>
+                            {publisher.length > 0 &&
+                              publisher.map((sub, index) => (
+                                <button
+                                  onClick={() => {
+                                    onClickSubscriberVideoToggle(
+                                      sub.stream.connection.connectionId
+                                    );
+                                  }}
+                                >
+                                  hkjh
+                                  {videoOnOff ? "비디오 on" : "비디오 off"}
+                                </button>
+                              ))}
                           </div>
                         </Stbox>
 
@@ -291,6 +329,17 @@ export default function Detail() {
                             ? subscribers.map((sub, index) => (
                                 <>
                                   <StnickName></StnickName>
+                                  <button
+                                    onClick={() => {
+                                      onClickSubscriberVideoToggle(
+                                        sub.stream.connection.connectionId
+                                      );
+                                    }}
+                                  >
+                                    hkjh
+                                    {videoOnOff ? "비디오 on" : "비디오 off"}
+                                  </button>
+                                  <button>dfadfs</button>
                                   <VideoRecord
                                     streamManager={sub}
                                     key={index}
@@ -301,13 +350,27 @@ export default function Detail() {
                             : null}
                         </Stbox>
                       </StSub>
-                    ) : null}
+                    )}
                   </StRoomVideo>
                 ) : null}
               </div>
             </StVideo>
+
             <StcontrolBox>
               <button onClick={leaveSession}>나가기</button>
+              {subscribers.length > 0 &&
+                subscribers?.map((sub, index) => (
+                  <button
+                    onClick={() => {
+                      onClickSubscriberVideoToggle(
+                        sub.stream.connection.connectionId
+                      );
+                    }}
+                  >
+                    hkjh
+                    {videoOnOff ? "비디오 on" : "비디오 off"}
+                  </button>
+                ))}
             </StcontrolBox>
           </StVideoContainer>
 
@@ -376,6 +439,10 @@ const StSub = styled.div`
 const Stbox = styled.div`
   width: 300px;
   height: 300px;
+  & > button {
+    width: 200px;
+    height: 30px;
+  }
 `;
 
 const StnickName = styled.div`
@@ -396,4 +463,8 @@ const StVideo = styled.div`
 const StcontrolBox = styled.div`
   background-color: aliceblue;
   height: 80px;
+  & > button {
+    width: 60px;
+    height: 20px;
+  }
 `;
