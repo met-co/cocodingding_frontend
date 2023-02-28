@@ -1,19 +1,17 @@
-// FIXME: 원래 코드
+import styled from "styled-components";
+import { React, useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
 
-import styled from 'styled-components';
-import { React, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
-
-import { subMessage } from '../../redux/modules/socketSlice';
+import { subMessage } from "../../redux/modules/socketSlice";
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
 
 const Chat = (props) => {
-  const myEmail = localStorage.getItem('userEmail');
-  const Myname = localStorage.getItem('userNickname');
-  const chatRef = useRef('');
+  const myEmail = localStorage.getItem("userEmail");
+  const Myname = localStorage.getItem("userNickname");
+  const chatRef = useRef("");
 
   console.log(props.nickname);
 
@@ -28,13 +26,13 @@ const Chat = (props) => {
 
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   // const sock = new SockJS('http://localhost:8080/ws-stomp');
-  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
+  const sock = new SockJS("https://cocodingding.shop/ws-stomp");
   const client = Stomp.over(sock);
 
   const headers = {
-    Authorization: localStorage.getItem('Authorization'),
+    Authorization: localStorage.getItem("Authorization"),
   };
 
   const { chatcollect } = useSelector((state) => state.chatcollect);
@@ -64,7 +62,7 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log('sub연결 테스트');
+    console.log("sub연결 테스트");
     console.log(chatRoomId);
     if (chatRoomId) {
       console.log(chatcollect.chatRoomId);
@@ -75,7 +73,7 @@ const Chat = (props) => {
             console.log(chatRoomId);
             // 채팅방 구독
             client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
-              console.log('sub 확인');
+              console.log("sub 확인");
 
               console.log(res.body);
               const receive = JSON.parse(res.body);
@@ -94,7 +92,7 @@ const Chat = (props) => {
   // 채팅 전송
   const myChat = () => {
     const message = chatRef.current.value;
-    if (message === '') {
+    if (message === "") {
       return;
     }
     client.send(
@@ -108,9 +106,9 @@ const Chat = (props) => {
       })
     );
     chatRef.current.value = null;
-    console.log('방아이디', chatRoomId, messages);
+    console.log("방아이디", chatRoomId, messages);
   };
-  console.log('방아이디', chatRoomId, messages);
+  console.log("방아이디", chatRoomId, messages);
 
   console.log(987, Myname);
   // console.log(789, userNickname);
@@ -159,10 +157,10 @@ const Chat = (props) => {
       </StChatBox>
       <Footer>
         <input
-          type='text'
+          type="text"
           ref={chatRef}
           onKeyDown={handleEnterPress}
-          placeholder='내용을 입력해주세요.'
+          placeholder="내용을 입력해주세요."
         />
         <button onClick={myChat}>전송</button>
       </Footer>
@@ -239,7 +237,6 @@ const SendMessage = styled(ChatBubble)`
 
 const ReceivedMessage = styled(ChatBubble)`
   background-color: gray;
-
   text-align: left;
   border-radius: 0 30px 30px 30px;
 `;

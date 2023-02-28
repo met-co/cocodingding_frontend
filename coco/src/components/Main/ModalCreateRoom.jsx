@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addRoom } from '../../redux/modules/roomSlice';
-import { __createRoom } from '../../redux/modules/roomSlice';
-import { useNavigate } from 'react-router-dom';
-import { GrClose } from 'react-icons/gr';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../../redux/modules/roomSlice";
+import { __createRoom } from "../../redux/modules/roomSlice";
+import { useNavigate } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
 
 function ModalCreateRoom({ onClose, isOpen }) {
-  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,8 +17,8 @@ function ModalCreateRoom({ onClose, isOpen }) {
   };
 
   const [post, setPost] = useState({
-    category: '',
-    roomTitle: '',
+    category: "",
+    roomTitle: "",
   });
 
   const handleChange = (event) => {
@@ -102,10 +102,10 @@ function ModalCreateRoom({ onClose, isOpen }) {
           <h3>방이름</h3>
           <Stcenter>
             <StInput
-              type='text'
-              placeholder='여기에 입력합니다.'
+              type="text"
+              placeholder="여기에 입력합니다."
               value={post.title}
-              name='roomTitle'
+              name="roomTitle"
               onChange={handleChange}
             />
           </Stcenter>
@@ -115,7 +115,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
         <Stcenter>
           <StSelect
             value={post.category}
-            name='category'
+            name="category"
             onChange={handleChange}
           >
             <option>카테고리 선택하세요.</option>
@@ -125,9 +125,10 @@ function ModalCreateRoom({ onClose, isOpen }) {
             <option>뇌과학</option>
           </StSelect>
         </Stcenter>
+        <input type="text"></input>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
-          <StButton type='submit'>방만들기</StButton>
+          <StButton type="submit">방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
