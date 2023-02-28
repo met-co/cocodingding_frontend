@@ -1,14 +1,13 @@
 // FIXME: 원래 코드
-
 import styled from 'styled-components';
 import { React, useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
-
 import { subMessage } from '../../redux/modules/socketSlice';
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
+import { FiSend } from 'react-icons/fi';
 
 const Chat = (props) => {
   const myEmail = localStorage.getItem('userEmail');
@@ -164,7 +163,9 @@ const Chat = (props) => {
           onKeyDown={handleEnterPress}
           placeholder='내용을 입력해주세요.'
         />
-        <button onClick={myChat}>전송</button>
+        <button onClick={myChat}>
+          <FiSend />
+        </button>
       </Footer>
     </Container>
   );
@@ -186,9 +187,10 @@ const ChatHeader = styled.div`
 
 //
 const Container = styled.div`
-  /* width: 500px; */
-  height: 800px;
-  border-left: 1px solid black;
+  width: 350px;
+  height: 700px;
+
+  border: 1px solid black;
   /* border-radius: 10px; */
   /* background-color: #c2c1c1; */
   display: flex;
@@ -249,15 +251,15 @@ const Footer = styled.div`
   width: 100%;
   height: 100px;
   align-items: center;
-  background-color: gray;
+  /* background-color: gray; */
   position: relative;
   input {
-    width: 460px;
-    height: 60px;
+    width: 308.5px;
+    height: 78px;
     margin: 0px 20px 0px 20px;
     border-radius: 30px;
     outline: none;
-    border: 0 solid black;
+    border: 1px solid #e3e3e3;
   }
   button {
     width: 55px;
@@ -266,7 +268,15 @@ const Footer = styled.div`
     line-height: 40px;
     right: 25px;
     border-radius: 50%;
+    color: #777777;
+    font-size: 40px;
     cursor: pointer;
     border: 0 solid black;
+
+    :hover {
+      background-color: #c6ddff;
+      color: white;
+      transition: 0.1s ease;
+    }
   }
 `;

@@ -8,7 +8,7 @@ export default Layout;
 
 const StWrap = styled.div`
   /* font-family: "Gowun Dodum", sans-serif; */
-  max-width: 1600px;
-  min-width: 800px;
+  max-width: 1400px;
+  min-width: 600px;
   margin: 0 auto;
 `;

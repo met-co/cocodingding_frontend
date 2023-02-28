@@ -140,9 +140,9 @@ const Main = () => {
           </StTopContainer>
         </>
       )}
-      {/* </Layout> */}
-
-      <StBottom>{/* <BottomBar>여기서 가로배치,,</BottomBar> */}</StBottom>
+      <StBottom>
+        <BottomBar>여기서 가로배치,,</BottomBar>
+      </StBottom>
     </div>
   );
 };
@@ -196,8 +196,13 @@ const StTodoList = styled.div`
 `;
 
 const StBottom = styled.div`
-  max-width: 1100px;
-  width: 100%;
+  background-color: #f0f0f0;
+  width: 100vw;
+  margin-top: 50px;
+  height: 150px;
   display: flex;
+
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 `;

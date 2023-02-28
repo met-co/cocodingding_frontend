@@ -71,5 +71,6 @@ const StCategory = styled.div`
     /* background-color: black; */
     color: black;
     border: 2px solid #3d8afd;
+    margin-bottom: -2px;
   }
 `;

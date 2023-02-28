@@ -6,6 +6,7 @@ import CreateRoomButton from './CreateRoomButton';
 import { __getRoom } from '../../redux/modules/roomSlice';
 import { __postVideoToken } from '../../redux/modules/roomSlice';
 import { BsBroadcast } from 'react-icons/bs';
+import { MdOutlinePeople } from 'react-icons/md';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
@@ -57,15 +58,19 @@ export default function RoomForm({ rooms, search, category }) {
             <StCreatedRoom key={room.id}>
               <StRoomUpper>
                 <div>
-                  <StNickname> 닉네임</StNickname>
                   <StCategory>#{room.category}</StCategory>
                 </div>
 
                 <StBroadcast>
+                  <StUser>
+                    <MdOutlinePeople /> 2/4
+                  </StUser>
                   <BsBroadcast />
                 </StBroadcast>
               </StRoomUpper>
               <StRoomTitle>{room.roomTitle}</StRoomTitle>
+              <StNickname> 닉네임</StNickname>
+
               <div>
                 <StButton
                   onClick={() => {
@@ -110,8 +115,12 @@ const StCreatedRoom = styled.div`
   padding: 2rem;
   width: 250px;
   height: 200px;
-  background-color: white;
-  border: solid 1px white;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(61, 138, 253, 0.3) 66%,
+    white 34%
+  );
+
   border-radius: 3rem;
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
@@ -125,22 +134,24 @@ const StRoomUpper = styled.div`
 
 const StNickname = styled.div`
   margin-right: 40px;
+  margin-bottom: 45px;
 `;
 
 const StCategory = styled.div``;
 
 const StBroadcast = styled.div`
+  display: flex;
   color: red;
   font-size: 25px;
 `;
 
-const StRoomTitle = styled.h2``;
+const StUser = styled.div`
+  color: black;
+  font-size: 20px;
+  margin-right: 15px;
+`;
 
-// const StButtonBox = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `;
+const StRoomTitle = styled.h2``;
 
 const StButton = styled.button`
   font-size: 20px;
@@ -153,8 +164,10 @@ const StButton = styled.button`
   margin-left: 45px;
   cursor: pointer;
   &:hover {
+    color: white;
     border: 3px solid #3d8afd;
-    background-color: #ffe45c;
+    background-color: #3d8afd;
+    transition: all 0.5s ease;
   }
 `;
 
