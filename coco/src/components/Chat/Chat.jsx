@@ -177,7 +177,7 @@ const ChatHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  /* width: 100%; */
   height: 50px;
   border: 1px solid gray;
   background-color: #c6ddff;
@@ -192,7 +192,7 @@ const Container = styled.div`
 
   border: 1px solid black;
   /* border-radius: 10px; */
-  /* background-color: #c2c1c1; */
+  background-color: #c2c1c1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
