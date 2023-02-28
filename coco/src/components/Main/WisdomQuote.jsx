@@ -29,21 +29,29 @@ export default function WisdomQuote() {
     setWisdom(wisdomList[Math.floor(Math.random() * wisdomList.length)]);
   };
   return (
-    <div>
+    <StContainer>
       <StRefreshButton onClick={handleButtonClick}>
         <MdRefresh />
       </StRefreshButton>
       <StWisdom>
         <div>{wisdom}</div>
       </StWisdom>
-    </div>
+    </StContainer>
   );
 }
+
+const StContainer = styled.div`
+  background-color: #ececec;
+  height: 300px;
+  border-radius: 30px;
+`;
+
 const StRefreshButton = styled.div`
   display: flex;
   flex-direction: row-reverse;
   font-size: 33px;
   color: gray;
+  padding: 30px;
   background-color: transparent;
   border: none;
   /* border-radius: 5px; */
@@ -54,11 +62,10 @@ const StRefreshButton = styled.div`
 `;
 
 const StWisdom = styled.h3`
-  height: 200px;
+  padding: 0 30px 0 30px;
   white-space: pre-line;
   display: flex;
   text-align: center; // 가운데 정렬
-  margin-top: 20px;
   justify-content: center;
   align-items: center;
 `;

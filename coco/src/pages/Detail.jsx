@@ -22,6 +22,34 @@ import {
 } from "../redux/modules/roomSlice";
 
 export default function Detail() {
+  //리프레시토큰//
+  const reIssue = async () => {
+    try {
+      const refreshToken = localStorage.getItem('Refresh');
+      const userEmail = localStorage.getItem('userEmail');
+
+      const data = {
+        headers: { Refresh: `${refreshToken}` },
+        params: { userEmail: userEmail },
+      };
+
+      const repo = await axios.post(
+        'https://cocodingding.shop/user/refresh',
+        null,
+        data
+      );
+
+      localStorage.setItem('Authorization', repo.headers.authorization);
+      localStorage.setItem('Refresh', repo.headers.refresh);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  setInterval(() => {
+    reIssue();
+  }, 30000 * 10);
+
   const location = useLocation();
   const navigate = useNavigate();
 
