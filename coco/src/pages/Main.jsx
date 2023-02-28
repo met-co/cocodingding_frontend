@@ -48,7 +48,7 @@ const Main = () => {
 
   setInterval(() => {
     reIssue();
-  }, 1000 * 10);
+  }, 30000 * 10);
 
   const filteredRooms = rooms
     .filter((room) =>
