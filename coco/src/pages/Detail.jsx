@@ -25,20 +25,20 @@ export default function Detail() {
   //리프레시토큰//
   const reIssue = async () => {
     try {
-      const Refresh = localStorage.getItem('Refresh');
+      const refreshToken = localStorage.getItem('Refresh');
       const userEmail = localStorage.getItem('userEmail');
 
       const data = {
-        headers: { Refresh: Refresh },
+        headers: { Refresh: `${refreshToken}` },
         params: { userEmail: userEmail },
       };
 
       const repo = await axios.post(
         'https://cocodingding.shop/user/refresh',
+        null,
         data
       );
 
-      localStorage.removeItem('Authorization');
       localStorage.setItem('Authorization', repo.headers.authorization);
       localStorage.setItem('Refresh', repo.headers.refresh);
     } catch (error) {
