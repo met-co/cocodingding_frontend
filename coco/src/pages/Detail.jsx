@@ -401,7 +401,7 @@ export default function Detail() {
                   </StRoomVideo>
                 ) : null}
 
-                <StPlayerContainer>
+                {/* <StPlayerContainer>
                   <ReactPlayer
                     url='https://youtu.be/HdIumpGExJk'
                     width='600px'
@@ -424,7 +424,7 @@ export default function Detail() {
                     volume={5}
                     controls
                   />
-                </StPlayerContainer>
+                </StPlayerContainer> */}
               </div>
             </StVideo>
 
