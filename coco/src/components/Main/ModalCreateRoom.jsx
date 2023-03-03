@@ -19,6 +19,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
   const [post, setPost] = useState({
     category: "",
     roomTitle: "",
+    status: false,
   });
 
   const handleChange = (event) => {
