@@ -1,44 +1,42 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { BsBroadcast } from "react-icons/bs";
-import { MdOutlinePeople } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { __postVideoToken } from "../../redux/modules/roomSlice";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { BsBroadcast } from 'react-icons/bs';
+import { MdOutlinePeople } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { __postVideoToken } from '../../redux/modules/roomSlice';
+
+// getColorByCategory 함수를 선언합니다.
+const getColorByCategory = (category) => {
+  switch (category) {
+    case '수학':
+      return '#78b4e9';
+    case '심리학':
+      return '#f5c469';
+    case '뇌과학':
+      return '#f0656f';
+    case '철학':
+      return '#a5d8c5';
+    default:
+      return 'gray';
+  }
+};
 
 const Card = ({ room }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   const handleSubmit = (id) => {
     console.log(id);
     dispatch(__postVideoToken(id));
   };
 
-  const boxList = ["수학", "심리학", "뇌과학", "철학"];
-
-  const getColorByCategory = (category) => {
-    switch (category) {
-      case "수학":
-        return "blue";
-      case "심리학":
-        return "yellow";
-      case "뇌과학":
-        return "red";
-      case "철학":
-        return "green";
-      default:
-        return "gray";
-    }
-  };
-
   return (
-    <StCreatedRoom key={room.id}>
-      {/* {boxList.map((box) => { */}
-      <StContainer>
+    <StCreatedRoom key={room.id} category={room.category}>
+      <StContainer category={room.category}>
         <StRoomUpper>
           <div>
             <StCategory>#{room.category}</StCategory>
@@ -54,7 +52,6 @@ const Card = ({ room }) => {
         <StRoomTitle>{room.roomTitle}</StRoomTitle>
         <StNickname> 닉네임</StNickname>
       </StContainer>
-      {/* })} */}
       <div>
         <StButton
           onClick={() => {
@@ -62,7 +59,7 @@ const Card = ({ room }) => {
             if (isLoggedIn) {
               navigate(`/detail/${room.openviduRoomId}`);
             } else {
-              alert("로그인이 필요한 기능입니다.");
+              alert('로그인이 필요한 기능입니다.');
             }
           }}
         >
@@ -79,26 +76,17 @@ const StCreatedRoom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 40px;
-  /* padding: 2rem; */
   width: 320px;
   height: 270px;
-  /* background-image: linear-gradient(
-    to bottom,
-    rgba(61, 138, 253, 0.3) 66%,
-    white 34%
-  ); */
-
   border-radius: 3rem;
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
 
 const StContainer = styled.div`
-  background-color: #78b4e9;
-  /* width: 100%; */
+  background-color: ${(props) => getColorByCategory(props.category)};
   height: 60%;
   padding: 30px 20px 0px 20px;
   border-radius: 3rem 3rem 0rem 0rem;
