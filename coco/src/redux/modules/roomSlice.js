@@ -57,7 +57,7 @@ export const __getRoom = createAsyncThunk(
       console.log("gdgd");
 
       const result = await axios.get(
-        `https://cocodingding.shop/detail/room`,
+        `https://cocodingding.shop/detail/room/1`,
         {
           headers: {
             "Content-Type": "application/json",
