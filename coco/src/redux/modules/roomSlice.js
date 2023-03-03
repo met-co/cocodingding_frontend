@@ -1,21 +1,22 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 /* Action Type */
 export const actionType = {
   room: {
-    POST_ROOM: 'POST_ROOM',
-    GET_ROOM: 'GET_ROOM',
-    GET_ROOM_INFO: 'GET_ROOM_INFO',
-    GET_ROOM_NICKNAME: 'GET_ROOM_NICKNAME',
-    POST_VIDEO_ROOM: 'POST_VIDEO_ROOM',
-    POST_VIDEO_TOKEN: 'POST_VIDEO_TOKEN',
-    POST_EXIT_ROOM: 'POST_EXIT_ROOM',
+    POST_ROOM: "POST_ROOM",
+    GET_ROOM: "GET_ROOM",
+    GET_ROOM_INFO: "GET_ROOM_INFO",
+    GET_ROOM_NICKNAME: "GET_ROOM_NICKNAME",
+    POST_VIDEO_ROOM: "POST_VIDEO_ROOM",
+    POST_VIDEO_TOKEN: "POST_VIDEO_TOKEN",
+    POST_EXIT_ROOM: "POST_EXIT_ROOM",
   },
 };
 
-const token = `${localStorage.getItem('Authorization')}`;
+const token = `${localStorage.getItem("Authorization")}`;
+const nickname = `${localStorage.getItem("userNickname")}`;
 
 // const token =
 //   "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhYWFAbmF2ZXIuY29tIiwiZXhwIjoxNjc2NzA1NTU5LCJpYXQiOjE2NzY3MDM3NTl9.hJjLiaBsOTFQ_eykdGwtnjnBuUHS3es5JV3yoOcH9ykKsiuEMJq3ZacZwH2grsikz4ajfooLIep0fiscxzya4w";
@@ -32,7 +33,7 @@ export const __createRoom = createAsyncThunk(
         payload,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
           params: {
@@ -54,13 +55,13 @@ export const __getRoom = createAsyncThunk(
   actionType.room.GET_ROOM,
   async (payload, thunkAPI) => {
     try {
-      console.log('gdgd');
+      console.log("gdgd");
 
       const result = await axios.get(
-        `https://cocodingding.shop/detail/room/2`,
+        `https://cocodingding.shop/detail/room/1`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         },
         { withCredentials: true }
@@ -78,12 +79,12 @@ export const __getRoomInfo = createAsyncThunk(
   actionType.room.GET_ROOM_INFO,
   async (payload, thunkAPI) => {
     try {
-      console.log('123');
+      console.log("123");
       const result = await axios.get(
         `https://cocodingding.shop/detail/room/${payload}`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             // Authorization: token,
           },
         },
@@ -108,7 +109,7 @@ export const __postVideoRoom = createAsyncThunk(
         `https://cocodingding.shop/detail/room`,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         },
         { withCredentials: true }
@@ -128,16 +129,16 @@ export const __postVideoToken = createAsyncThunk(
     try {
       const result = await axios.post(
         `https://cocodingding.shop/detail/room/${payload}`,
-        payload,
+        { password: "" },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         },
         { withCredentials: true }
       );
-      console.log('byebye');
+      console.log("byebye");
       console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
@@ -156,7 +157,7 @@ export const __postExitRoom = createAsyncThunk(
         payload,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: token,
           },
         },
@@ -180,7 +181,7 @@ export const __getRoomNickname = createAsyncThunk(
         payload,
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             // Authorization: token,
           },
         },
@@ -206,7 +207,7 @@ const initialState = {
 
 /* slice */
 const roomSlice = createSlice({
-  name: 'room',
+  name: "room",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -217,7 +218,7 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__createRoom.fulfilled, (state, action) => {
-        console.log('byebye');
+        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
         // state.roomInfo = action.payload;
