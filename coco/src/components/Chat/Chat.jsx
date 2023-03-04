@@ -127,6 +127,31 @@ const Chat = (props) => {
     <Container>
       <ChatHeader>실시간 채팅</ChatHeader>
       <StChatBox ref={scrollRef}>
+        {/* {Myname &&
+          messages
+            // .filter((chating) => chating.roomId === chatRoomId) // 해당 방의 메시지만 필터링
+            .map((chating) => {
+              if (message.roomId === chatRoomId) {
+                chating.sender === Myname ? (
+                  <div>
+                    <StSendBox>
+                      <h4>{chating.sender}님</h4>
+                      <SendMessage>{chating.message}</SendMessage>
+                    </StSendBox>
+                  </div>
+                ) : (
+                  <div>
+                    <div>
+                      <StReceiveBox>
+                        <h4>{chating.sender}님</h4>
+                        <ReceivedMessage>{chating.message}</ReceivedMessage>
+                      </StReceiveBox>
+                    </div>
+                  </div>
+                );
+              }
+            })} */}
+
         {Myname &&
           messages.map((chating) =>
             chating.sender === Myname ? (
@@ -134,19 +159,11 @@ const Chat = (props) => {
                 <StSendBox>
                   <h4>{chating.sender}님</h4>
                   <SendMessage>{chating.message}</SendMessage>
-                  {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
                 </StSendBox>
               </div>
             ) : (
               <div>
                 <div>
-                  {/* <img
-                        src={process.env.PUBLIC_URL + '/basic.png'}
-                        alt='로고'
-                      /> */}
                   <StReceiveBox>
                     <h4>{chating.sender}님</h4>
                     <ReceivedMessage>{chating.message}</ReceivedMessage>
