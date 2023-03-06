@@ -14,9 +14,10 @@ export default function RoomForm({ rooms, search, category }) {
   const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let currentPageNum = 1;
 
   useEffect(() => {
-    dispatch(__getRoom());
+    dispatch(__getRoom(currentPageNum));
   }, []);
 
   const filteredRooms = rooms
@@ -31,6 +32,11 @@ export default function RoomForm({ rooms, search, category }) {
   const handleSubmit = (id) => {
     console.log(id);
     dispatch(__postVideoToken(id));
+  };
+
+  const handleMoreBtn = () => {
+    currentPageNum += 1;
+    dispatch(__getRoom(currentPageNum));
   };
 
   return (
@@ -62,7 +68,9 @@ export default function RoomForm({ rooms, search, category }) {
       )}
       <StMoreBtn>
         {filteredRooms.length === 6 ? (
-          <button type="button">+ 더보기</button>
+          <button type="button" onClick={handleMoreBtn}>
+            + 더보기
+          </button>
         ) : null}
       </StMoreBtn>
     </div>
