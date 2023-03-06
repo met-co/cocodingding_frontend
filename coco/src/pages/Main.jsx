@@ -76,7 +76,6 @@ const Main = () => {
                   함께 공부해요.
                 </h1>
               </StTitle>
-              <img src={`${process.env.PUBLIC_URL}/img/logo_1x.png`}></img>
 
               <SearchBar
                 search={search}

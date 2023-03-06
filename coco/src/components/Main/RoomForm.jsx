@@ -53,12 +53,11 @@ export default function RoomForm({ rooms, search, category }) {
       </StSearch>
 
       {filteredRooms.length === 0 ? (
-        <StCreatedRoom>
-          <h3>
-            방이없음.. 방 만드셈.. 일단 이거 1차로 할지 2차로 할지 결정이
-            안됨...
-          </h3>
-        </StCreatedRoom>
+        <StRoomNone>
+          <div>누구나 만들수 있어요!</div>
+          <h3>직접 방을 만들어 주세요.</h3>
+          <img src={`${process.env.PUBLIC_URL}/img/icon_1x.png`}></img>
+        </StRoomNone>
       ) : (
         <StCreateRooms>
           {filteredRooms.map((room) => {
@@ -76,6 +75,7 @@ export default function RoomForm({ rooms, search, category }) {
     </div>
   );
 }
+
 const StSearch = styled.div`
   display: flex;
   flex-direction: column;
@@ -86,6 +86,16 @@ const StSearch = styled.div`
 const StCreateRooms = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const StRoomNone = styled.div`
+  width: 100%;
+  height: 324px;
+  background-color: #ececec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StCreatedRoom = styled.div`

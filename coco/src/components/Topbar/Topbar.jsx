@@ -40,6 +40,7 @@ export default function Topbar() {
   return (
     <StContainer>
       <Layout>
+        <StImg src={`${process.env.PUBLIC_URL}/img/Group 86.png`}></StImg>
         <StWrapBox>
           <StStudy
             onClick={() => {
@@ -91,6 +92,15 @@ const StContainer = styled.div`
   top: 0;
   backdrop-filter: blur(30px);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const StImg = styled.img`
+  position: absolute;
+  left: 1rem;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 150px;
+  height: 150px;
 `;
 
 const StWrapBox = styled.div`

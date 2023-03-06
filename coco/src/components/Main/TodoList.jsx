@@ -165,7 +165,6 @@ const StTodoForm = styled.form`
 
 const StTodoInput = styled.input`
   flex: 1;
-  max-width: 679px;
   width: 100%;
   height: 33px;
   font-size: 16px;

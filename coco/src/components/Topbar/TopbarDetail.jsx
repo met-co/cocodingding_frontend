@@ -79,7 +79,7 @@ const StContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem; */
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   backdrop-filter: blur(30px);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
