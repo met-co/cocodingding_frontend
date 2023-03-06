@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import CreateRoomButton from "./CreateRoomButton";
-import { __getRoom } from "../../redux/modules/roomSlice";
-import { __postVideoToken } from "../../redux/modules/roomSlice";
-import { BsBroadcast } from "react-icons/bs";
-import { MdOutlinePeople } from "react-icons/md";
-import Card from "./Card";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import CreateRoomButton from './CreateRoomButton';
+import { __getRoom } from '../../redux/modules/roomSlice';
+import { __postVideoToken } from '../../redux/modules/roomSlice';
+import { BsBroadcast } from 'react-icons/bs';
+import { MdOutlinePeople } from 'react-icons/md';
+import Card from './Card';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ export default function RoomForm({ rooms, search, category }) {
     .filter((room) => (category ? room.category === category : true));
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   const handleSubmit = (id) => {
     console.log(id);
@@ -47,12 +47,11 @@ export default function RoomForm({ rooms, search, category }) {
       </StSearch>
 
       {filteredRooms.length === 0 ? (
-        <StCreatedRoom>
-          <h3>
-            방이없음.. 방 만드셈.. 일단 이거 1차로 할지 2차로 할지 결정이
-            안됨...
-          </h3>
-        </StCreatedRoom>
+        <StRoomNone>
+          <div>누구나 만들수 있어요!</div>
+          <h3>직접 방을 만들어 주세요.</h3>
+          <img src={`${process.env.PUBLIC_URL}/img/icon_1x.png`}></img>
+        </StRoomNone>
       ) : (
         <StCreateRooms>
           {filteredRooms.map((room) => {
@@ -62,12 +61,13 @@ export default function RoomForm({ rooms, search, category }) {
       )}
       <StMoreBtn>
         {filteredRooms.length === 6 ? (
-          <button type="button">+ 더보기</button>
+          <button type='button'>+ 더보기</button>
         ) : null}
       </StMoreBtn>
     </div>
   );
 }
+
 const StSearch = styled.div`
   display: flex;
   flex-direction: column;
@@ -78,6 +78,16 @@ const StSearch = styled.div`
 const StCreateRooms = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+const StRoomNone = styled.div`
+  width: 100%;
+  height: 324px;
+  background-color: #ececec;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StCreatedRoom = styled.div`

@@ -49,10 +49,10 @@ const Card = ({ room }) => {
             <BsBroadcast />
           </StBroadcast>
         </StRoomUpper>
-        <StRoomTitle>{room.roomTitle}</StRoomTitle>
+        <h2>{room.roomTitle}</h2>
         <StNickname> 닉네임</StNickname>
       </StContainer>
-      <div>
+      <StButtonBox>
         <StButton
           onClick={() => {
             handleSubmit(room.openviduRoomId);
@@ -65,7 +65,7 @@ const Card = ({ room }) => {
         >
           입장하기
         </StButton>
-      </div>
+      </StButtonBox>
     </StCreatedRoom>
   );
 };
@@ -79,8 +79,8 @@ const StCreatedRoom = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 40px;
-  width: 320px;
-  height: 270px;
+  width: 388px;
+  height: 250px;
   border-radius: 3rem;
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;
@@ -118,7 +118,13 @@ const StUser = styled.div`
   margin-right: 15px;
 `;
 
-const StRoomTitle = styled.h2``;
+const StButtonBox = styled.div`
+  width: 388px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const StButton = styled.button`
   font-size: 20px;
@@ -128,7 +134,7 @@ const StButton = styled.button`
   background-color: white;
   width: 164px;
   height: 40px;
-  margin: 0px 50% 20px 25%;
+  /* margin: 0px 50% 20px 25%; */
   cursor: pointer;
   &:hover {
     color: white;

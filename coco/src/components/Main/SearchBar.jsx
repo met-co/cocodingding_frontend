@@ -51,8 +51,9 @@ const StCategorys = styled.div`
 `;
 
 const StInput = styled.input`
-  width: 25%;
-  height: 43px;
+  max-width: 500px;
+  width: 100%;
+  height: 53px;
   border: solid 1px gray;
   border-radius: 10px;
   background-color: white;
