@@ -60,6 +60,11 @@ export default function RoomForm({ rooms, search, category }) {
           })}
         </StCreateRooms>
       )}
+      <StMoreBtn>
+        {filteredRooms.length === 6 ? (
+          <button type="button">+ 더보기</button>
+        ) : null}
+      </StMoreBtn>
     </div>
   );
 }
@@ -102,4 +107,24 @@ const StCreateRoomButton = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 30px;
+`;
+
+const StMoreBtn = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 150px;
+  & > button {
+    width: 152px;
+    height: 49px;
+    padding: 10px, 30px, 10px, 30px;
+    border-radius: 30px;
+    border: 1px solid #a0a0a0;
+    background-color: #ffffff;
+    color: #a0a0a0;
+    font-size: 24px;
+    cursor: pointer;
+  }
 `;
