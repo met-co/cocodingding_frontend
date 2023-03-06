@@ -11,11 +11,11 @@ import { __postVideoToken } from '../../redux/modules/roomSlice';
 const getColorByCategory = (category) => {
   switch (category) {
     case '수학':
-      return '#78b4e9';
+      return '#E6FFFF';
     case '심리학':
-      return '#f5c469';
+      return '#FFF7CE';
     case '뇌과학':
-      return '#f0656f';
+      return '#FEEAFF';
     case '철학':
       return '#a5d8c5';
     default:
@@ -128,7 +128,7 @@ const StButton = styled.button`
   background-color: white;
   width: 164px;
   height: 40px;
-  margin-left: 45px;
+  margin: 0px 50% 20px 25%;
   cursor: pointer;
   &:hover {
     color: white;
