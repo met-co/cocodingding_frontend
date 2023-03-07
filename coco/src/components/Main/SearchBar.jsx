@@ -22,6 +22,7 @@ export default function SearchBar({ search, setSearch, setCategory, rooms }) {
         value={search}
         onChange={handleSearchChange}
       />
+
       <StCategorys>
         {categories.map((category) => (
           <StCategory key={category} onClick={() => selectCategory(category)}>
@@ -35,8 +36,9 @@ export default function SearchBar({ search, setSearch, setCategory, rooms }) {
 
 const StBackground = styled.div`
   background-color: #ffe45c;
-  width: 100vw;
-  max-width: 105vw;
+  width: 500px;
+  flex-basis: 60%;
+  /* max-width: 105vw; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,7 +53,7 @@ const StCategorys = styled.div`
 `;
 
 const StInput = styled.input`
-  max-width: 500px;
+  max-width: 700px;
   width: 100%;
   height: 53px;
   border: solid 1px gray;
@@ -74,4 +76,20 @@ const StCategory = styled.div`
     border: 2px solid #3d8afd;
     margin-bottom: -2px;
   }
+`;
+
+const StContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* justify-content: center; */
+  margin-top: 30px;
+  margin-bottom: 50px;
+`;
+
+const StImg = styled.img`
+  /* flex-basis: 20%; */
+  margin-left: 40px;
+  width: 150px;
+  height: 150px;
 `;

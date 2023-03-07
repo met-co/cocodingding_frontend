@@ -234,13 +234,13 @@ const ChatBubble = styled.div`
 const SendMessage = styled(ChatBubble)`
   background-color: #fff5c1;
 
-  text-align: right;
+  text-align: left;
   border-radius: 30px 0 30px 30px;
 `;
 
 const ReceivedMessage = styled(ChatBubble)`
   background-color: #dcdcdc;
-  text-align: left;
+  text-align: right;
   border-radius: 0 30px 30px 30px;
 `;
 

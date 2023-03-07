@@ -96,9 +96,9 @@ const StContainer = styled.div`
 
 const StImg = styled.img`
   position: absolute;
-  left: 1rem;
-  bottom: 50%;
-  transform: translateY(50%);
+  top: 270%;
+  left: 85%;
+  transform: translate(-50%, -50%);
   width: 150px;
   height: 150px;
 `;
