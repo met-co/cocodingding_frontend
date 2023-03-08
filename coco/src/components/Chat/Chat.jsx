@@ -54,10 +54,18 @@ const Chat = (props) => {
   // }, []);
 
   // 채팅 엔터키/shif+enter 막기
+  // const handleEnterPress = (e) => {
+  //   if (e.keyCode === 13 && e.shiftKey == false) {
+  //     window.scrollTo(0, 0);
+  //     // sendMessage();
+  //   }
+  // };
+
+  //엔터 눌럿을때 바로 챗함수 실행
   const handleEnterPress = (e) => {
-    if (e.keyCode === 13 && e.shiftKey == false) {
-      window.scrollTo(0, 0);
-      // sendMessage();
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      myChat();
     }
   };
 
@@ -137,14 +145,16 @@ const Chat = (props) => {
                 <div key={chat.id}>
                   <StSendBox>
                     <h4>{chat.sender}</h4>
-                    <SendMessage>{chat.message}</SendMessage>
+                    <SendMessage time={chat.time}>{chat.message}</SendMessage>
                   </StSendBox>
                 </div>
               ) : (
                 <div key={chat.id}>
                   <StReceiveBox>
                     <h4>{chat.sender}</h4>
-                    <ReceivedMessage>{chat.message}</ReceivedMessage>
+                    <ReceivedMessage time={chat.time}>
+                      {chat.message}
+                    </ReceivedMessage>
                   </StReceiveBox>
                 </div>
               )
@@ -178,6 +188,7 @@ const ChatHeader = styled.div`
   background-color: #ffe45c;
   font-size: 15px;
   font-weight: bold;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 //
@@ -229,6 +240,17 @@ const ChatBubble = styled.div`
   border-radius: 10px;
   color: black;
   font-size: 16px;
+
+  /* 시간 표시를 위한 스타일 */
+  position: relative;
+  &:after {
+    content: '${(props) => props.time}';
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    font-size: 12px;
+    color: #777;
+  }
 `;
 
 const SendMessage = styled(ChatBubble)`

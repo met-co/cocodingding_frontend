@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <StContainer>
-      <Layout>
+      <StLayout>
         <StWrapBox>
           <StStudy
             onClick={() => {
@@ -21,7 +21,7 @@ export default function Footer() {
           <div>공지사항</div>
           <div>팀소개</div>
         </StWrapBox>
-      </Layout>
+      </StLayout>
     </StContainer>
   );
 }
@@ -45,16 +45,15 @@ const StContainer = styled.div`
   background-color: #f0f0f0;
   margin-top: 50px;
   height: 150px;
-  align-items: center;
 `;
 
-const StImg = styled.img`
-  position: absolute;
-  top: 270%;
-  left: 85%;
-  transform: translate(-50%, -50%);
-  width: 150px;
-  height: 150px;
+const StLayout = styled.div`
+  max-width: 1400px;
+  min-width: 600px;
+  margin: 0 auto;
+  padding-top: 75px;
+
+  line-height: 150px;
 `;
 
 const StWrapBox = styled.div`

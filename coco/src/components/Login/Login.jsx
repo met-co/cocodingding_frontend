@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import { GrClose } from 'react-icons/gr';
 
 //컴포넌트
 import { KAKAO_AUTH_URL } from '../../shared/OAuth';
@@ -54,7 +55,7 @@ export default function Login({ onClose }) {
           localStorage.setItem('userEmail', userEmail);
         });
       navigate(`/`);
-      alert('로그인성공');
+      // alert('로그인성공');
       window.location.reload();
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -76,7 +77,9 @@ export default function Login({ onClose }) {
       <StTopBar>
         <div></div>
         <h2>로그인 </h2>
-        <button onClick={closeModal}>X</button>
+        <StCloseButton onClick={closeModal}>
+          <GrClose />
+        </StCloseButton>
       </StTopBar>
       <Stform>
         <div>
@@ -86,14 +89,14 @@ export default function Login({ onClose }) {
             <StInput
               // required
               autoFocus
-              placeholder='이메일 주소 입력(필수)'
+              placeholder=' 이메일을 입력해 주세요'
               value={userEmail}
               onChange={(event) => setuserEmail(event.target.value)}
             />
             <StInput
               // required
               type='Password'
-              placeholder='비밀번호 입력(필수)'
+              placeholder=' 비밀번호를 입력해 주세요'
               value={userPassword}
               onChange={(event) => setuserPassword(event.target.value)}
             />
@@ -157,7 +160,7 @@ const StContainer = styled.div`
 
   /* 모달창 디자인 */
   background-color: white;
-  border: 1px solid black;
+  border: 1px solid #777777;
   border-radius: 8px;
 
   /* 내부 박스 배치 */
@@ -181,6 +184,20 @@ const Stform = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+`;
+
+const StCloseButton = styled.div`
+  width: 57px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+
+  cursor: pointer;
+  &:hover {
+    color: #3d8afd;
+  }
 `;
 
 const Stbuttonform = styled.div`
