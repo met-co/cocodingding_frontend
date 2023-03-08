@@ -133,6 +133,7 @@ export default function SignUp() {
       <StSignupForm onSubmit={onSubmit}>
         <h2>회원가입</h2>
         {/* <Simagelogo src={'img/logo-pink.png'} /> */}
+        <div>닉네임</div>
         <StInput
           autoFocus
           required
@@ -145,6 +146,8 @@ export default function SignUp() {
             {nicknameMessage}
           </Stspan>
         )}
+
+        <div>이메일</div>
         <StInput
           required
           onChange={onChangeEmail}
@@ -156,6 +159,7 @@ export default function SignUp() {
             {emailMessage}
           </Stspan>
         )}
+        <div>비밀번호</div>
         <StInput
           type='password'
           required
@@ -168,6 +172,7 @@ export default function SignUp() {
             {passwordMessage}
           </Stspan>
         )}
+        <div>비밀번호 확인</div>
         <StInput
           type='password'
           required
@@ -197,18 +202,15 @@ const StSignupForm = styled.form`
   display: flex;
   flex-direction: column;
   /* border: 1px solid black; */
-  height: 400px;
-  width: 500px;
+  width: 556px;
+
   padding: 20px;
   /* gap: 15px;/ */
 `;
 const StInput = styled.input`
-  border: 1px solid rgba(216, 216, 216);
+  height: 80px;
   border-radius: 10px;
-  height: 50px;
-  border-bottom: none;
-  padding-left: 15px;
-  margin-top: 30px;
+  border: solid 2px gray;
 `;
 
 const Stspan = styled.span`
@@ -218,14 +220,14 @@ const Stbutton = styled.button`
   border-radius: 10px;
 
   margin-top: 20px;
-  border: none;
-  height: 50px;
-  color: white;
+  border: solid 2px #5cabff;
+  height: 80px;
+  color: #5cabff;
   font-weight: 700;
-  background-color: rgba(215, 215, 215);
+  background-color: white;
   cursor: pointer;
   &:hover {
-    background-color: black;
+    background-color: #5cabff;
     color: white;
   }
 `;

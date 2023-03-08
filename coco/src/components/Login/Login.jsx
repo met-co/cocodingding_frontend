@@ -190,7 +190,7 @@ const Stbuttonform = styled.div`
 const StInput = styled.input`
   width: 99%;
   height: 35px;
-  border: solid 1px black;
+  border: solid 1px #777777;
   border-radius: 0.5rem;
   background-color: white;
   margin-top: 10px;
@@ -198,7 +198,8 @@ const StInput = styled.input`
 
 const StButton = styled.button`
   width: 100%;
-  border: solid 1px black;
+  border: solid 2px #5cabff;
+  color: #5cabff;
   border-radius: 0.5rem;
   background-color: white;
   margin-top: 10px;
@@ -206,7 +207,7 @@ const StButton = styled.button`
   height: 40px;
   cursor: pointer;
   &:hover {
-    background-color: black;
+    background-color: #5cabff;
     color: white;
   }
 `;
