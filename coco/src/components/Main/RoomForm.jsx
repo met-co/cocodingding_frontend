@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import CreateRoomButton from './CreateRoomButton';
-import { __getRoom } from '../../redux/modules/roomSlice';
-import { __postVideoToken } from '../../redux/modules/roomSlice';
-import { BsBroadcast } from 'react-icons/bs';
-import { MdOutlinePeople } from 'react-icons/md';
-import Card from './Card';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import CreateRoomButton from "./CreateRoomButton";
+import { __getRoom } from "../../redux/modules/roomSlice";
+import { __postVideoToken } from "../../redux/modules/roomSlice";
+import { BsBroadcast } from "react-icons/bs";
+import { MdOutlinePeople } from "react-icons/md";
+import Card from "./Card";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
-  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let currentPageNum = 1;
 
   useEffect(() => {
-    dispatch(__getRoom());
+    dispatch(__getRoom(currentPageNum));
   }, []);
 
   const filteredRooms = rooms
@@ -26,11 +27,16 @@ export default function RoomForm({ rooms, search, category }) {
     .filter((room) => (category ? room.category === category : true));
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem('Authorization');
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   const handleSubmit = (id) => {
     console.log(id);
     dispatch(__postVideoToken(id));
+  };
+
+  const handleMoreBtn = () => {
+    currentPageNum += 1;
+    dispatch(__getRoom(currentPageNum));
   };
 
   return (
@@ -61,7 +67,9 @@ export default function RoomForm({ rooms, search, category }) {
       )}
       <StMoreBtn>
         {filteredRooms.length === 6 ? (
-          <button type='button'>+ 더보기</button>
+          <button type="button" onClick={handleMoreBtn}>
+            + 더보기
+          </button>
         ) : null}
       </StMoreBtn>
     </div>
