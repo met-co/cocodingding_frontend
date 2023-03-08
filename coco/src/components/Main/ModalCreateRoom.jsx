@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { addRoom } from '../../redux/modules/roomSlice';
-import { __createRoom } from '../../redux/modules/roomSlice';
-import { useNavigate } from 'react-router-dom';
-import { GrClose } from 'react-icons/gr';
+import React, { useState } from "react";
+import styled from "styled-components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addRoom } from "../../redux/modules/roomSlice";
+import { __createRoom } from "../../redux/modules/roomSlice";
+import { useNavigate } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
 
 function ModalCreateRoom({ onClose, isOpen }) {
-  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,9 +17,10 @@ function ModalCreateRoom({ onClose, isOpen }) {
   };
 
   const [post, setPost] = useState({
-    category: '',
-    roomTitle: '',
+    category: "",
+    roomTitle: "",
     status: false,
+    youtubeLink: "",
   });
 
   const handleChange = (event) => {
@@ -34,7 +35,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
     getToken();
     // alert('방이 생성되었습니다.');
     window.location.reload();
-    navigate('/');
+    navigate("/");
   };
 
   const getToken = async () => {
@@ -60,10 +61,10 @@ function ModalCreateRoom({ onClose, isOpen }) {
           <StInputTitle>방제목</StInputTitle>
           <Stcenter>
             <StInput
-              type='text'
-              placeholder='여기에 입력합니다.'
+              type="text"
+              placeholder="여기에 입력합니다."
               value={post.title}
-              name='roomTitle'
+              name="roomTitle"
               onChange={handleChange}
             />
           </Stcenter>
@@ -73,7 +74,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
         <Stcenter>
           <StSelect
             value={post.category}
-            name='category'
+            name="category"
             onChange={handleChange}
           >
             <option>카테고리 선택하세요.</option>
@@ -87,13 +88,16 @@ function ModalCreateRoom({ onClose, isOpen }) {
         <StInputTitle>Youtube링크</StInputTitle>
         <Stcenter>
           <StInput
-            type='text'
-            placeholder='함께 시청할 영상 또는 강의, 음악의 유튜브 링크를 넣어주세요'
+            type="text"
+            placeholder="함께 시청할 영상 또는 강의, 음악의 유튜브 링크를 넣어주세요"
+            value={post.youtubeLink}
+            name="youtubeLink"
+            onChange={handleChange}
           ></StInput>
         </Stcenter>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
-          <StButton type='submit'>방만들기</StButton>
+          <StButton type="submit">방만들기</StButton>
         </StButtons>
       </form>
     </StContainer>
