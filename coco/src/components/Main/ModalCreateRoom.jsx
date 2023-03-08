@@ -34,8 +34,8 @@ function ModalCreateRoom({ onClose, isOpen }) {
     dispatch(__createRoom(post));
     getToken();
     // alert('방이 생성되었습니다.');
-    window.location.reload();
-    navigate("/");
+    // window.location.reload();
+    // navigate("/");
   };
 
   const getToken = async () => {

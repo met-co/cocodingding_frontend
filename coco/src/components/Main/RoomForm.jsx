@@ -23,7 +23,6 @@ export default function RoomForm({ rooms, search, category }) {
   console.log(statusCode);
 
   const [code, setCode] = useState(null);
-  console.log("code", code);
 
   const currentPageNum = 1;
 
@@ -47,8 +46,9 @@ export default function RoomForm({ rooms, search, category }) {
     dispatch(__postVideoToken(id));
   };
 
+  console.log("code", code);
   const handleMoreBtn = () => {
-    if (code !== "200") {
+    if (code === 200) {
       console.log("더하기 하기 전", pageNum);
       setPageNum(pageNum + 1);
       console.log("더하기 한 후 ", pageNum);
