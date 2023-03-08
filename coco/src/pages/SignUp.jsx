@@ -236,11 +236,3 @@ const StwholeDiv = styled.div`
   height: 100%;
   width: auto;
 `;
-const Stimagelogo = styled.img`
-  height: 50px;
-  width: 120px;
-  /* justify-content: center; */
-  /* align-items: center; */
-  display: flex;
-  margin: -70px auto 50px auto;
-`;

@@ -32,7 +32,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
     e.preventDefault();
     dispatch(__createRoom(post));
     getToken();
-    alert('방이 생성되었습니다.');
+    // alert('방이 생성되었습니다.');
     window.location.reload();
     navigate('/');
   };
@@ -57,7 +57,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <h3>방이름</h3>
+          <StInputTitle>방제목</StInputTitle>
           <Stcenter>
             <StInput
               type='text'
@@ -69,7 +69,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
           </Stcenter>
         </div>
 
-        <h3>카테고리</h3>
+        <StInputTitle>카테고리</StInputTitle>
         <Stcenter>
           <StSelect
             value={post.category}
@@ -77,13 +77,20 @@ function ModalCreateRoom({ onClose, isOpen }) {
             onChange={handleChange}
           >
             <option>카테고리 선택하세요.</option>
-            <option>수학</option>
-            <option>심리학</option>
-            <option>철학</option>
-            <option>뇌과학</option>
+            <option>개발</option>
+            <option>취준</option>
+            <option>직장인</option>
+            <option>수능</option>
           </StSelect>
         </Stcenter>
-        <input type='text'></input>
+
+        <StInputTitle>Youtube링크</StInputTitle>
+        <Stcenter>
+          <StInput
+            type='text'
+            placeholder='함께 시청할 영상 또는 강의, 음악의 유튜브 링크를 넣어주세요'
+          ></StInput>
+        </Stcenter>
         <StButtons>
           <StButton onClick={closeModal}>취소하기</StButton>
           <StButton type='submit'>방만들기</StButton>
@@ -149,6 +156,10 @@ const StDivider = styled.hr`
   border: 0;
   border-top: 1px solid gray;
   margin: 20px 0 40px 0;
+`;
+
+const StInputTitle = styled.h3`
+  margin-left: 60px;
 `;
 
 const StInput = styled.input`

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import CreateRoomButton from "./CreateRoomButton";
-import { __getRoom } from "../../redux/modules/roomSlice";
-import { __postVideoToken } from "../../redux/modules/roomSlice";
-import { BsBroadcast } from "react-icons/bs";
-import { MdOutlinePeople } from "react-icons/md";
-import Card from "./Card";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import CreateRoomButton from './CreateRoomButton';
+import { __getRoom } from '../../redux/modules/roomSlice';
+import { __postVideoToken } from '../../redux/modules/roomSlice';
+import { BsBroadcast } from 'react-icons/bs';
+import { MdOutlinePeople } from 'react-icons/md';
+import Card from './Card';
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
+  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let currentPageNum = 1;
@@ -27,7 +27,7 @@ export default function RoomForm({ rooms, search, category }) {
     .filter((room) => (category ? room.category === category : true));
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem("Authorization");
+  const isLoggedIn = !!localStorage.getItem('Authorization');
 
   const handleSubmit = (id) => {
     console.log(id);
@@ -67,7 +67,7 @@ export default function RoomForm({ rooms, search, category }) {
       )}
       <StMoreBtn>
         {filteredRooms.length === 6 ? (
-          <button type="button" onClick={handleMoreBtn}>
+          <button type='button' onClick={handleMoreBtn}>
             + 더보기
           </button>
         ) : null}
@@ -134,6 +134,7 @@ const StMoreBtn = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 150px;
+
   & > button {
     width: 152px;
     height: 49px;
@@ -144,5 +145,11 @@ const StMoreBtn = styled.div`
     color: #a0a0a0;
     font-size: 24px;
     cursor: pointer;
+    &:hover {
+      color: white;
+      border: 1px solid #a0a0a0;
+      background-color: #a0a0a0;
+      transition: all 0.4s ease;
+    }
   }
 `;

@@ -14,6 +14,7 @@ import SearchBar from '../components/Main/SearchBar';
 import WisdomQuote from '../components/Main/WisdomQuote';
 import TodoList from '../components/Main/TodoList';
 import axios from 'axios';
+import Footer from '../components/Topbar/Footer';
 const Main = () => {
   // const rooms = useSelector((state) => state.room.rooms) || [];
   const dispatch = useDispatch();
@@ -141,9 +142,8 @@ const Main = () => {
           </StTopContainer>
         </>
       )}
-      <StBottom>
-        <BottomBar>여기서 가로배치,,</BottomBar>
-      </StBottom>
+
+      <Footer></Footer>
     </div>
   );
 };
