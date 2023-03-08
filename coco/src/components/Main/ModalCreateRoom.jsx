@@ -61,7 +61,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
           <Stcenter>
             <StInput
               type='text'
-              placeholder='여기에 입력합니다.'
+              placeholder='방 제목 입력'
               value={post.title}
               name='roomTitle'
               onChange={handleChange}
@@ -76,7 +76,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
             name='category'
             onChange={handleChange}
           >
-            <option>카테고리 선택하세요.</option>
+            <option>관심 카테고리 선택</option>
             <option>개발</option>
             <option>취준</option>
             <option>직장인</option>

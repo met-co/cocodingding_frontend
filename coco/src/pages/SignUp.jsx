@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
-
 import '../App.css';
+
 import Topbar from '../components/Topbar/Topbar';
 
 export default function SignUp() {
@@ -133,60 +133,67 @@ export default function SignUp() {
       <StSignupForm onSubmit={onSubmit}>
         <h2>회원가입</h2>
         {/* <Simagelogo src={'img/logo-pink.png'} /> */}
-        <div>닉네임</div>
-        <StInput
-          autoFocus
-          required
-          onChange={onChangeName}
-          value={nickname}
-          placeholder='닉네임 2~12자리 입력(특수문자이용은 불가능합니다!)'
-        />
-        {nickname.length > 0 && (
-          <Stspan className={`message ${isNickname ? 'success' : 'error'}`}>
-            {nicknameMessage}
-          </Stspan>
-        )}
-
-        <div>이메일</div>
-        <StInput
-          required
-          onChange={onChangeEmail}
-          value={email}
-          placeholder='이메일 주소 입력'
-        />
-        {email.length > 0 && (
-          <Stspan className={`message ${isEmail ? 'success' : 'error'}`}>
-            {emailMessage}
-          </Stspan>
-        )}
-        <div>비밀번호</div>
-        <StInput
-          type='password'
-          required
-          onChange={onChangePassword}
-          value={password}
-          placeholder='비밀번호 입력(대문자+소문자+특수문자+숫자 조합으로 8~15자리 입력해주세요!)'
-        />
-        {password.length > 0 && (
-          <Stspan className={`message ${isPassword ? 'success' : 'error'}`}>
-            {passwordMessage}
-          </Stspan>
-        )}
-        <div>비밀번호 확인</div>
-        <StInput
-          type='password'
-          required
-          onChange={onChangePasswordConfirm}
-          value={confirmpassword}
-          placeholder='비밀번호 재확인'
-        />
-        {confirmpassword.length > 0 && (
-          <Stspan
-            className={`message ${isPasswordConfirm ? 'success' : 'error'}`}
-          >
-            {passwordConfirmMessage}
-          </Stspan>
-        )}
+        <StBox>
+          <div>닉네임</div>
+          <StInput
+            autoFocus
+            required
+            onChange={onChangeName}
+            value={nickname}
+            placeholder=' 한글 혹은 영문으로  2~12자리 입력해주세요 (특수문자 이용 불가)'
+          />
+          {nickname.length > 0 && (
+            <Stspan className={`message ${isNickname ? 'success' : 'error'}`}>
+              {nicknameMessage}
+            </Stspan>
+          )}
+        </StBox>
+        <StBox>
+          <div>이메일</div>
+          <StInput
+            required
+            onChange={onChangeEmail}
+            value={email}
+            placeholder=' 이메일 주소를 입력해 주세요'
+          />
+          {email.length > 0 && (
+            <Stspan className={`message ${isEmail ? 'success' : 'error'}`}>
+              {emailMessage}
+            </Stspan>
+          )}
+        </StBox>
+        <StBox>
+          <div>비밀번호</div>
+          <StInput
+            type='password'
+            required
+            onChange={onChangePassword}
+            value={password}
+            placeholder=' 대문자+소문자+특수문자+숫자 조합 8~15자리 입력 가능합니다!)'
+          />
+          {password.length > 0 && (
+            <Stspan className={`message ${isPassword ? 'success' : 'error'}`}>
+              {passwordMessage}
+            </Stspan>
+          )}
+        </StBox>
+        <StBox>
+          <div>비밀번호 확인</div>
+          <StInput
+            type='password'
+            required
+            onChange={onChangePasswordConfirm}
+            value={confirmpassword}
+            placeholder=' 비밀번호를 동일하게 입력해주세요'
+          />
+          {confirmpassword.length > 0 && (
+            <Stspan
+              className={`message ${isPasswordConfirm ? 'success' : 'error'}`}
+            >
+              {passwordConfirmMessage}
+            </Stspan>
+          )}
+        </StBox>
         <Stbutton
           type='submit'
           disabled={!(isNickname && isEmail && isPassword && isPasswordConfirm)}
@@ -207,19 +214,28 @@ const StSignupForm = styled.form`
   padding: 20px;
   /* gap: 15px;/ */
 `;
+
+const StBox = styled.div`
+  width: 556px;
+  height: 141px;
+  margin-top: 10px;
+`;
+
 const StInput = styled.input`
+  width: 100%;
   height: 80px;
   border-radius: 10px;
-  border: solid 2px gray;
+  margin-top: 10px;
 `;
 
 const Stspan = styled.span`
   font-size: 15px;
+  height: 20px;
 `;
 const Stbutton = styled.button`
   border-radius: 10px;
-
-  margin-top: 20px;
+  width: 567px;
+  margin-top: 40px;
   border: solid 2px #5cabff;
   height: 80px;
   color: #5cabff;
@@ -232,7 +248,6 @@ const Stbutton = styled.button`
   }
 `;
 const StwholeDiv = styled.div`
-  background-color: rgba(249, 249, 249);
   height: 100%;
   width: auto;
 `;
