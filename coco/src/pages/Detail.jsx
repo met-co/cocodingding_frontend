@@ -443,7 +443,9 @@ export default function Detail() {
             <StcontrolBox>
               <StPersonal>
                 <StMicBtn>마이크</StMicBtn>
-                <StVideoBtn onClick={onClickPubVideoOnOff}>카메라</StVideoBtn>
+                <StVideoBtn pubVideo={pubVideo} onClick={onClickPubVideoOnOff}>
+                  {pubVideo ? '카메라' : '카메라'}
+                </StVideoBtn>
               </StPersonal>
               <StExit>
                 <StExitBtn onClick={leaveSession}>나가기</StExitBtn>
@@ -590,8 +592,8 @@ const StVideoBtn = styled.button`
   height: 49px;
   border: none;
   border-radius: 10px;
-  background-color: #3d8afd;
-  color: white;
+  background-color: ${({ pubVideo }) => (pubVideo ? '#3d8afd' : 'white')};
+  color: ${({ pubVideo }) => (pubVideo ? 'white' : '#3d8afd')};
   font-size: 24px;
   cursor: pointer;
 `;
