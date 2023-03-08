@@ -413,11 +413,11 @@ export default function Detail() {
                   </StRoomVideo>
                 ) : null}
 
-                {/* <StPlayerContainer>
+                <StPlayerContainer>
                   <ReactPlayer
-                    url='https://youtu.be/HdIumpGExJk'
-                    width='600px'
-                    height='100%'
+                    url="https://youtu.be/HdIumpGExJk"
+                    width="550px"
+                    height="310px"
                     ref={player}
                     // playing={isPlaying}
                     // 특정시점부터 시작
@@ -436,14 +436,18 @@ export default function Detail() {
                     volume={5}
                     controls
                   />
-                </StPlayerContainer> */}
+                </StPlayerContainer>
               </div>
             </StVideo>
 
             <StcontrolBox>
-              <button onClick={leaveSession}>나가기</button>
-
-              <button onClick={onClickPubVideoOnOff}>카메라 끄기</button>
+              <StPersonal>
+                <StMicBtn>마이크</StMicBtn>
+                <StVideoBtn onClick={onClickPubVideoOnOff}>카메라</StVideoBtn>
+              </StPersonal>
+              <StExit>
+                <StExitBtn onClick={leaveSession}>나가기</StExitBtn>
+              </StExit>
             </StcontrolBox>
           </StVideoContainer>
 
@@ -474,8 +478,10 @@ const StContainer = styled.div`
   width: 100%;
   height: 700px;
   margin-top: 50px;
-
   display: flex;
+  border: 1px solid #a0a0a0;
+  border-radius: 15px;
+  background-color: #f6f6f6;
 `;
 
 const StVideoContainer = styled.div`
@@ -494,11 +500,19 @@ const StChatContainer = styled.div`
 const StPub = styled.div`
   /* width: 200px;
   height: 400px; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 `;
 
 const StRoomVideo = styled.div`
   /* width: 500px;
   height: 500px; */
+  background-color: darkblue;
+  height: 200px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 `;
 
 const StSub = styled.div`
@@ -506,8 +520,9 @@ const StSub = styled.div`
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  width: 700px;
-  height: 300px;
+  width: 500px;
+  height: 200px;
+  background-color: aquamarine;
 `;
 
 const Stbox = styled.div`
@@ -535,12 +550,14 @@ const StVideo = styled.div`
 `;
 
 const StcontrolBox = styled.div`
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   height: 80px;
-  & > button {
-    width: 60px;
-    height: 20px;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #a0a0a0;
+  padding: 0px 30px 0px 30px;
 `;
 
 const StPlayerContainer = styled.div`
@@ -548,6 +565,9 @@ const StPlayerContainer = styled.div`
   width: 100%;
   height: 400px;
   justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: darksalmon;
   /* display: flex;
   justify-content: center;
   align-items: center;
@@ -559,3 +579,43 @@ const StPlayerContainer = styled.div`
     height: 426px;
   } */
 `;
+
+const StPersonal = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const StVideoBtn = styled.button`
+  width: 130px;
+  height: 49px;
+  border: none;
+  border-radius: 10px;
+  background-color: #3d8afd;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+`;
+
+const StMicBtn = styled.button`
+  width: 130px;
+  height: 49px;
+  border: none;
+  border-radius: 10px;
+  background-color: #3d8afd;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+`;
+
+const StExitBtn = styled.button`
+  width: 130px;
+  height: 49px;
+  border: 1px solid #a0a0a0;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+`;
+
+const StExit = styled.div``;
