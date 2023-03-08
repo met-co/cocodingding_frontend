@@ -20,6 +20,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
     category: '',
     roomTitle: '',
     status: false,
+    youtubeLink: '',
   });
 
   const handleChange = (event) => {
@@ -36,8 +37,8 @@ function ModalCreateRoom({ onClose, isOpen }) {
     dispatch(__createRoom(post));
     getToken();
     // alert('방이 생성되었습니다.');
-    window.location.reload();
-    navigate('/');
+    // window.location.reload();
+    // navigate("/");
   };
 
   const getToken = async () => {
@@ -92,6 +93,9 @@ function ModalCreateRoom({ onClose, isOpen }) {
           <StInput
             type='text'
             placeholder='함께 시청할 영상 또는 강의, 음악의 유튜브 링크를 넣어주세요'
+            value={post.youtubeLink}
+            name='youtubeLink'
+            onChange={handleChange}
           ></StInput>
         </Stcenter>
         <StButtons>

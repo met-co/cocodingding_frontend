@@ -1,24 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import CreateRoomButton from './CreateRoomButton';
-import { __getRoom } from '../../redux/modules/roomSlice';
-import { __postVideoToken } from '../../redux/modules/roomSlice';
-import { BsBroadcast } from 'react-icons/bs';
-import { MdOutlinePeople } from 'react-icons/md';
-import Card from './Card';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import CreateRoomButton from "./CreateRoomButton";
+import { __getRoom } from "../../redux/modules/roomSlice";
+import { __postVideoToken } from "../../redux/modules/roomSlice";
+import { BsBroadcast } from "react-icons/bs";
+import { MdOutlinePeople } from "react-icons/md";
+import Card from "./Card";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
-  const APPLICATION_SERVER_URL = 'https://cocodingding.shop/';
+  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let currentPageNum = 1;
 
   useEffect(() => {
     dispatch(__getRoom(currentPageNum));
   }, []);
+
+  const statusCode = useSelector((state) => state.room.statusCode);
+  console.log(statusCode);
+
+  const [code, setCode] = useState(null);
+
+  const currentPageNum = 1;
+
+  const [pageNum, setPageNum] = useState(2);
+
+  useEffect(() => {
+    setCode(statusCode);
+  }, [statusCode]);
 
   const filteredRooms = rooms
     .filter((room) =>
@@ -27,20 +39,27 @@ export default function RoomForm({ rooms, search, category }) {
     .filter((room) => (category ? room.category === category : true));
 
   //로그인여부
-  const isLoggedIn = !!localStorage.getItem('Authorization');
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   const handleSubmit = (id) => {
     console.log(id);
     dispatch(__postVideoToken(id));
   };
 
+  console.log("code", code);
   const handleMoreBtn = () => {
-    currentPageNum += 1;
-    dispatch(__getRoom(currentPageNum));
+    if (code === 200) {
+      console.log("더하기 하기 전", pageNum);
+      setPageNum(pageNum + 1);
+      console.log("더하기 한 후 ", pageNum);
+      dispatch(__getRoom(pageNum));
+    } else {
+      alert("불러올 페이지가 없습니다.");
+    }
   };
 
   return (
-    <div>
+    <>
       <StSearch>
         <StCreateRoomButton>
           <div>
@@ -51,30 +70,42 @@ export default function RoomForm({ rooms, search, category }) {
           </div>
         </StCreateRoomButton>
       </StSearch>
-
-      {filteredRooms.length === 0 ? (
-        <StRoomNone>
-          <div>누구나 만들수 있어요!</div>
-          <h3>직접 방을 만들어 주세요.</h3>
-          <img src={`${process.env.PUBLIC_URL}/img/icon_1x.png`}></img>
-        </StRoomNone>
-      ) : (
-        <StCreateRooms>
-          {filteredRooms.map((room) => {
-            return <Card key={room.id} room={room} />;
-          })}
-        </StCreateRooms>
-      )}
-      <StMoreBtn>
-        {filteredRooms.length === 6 ? (
-          <button type='button' onClick={handleMoreBtn}>
-            + 더보기
-          </button>
-        ) : null}
-      </StMoreBtn>
-    </div>
+      <StContainer>
+        <StRooms>
+          {filteredRooms.length === 0 ? (
+            <StRoomNone>
+              <div>누구나 만들수 있어요!</div>
+              <h3>직접 방을 만들어 주세요.</h3>
+              <img src={`${process.env.PUBLIC_URL}/img/icon_1x.png`}></img>
+            </StRoomNone>
+          ) : (
+            <StCreateRooms>
+              {filteredRooms.map((room) => {
+                return <Card key={room.id} room={room} />;
+              })}
+            </StCreateRooms>
+          )}
+        </StRooms>
+        <StMoreBtn>
+          {filteredRooms.length % 6 === 0 ? (
+            <button type="button" onClick={handleMoreBtn}>
+              + 더보기
+            </button>
+          ) : null}
+        </StMoreBtn>
+      </StContainer>
+    </>
   );
 }
+
+const StContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StRooms = styled.div``;
 
 const StSearch = styled.div`
   display: flex;
@@ -133,7 +164,7 @@ const StMoreBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 150px;
+  margin-top: 120px;
 
   & > button {
     width: 152px;

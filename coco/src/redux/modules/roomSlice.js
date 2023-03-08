@@ -66,7 +66,7 @@ export const __getRoom = createAsyncThunk(
         { withCredentials: true }
       );
       console.log(result.data);
-      return thunkAPI.fulfillWithValue(result.data.getRoomResponseDtos);
+      return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -202,6 +202,7 @@ const initialState = {
   error: null,
   isSuccess: false,
   isLoading: false,
+  statusCode: null,
 };
 
 /* slice */
@@ -237,7 +238,8 @@ const roomSlice = createSlice({
       .addCase(__getRoom.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = action.payload;
+        state.rooms = action.payload.getRoomResponseDtos;
+        state.statusCode = action.payload.statusCode;
       })
       .addCase(__getRoom.rejected, (state, action) => {
         state.isSuccess = false;

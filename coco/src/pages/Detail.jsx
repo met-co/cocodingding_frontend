@@ -415,7 +415,7 @@ export default function Detail() {
 
                 <StPlayerContainer>
                   <ReactPlayer
-                    url='https://youtu.be/HdIumpGExJk'
+                    url={roomData.youtubeLink}
                     width='550px'
                     height='310px'
                     ref={player}

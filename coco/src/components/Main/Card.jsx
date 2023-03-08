@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { BsBroadcast } from 'react-icons/bs';
 import { MdOutlinePeople } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { __postVideoToken } from '../../redux/modules/roomSlice';
 
 // getColorByCategory 함수를 선언합니다.
@@ -28,11 +28,23 @@ const Card = ({ room }) => {
   const dispatch = useDispatch();
 
   const isLoggedIn = !!localStorage.getItem('Authorization');
+  const roomData = useSelector((state) => state.room.roomInfo);
+
+  const [currentMember, setCurrentMember] = useState(null);
+  const [masterUserNickname, setMasterUserNickname] = useState(null);
+
+  useEffect(() => {
+    setCurrentMember(roomData.currentMember);
+    setMasterUserNickname(roomData.masterUserNickname);
+  }, [roomData]);
 
   const handleSubmit = (id) => {
     console.log(id);
     dispatch(__postVideoToken(id));
   };
+
+  console.log(roomData);
+  console.log(masterUserNickname);
 
   return (
     <StCreatedRoom key={room.id} category={room.category}>
@@ -44,16 +56,13 @@ const Card = ({ room }) => {
 
           <StBroadcast>
             <StUser>
-              <div>
-                <MdOutlinePeople />
-              </div>
-              <div>2/4</div>
+              <MdOutlinePeople /> {room.currentMember} / 4
             </StUser>
             <BsBroadcast />
           </StBroadcast>
         </StRoomUpper>
         <h2>{room.roomTitle}</h2>
-        <StNickname> 닉네임</StNickname>
+        <StNickname>{room.masterUserNickname}</StNickname>
       </StContainer>
       <StButtonBox>
         <StButton
@@ -119,6 +128,8 @@ const StUser = styled.div`
   font-size: 20px;
   margin-right: 15px;
   display: flex;
+  align-items: center;
+  gap: 7px;
 `;
 
 const StButtonBox = styled.div`
