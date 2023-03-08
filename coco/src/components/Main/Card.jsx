@@ -10,13 +10,13 @@ import { __postVideoToken } from '../../redux/modules/roomSlice';
 // getColorByCategory 함수를 선언합니다.
 const getColorByCategory = (category) => {
   switch (category) {
-    case '수학':
+    case '개발':
       return '#E6FFFF';
-    case '심리학':
+    case '취준':
       return '#FFF7CE';
-    case '뇌과학':
+    case '직장인':
       return '#FEEAFF';
-    case '철학':
+    case '수능':
       return '#a5d8c5';
     default:
       return 'gray';
@@ -44,7 +44,10 @@ const Card = ({ room }) => {
 
           <StBroadcast>
             <StUser>
-              <MdOutlinePeople /> 2/4
+              <div>
+                <MdOutlinePeople />
+              </div>
+              <div>2/4</div>
             </StUser>
             <BsBroadcast />
           </StBroadcast>
@@ -76,10 +79,9 @@ const StCreatedRoom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  margin-top: 40px;
-  width: 388px;
+
+  margin: 30px 28px 30px 28px;
+  width: 410px;
   height: 250px;
   border-radius: 3rem;
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
@@ -116,10 +118,11 @@ const StUser = styled.div`
   color: black;
   font-size: 20px;
   margin-right: 15px;
+  display: flex;
 `;
 
 const StButtonBox = styled.div`
-  width: 388px;
+  width: 410px;
   height: 110px;
   display: flex;
   justify-content: center;
@@ -132,7 +135,7 @@ const StButton = styled.button`
   color: #3d8afd;
   border-radius: 30px;
   background-color: white;
-  width: 164px;
+  width: 300px;
   height: 40px;
   /* margin: 0px 50% 20px 25%; */
   cursor: pointer;

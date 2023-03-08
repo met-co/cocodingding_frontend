@@ -24,6 +24,9 @@ function ModalCreateRoom({ onClose, isOpen }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === 'roomTitle' && value.length > 20) {
+      return; // 20자 이상이면 입력되지 않도록 함
+    }
     setPost({ ...post, [name]: value });
   };
 
@@ -61,7 +64,7 @@ function ModalCreateRoom({ onClose, isOpen }) {
           <Stcenter>
             <StInput
               type='text'
-              placeholder='방 제목 입력'
+              placeholder='방 제목 입력 (20자 이하로 작성해주세요)'
               value={post.title}
               name='roomTitle'
               onChange={handleChange}
