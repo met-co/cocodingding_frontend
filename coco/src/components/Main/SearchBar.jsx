@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 export default function SearchBar({ search, setSearch, setCategory, rooms }) {
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
-    setCategory('');
+    setCategory("");
   };
 
   const selectCategory = (category) => {
     setCategory(category);
-    setSearch('');
+    setSearch("");
   };
 
   const categories = Array.from(new Set(rooms.map((room) => room.category)));
@@ -17,8 +17,8 @@ export default function SearchBar({ search, setSearch, setCategory, rooms }) {
   return (
     <StBackground>
       <StInput
-        type='text'
-        placeholder='참여하고싶은 방을 찾아보세요'
+        type="text"
+        placeholder="  참여하고싶은 방을 찾아보세요"
         value={search}
         onChange={handleSearchChange}
       />

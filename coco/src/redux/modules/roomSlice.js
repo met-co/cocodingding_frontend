@@ -42,7 +42,6 @@ export const __createRoom = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -55,7 +54,6 @@ export const __getRoom = createAsyncThunk(
   actionType.room.GET_ROOM,
   async (payload, thunkAPI) => {
     try {
-      console.log("gdgd");
       const result = await axios.get(
         `https://cocodingding.shop/detail/room/${payload}`,
         {
@@ -65,7 +63,6 @@ export const __getRoom = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -78,7 +75,6 @@ export const __getRoomInfo = createAsyncThunk(
   actionType.room.GET_ROOM_INFO,
   async (payload, thunkAPI) => {
     try {
-      console.log("123");
       const result = await axios.get(
         `https://cocodingding.shop/detail/room/${payload}`,
         {
@@ -89,7 +85,6 @@ export const __getRoomInfo = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -113,7 +108,6 @@ export const __postVideoRoom = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result.data);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -137,8 +131,6 @@ export const __postVideoToken = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log("byebye");
-      console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -162,7 +154,6 @@ export const __postExitRoom = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -186,7 +177,6 @@ export const __getRoomNickname = createAsyncThunk(
         },
         { withCredentials: true }
       );
-      console.log(result);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -218,7 +208,6 @@ const roomSlice = createSlice({
         state.isSuccess = false;
       })
       .addCase(__createRoom.fulfilled, (state, action) => {
-        console.log("byebye");
         state.isLoading = false;
         state.isSuccess = true;
         // state.roomInfo = action.payload;

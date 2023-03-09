@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { BsBroadcast } from 'react-icons/bs';
-import { MdOutlinePeople } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { __postVideoToken } from '../../redux/modules/roomSlice';
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { __postVideoToken } from "../../redux/modules/roomSlice";
+import styled from "styled-components";
+import { BsBroadcast } from "react-icons/bs";
+import { MdOutlinePeople } from "react-icons/md";
 
 // getColorByCategory 함수를 선언합니다.
 const getColorByCategory = (category) => {
   switch (category) {
-    case '개발':
-      return '#E6FFFF';
-    case '취준':
-      return '#FFF7CE';
-    case '직장인':
-      return '#FEEAFF';
-    case '수능':
-      return '#a5d8c5';
+    case "개발":
+      return "#E6FFFF";
+    case "취준":
+      return "#FFF7CE";
+    case "직장인":
+      return "#FEEAFF";
+    case "수능":
+      return "#a5d8c5";
     default:
-      return 'gray';
+      return "gray";
   }
 };
 
@@ -27,24 +26,11 @@ const Card = ({ room }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isLoggedIn = !!localStorage.getItem('Authorization');
-  const roomData = useSelector((state) => state.room.roomInfo);
-
-  const [currentMember, setCurrentMember] = useState(null);
-  const [masterUserNickname, setMasterUserNickname] = useState(null);
-
-  useEffect(() => {
-    setCurrentMember(roomData.currentMember);
-    setMasterUserNickname(roomData.masterUserNickname);
-  }, [roomData]);
+  const isLoggedIn = !!localStorage.getItem("Authorization");
 
   const handleSubmit = (id) => {
-    console.log(id);
     dispatch(__postVideoToken(id));
   };
-
-  console.log(roomData);
-  console.log(masterUserNickname);
 
   return (
     <StCreatedRoom key={room.id} category={room.category}>
@@ -71,7 +57,7 @@ const Card = ({ room }) => {
             if (isLoggedIn) {
               navigate(`/detail/${room.openviduRoomId}`);
             } else {
-              alert('로그인이 필요한 기능입니다.');
+              alert("로그인이 필요한 기능입니다.");
             }
           }}
         >

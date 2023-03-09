@@ -15,9 +15,6 @@ const VideoRecord = (props) => {
 export default VideoRecord;
 
 const StContainer = styled.div`
-  /* width: 20px;
-  height: 20px; */
-  background-color: gainsboro;
   display: flex;
   align-items: center;
   justify-content: center;
