@@ -384,8 +384,8 @@ const StVideoBtn = styled.button`
   height: 49px;
   border: none;
   border-radius: 10px;
-  background-color: #3d8afd;
-  color: white;
+  background-color: ${({ pubVideo }) => (pubVideo ? "#3d8afd" : "white")};
+  color: ${({ pubVideo }) => (pubVideo ? "white" : "#3d8afd")};
   font-size: 24px;
   cursor: pointer;
 `;
