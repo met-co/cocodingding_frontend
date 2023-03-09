@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import CreateRoomButton from "./CreateRoomButton";
+import styled from "styled-components";
 import { __getRoom } from "../../redux/modules/roomSlice";
 import { __postVideoToken } from "../../redux/modules/roomSlice";
+import CreateRoomButton from "./CreateRoomButton";
+import Card from "./Card";
 import { BsBroadcast } from "react-icons/bs";
 import { MdOutlinePeople } from "react-icons/md";
-import Card from "./Card";
 
 // RoomForm 컴포넌트에서 rooms state 및 rooms 데이터 가져오는 기능 구현
 export default function RoomForm({ rooms, search, category }) {
-  const APPLICATION_SERVER_URL = "https://cocodingding.shop/";
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const statusCode = useSelector((state) => state.room.statusCode);
+  const [code, setCode] = useState(null);
+  const [pageNum, setPageNum] = useState(2);
+  const currentPageNum = 1;
 
   useEffect(() => {
     dispatch(__getRoom(currentPageNum));
   }, []);
-
-  const statusCode = useSelector((state) => state.room.statusCode);
-  console.log(statusCode);
-
-  const [code, setCode] = useState(null);
-
-  const currentPageNum = 1;
-
-  const [pageNum, setPageNum] = useState(2);
 
   useEffect(() => {
     setCode(statusCode);
@@ -41,17 +35,9 @@ export default function RoomForm({ rooms, search, category }) {
   //로그인여부
   const isLoggedIn = !!localStorage.getItem("Authorization");
 
-  const handleSubmit = (id) => {
-    console.log(id);
-    dispatch(__postVideoToken(id));
-  };
-
-  console.log("code", code);
   const handleMoreBtn = () => {
     if (code === 200) {
-      console.log("더하기 하기 전", pageNum);
       setPageNum(pageNum + 1);
-      console.log("더하기 한 후 ", pageNum);
       dispatch(__getRoom(pageNum));
     } else {
       alert("불러올 페이지가 없습니다.");
@@ -87,7 +73,7 @@ export default function RoomForm({ rooms, search, category }) {
           )}
         </StRooms>
         <StMoreBtn>
-          {filteredRooms.length % 6 === 0 ? (
+          {filteredRooms.length % 6 === 0 && filteredRooms.length !== 0 ? (
             <button type="button" onClick={handleMoreBtn}>
               + 더보기
             </button>
@@ -133,7 +119,6 @@ const StCreatedRoom = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   margin-left: 1rem;
   margin-right: 1rem;
   margin-top: 40px;
@@ -145,7 +130,6 @@ const StCreatedRoom = styled.div`
     rgba(61, 138, 253, 0.3) 66%,
     white 34%
   );
-
   border-radius: 3rem;
   box-shadow: 4px 5px 15px rgba(0, 0, 0, 0.3);
 `;

@@ -1,20 +1,18 @@
 // FIXME: 원래 코드
-import styled from 'styled-components';
-import { React, useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
-import SockJS from 'sockjs-client';
-import Stomp from 'stompjs';
-import { subMessage } from '../../redux/modules/socketSlice';
+import styled from "styled-components";
+import { React, useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import SockJS from "sockjs-client";
+import Stomp from "stompjs";
+import { subMessage } from "../../redux/modules/socketSlice";
 // import { getMessage, getChatRoom } from "./redux/modules/socketSlice";
-import { FiSend } from 'react-icons/fi';
+import { FiSend } from "react-icons/fi";
 
 const Chat = (props) => {
-  const myEmail = localStorage.getItem('userEmail');
-  const Myname = localStorage.getItem('userNickname');
-  const chatRef = useRef('');
-
-  console.log(props.nickname);
+  const myEmail = localStorage.getItem("userEmail");
+  const Myname = localStorage.getItem("userNickname");
+  const chatRef = useRef("");
 
   // const navigate = useNavigate();
   // const { chatRoomId } = useParams();
@@ -23,21 +21,19 @@ const Chat = (props) => {
   //프롭스로 방 id 들고옴.
   const { openviduRoomId } = useParams(); // useParams()로 라우트 매개변수 가져오기
   const chatRoomId = openviduRoomId;
-  console.log(chatRoomId);
 
   const dispatch = useDispatch();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   // const sock = new SockJS('http://localhost:8080/ws-stomp');
-  const sock = new SockJS('https://cocodingding.shop/ws-stomp');
+  const sock = new SockJS("https://cocodingding.shop/ws-stomp");
   const client = Stomp.over(sock);
 
   const headers = {
-    Authorization: localStorage.getItem('Authorization'),
+    Authorization: localStorage.getItem("Authorization"),
   };
 
   const { chatcollect } = useSelector((state) => state.chatcollect);
-  console.log(chatcollect);
   const { messages } = useSelector((state) => state.messages);
 
   // const users = useSelector((state) => state.chat.users);
@@ -63,7 +59,7 @@ const Chat = (props) => {
 
   //엔터 눌럿을때 바로 챗함수 실행
   const handleEnterPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       myChat();
     }
@@ -71,37 +67,29 @@ const Chat = (props) => {
 
   useEffect(() => {
     // 소켓 연결
-    console.log('sub연결 테스트');
-    console.log(chatRoomId);
+
     if (chatRoomId) {
-      console.log(chatcollect.chatRoomId);
       try {
         client.connect(
           {},
           () => {
-            console.log(chatRoomId);
             // 채팅방 구독
             client.subscribe(`/sub/chat/room/${chatRoomId}`, (res) => {
-              console.log('sub 확인');
-
-              console.log(res.body);
               const receive = JSON.parse(res.body);
-              console.log(receive);
+
               dispatch(subMessage(receive));
             });
           },
           {}
         );
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     }
   }, [chatcollect]);
 
   // 채팅 전송
   const myChat = () => {
     const message = chatRef.current.value;
-    if (message === '') {
+    if (message === "") {
       return;
     }
     client.send(
@@ -115,22 +103,15 @@ const Chat = (props) => {
       })
     );
     chatRef.current.value = null;
-    console.log('방아이디', chatRoomId, messages);
   };
-  console.log('방아이디', chatRoomId, messages);
-
-  console.log(987, Myname);
-  // console.log(789, userNickname);
 
   const scrollRef = useRef();
-  console.log(scrollRef);
 
   useEffect(() => {
     // 메시지 수신 시
     // 스크롤을 가장 아래로 이동시킨다.
 
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    console.log(scrollRef.current);
   });
 
   return (
@@ -162,10 +143,10 @@ const Chat = (props) => {
       </StChatBox>
       <Footer>
         <input
-          type='text'
+          type="text"
           ref={chatRef}
           onKeyDown={handleEnterPress}
-          placeholder='내용을 입력해주세요.'
+          placeholder="내용을 입력해주세요."
         />
         <button onClick={myChat}>
           <FiSend />
@@ -244,7 +225,7 @@ const ChatBubble = styled.div`
   /* 시간 표시를 위한 스타일 */
   position: relative;
   &:after {
-    content: '${(props) => props.time}';
+    content: "${(props) => props.time}";
     position: absolute;
     bottom: -20px;
     right: 0;

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Layout from '../Layout/Layout';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Layout from "../Layout/Layout";
+import { useNavigate } from "react-router-dom";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -48,19 +48,22 @@ const StContainer = styled.div`
 `;
 
 const StLayout = styled.div`
+  width: 100%;
   max-width: 1400px;
   min-width: 600px;
   margin: 0 auto;
-  padding-top: 75px;
-
+  height: 100%;
+  display: flex;
+  align-items: center;
   line-height: 150px;
 `;
 
 const StWrapBox = styled.div`
+  width: 100%;
   height: 80px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 130px;
   padding: 0 1rem;
 `;
 

@@ -30,8 +30,6 @@ export default OpenViduVideoComponent;
 const StContainer = styled.div`
   width: 160px;
   height: 120px;
-  background-color: brown;
-  /* margin-left: 20px; */
 `;
 
 const StNickname = styled.div`
@@ -43,9 +41,4 @@ const StNickname = styled.div`
   display: inline-block;
   padding: 10px;
   box-sizing: border-box;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-
-  /* font-size: 90px; */
 `;
