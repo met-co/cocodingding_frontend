@@ -18,8 +18,8 @@ export default function Footer() {
           >
             <img src={`${process.env.PUBLIC_URL}/img/logo_1x.png`}></img>
           </StStudy>
-          <div>공지사항</div>
-          <div>팀소개</div>
+          <p>공지사항</p>
+          <p>팀 소개</p>
         </StWrapBox>
       </StLayout>
     </StContainer>
@@ -65,6 +65,10 @@ const StWrapBox = styled.div`
   align-items: center;
   gap: 130px;
   padding: 0 1rem;
+  & > p {
+    font-weight: 600;
+    font-size: 18px;
+  }
 `;
 
 const StStudy = styled.div`
