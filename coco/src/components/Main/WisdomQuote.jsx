@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { MdRefresh } from 'react-icons/md';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { MdRefresh } from "react-icons/md";
 
 export default function WisdomQuote() {
   //명언기능 한번 테스트해봄.
@@ -12,7 +12,7 @@ export default function WisdomQuote() {
     `"우리가 성공하기 위해 필요한 것은 단지 자신의 능력을 믿는 것뿐이다." \n\n - 월트 디즈니`,
     `"당신이 매일 1%씩 성장하고 있다면, 당신은 1년 후에 37배가 성장한 것이다." \n\n - 조나스 콜마`,
     `"자신감은 열쇠다. 자신감이 있다면 어디든 갈 수 있다." \n\n - 스티브 잡스`,
-    `"천천히 가도 좋다. 중요한 것은 멈추지 않는 것이다." \n\n - 코펜하겐겐`,
+    `"천천히 가도 좋다. 중요한 것은 멈추지 않는 것이다." \n\n - 코펜하겐`,
     `"자신을 믿는 것은 세상에서 가장 중요한 것이다. 당신이 믿지 않는다면, 누구도 믿지 않을 것이다." \n\n - 마이클 조던`,
     `"포기하는 순간이 가장 불안한 순간일 수 있다. 그러나 그 순간이 당신이 굳건한 의지를 가지고 있다는 것을 보여줄 때입니다." \n\n - 저스틴 트레두`,
     `"아무것도 기대하지 않으면 실망하지 않는다. 그러나 그것은 삶이 아니다." \n\n - 월터 에이너스트`,

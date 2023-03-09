@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Layout from "../Layout/Layout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Footer() {
   const navigate = useNavigate();
@@ -18,8 +18,20 @@ export default function Footer() {
           >
             <img src={`${process.env.PUBLIC_URL}/img/logo_1x.png`}></img>
           </StStudy>
-          <div>공지사항</div>
-          <div>팀소개</div>
+          <p
+            onClick={() => {
+              navigate(`/notice`);
+            }}
+          >
+            공지사항
+          </p>
+          <p
+            onClick={() => {
+              navigate(`/members`);
+            }}
+          >
+            팀 소개
+          </p>
         </StWrapBox>
       </StLayout>
     </StContainer>
@@ -65,6 +77,12 @@ const StWrapBox = styled.div`
   align-items: center;
   gap: 130px;
   padding: 0 1rem;
+  & > p {
+    font-weight: 600;
+    font-size: 18px;
+    font-family: "AppleSDGothicNeo", "Noto Sans KR", sans-serif;
+    cursor: pointer;
+  }
 `;
 
 const StStudy = styled.div`

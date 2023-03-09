@@ -43,6 +43,7 @@ const StBackground = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: "AppleSDGothicNeo", "Noto Sans KR", sans-serif;
 `;
 
 const StCategorys = styled.div`

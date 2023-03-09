@@ -111,7 +111,9 @@ const Main = () => {
           <StTopContainer>
             <StBackground>
               <StTitle>
+
                 <StTitleFont>안녕하세요! 오늘도 함께 공부해요</StTitleFont>
+
               </StTitle>
               <SearchBar
                 search={search}
@@ -179,6 +181,7 @@ const StTitle = styled.div`
   margin-top: 50px;
   display: flex;
   justify-content: center;
+  font-family: "AppleSDGothicNeo", "Noto Sans KR", sans-serif;
 `;
 
 const StTitleFont = styled.h3`
